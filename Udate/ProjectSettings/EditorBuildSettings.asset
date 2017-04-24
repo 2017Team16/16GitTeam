@@ -4,4 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Tunoka/Scene/TtesTitle.unity
+  - enabled: 1
+    path: Assets/Tunoka/Scene/TtestScene01.unity
+  - enabled: 1
+    path: Assets/Tunoka/Scene/TtesGameClear.unity
+  - enabled: 1
+    path: Assets/Tunoka/Scene/TtesGameOvera.unity
