@@ -5,13 +5,13 @@ public class EmergencePoint : MonoBehaviour {
 
     [SerializeField, Header("敵の種類入れ")]
     private GameObject[] _EnemyType;
+
     [SerializeField, Header("出る敵の種類(_EnemyTypeの配列から選ぶ)")]
     public int _Type = 0;
     [SerializeField, Header("出る敵の数")]
     public float _Amount = 1;
     [SerializeField, Header("出る場所(子にある名前と同じ数値)")]
     public float _Pointnum = 1;
-
     [SerializeField, Header("出現用Particle(Dustsmoke)")]
     public GameObject _Enemyspawner ;
 
@@ -23,6 +23,7 @@ public class EmergencePoint : MonoBehaviour {
         //デバック用=======================================================================
         if (Input.GetKeyDown(KeyCode.O))
         {
+            print("デバック用のエネミー召喚(Oキー)が押されたよ");
             spawner(0,1,1);
         }
         //=================================================================================
