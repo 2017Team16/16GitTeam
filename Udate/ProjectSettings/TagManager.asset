@@ -9,6 +9,7 @@ TagManager:
   - GetEnemy
   - YoungerBrother
   - RecoveryEnemy
+  - Floor
   layers:
   - Default
   - TransparentFX

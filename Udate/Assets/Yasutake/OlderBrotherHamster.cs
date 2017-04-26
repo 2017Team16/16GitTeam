@@ -4,22 +4,25 @@ using System.Collections.Generic;
 
 public class OlderBrotherHamster : MonoBehaviour
 {
-    public int m_Life = 3; //プレイヤーの体力
+    [Header("体力")]
+    public int m_Life = 3;
+    [Header("無敵時間")]
+    public float m_InvincibleInterval = 3.0f;
     private float m_InvincibleTime; //無敵時間をはかる変数
-    public float m_InvincibleInterval = 3.0f; //無敵時間
-
-    public float m_Speed = 1; //プレイヤーの速さ
+    [Header("速さ")]
+    public float m_Speed = 1;
     private GameObject m_Texture; //画像を貼っている子供（仮）
     private Vector3 m_Scale; //画像の向き、右（仮、子の向き）
     private Vector3 reverseScale; //画像の向き、左
     private bool lVec = false; //左を向くか
 
+    [Header("持っている敵の間隔")]
+    public float enemyInterval = 1.0f;
     private int enemyCount = 0; //持っている敵の数
-    public float enemyInterval = 1.0f; //持っている敵の間隔
 
     private GameObject youngerBrother; //弟
 
-    List<Transform> getenemys = new List<Transform>();
+    List<Transform> getenemys = new List<Transform>(); //持っている敵
 
     // Use this for initialization
     void Start()
@@ -43,13 +46,17 @@ public class OlderBrotherHamster : MonoBehaviour
             youngerBrother.SendMessage("投げるメソッド", SendMessageOptions.DontRequireReceiver);
             Debug.Log("poi");
         }
+        if (Input.GetKeyDown(KeyCode.F))  //仮
+        {
+            GameDatas.isFever = true;
+        }
     }
 
     /// <summary>プレイヤーの移動</summary>
     private void Move()
     {
         Vector3 move = transform.position;
-        move += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed);
+        move += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed)/(enemyCount + 1);
         if (Input.GetAxis("Horizontal") < 0)
         {
             m_Texture.transform.localScale = reverseScale;
@@ -70,9 +77,7 @@ public class OlderBrotherHamster : MonoBehaviour
         enemyCount++;
         enemy.transform.parent = transform;
         enemy.transform.localPosition = new Vector3(enemyInterval * enemyCount, 0, 0);
-        enemy.SendMessage("ChangeGet", SendMessageOptions.DontRequireReceiver);
-        Rigidbody rb = enemy.GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        enemy.SendMessage("ChangeState",4, SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>持っている弟の処理</summary>
@@ -93,7 +98,7 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         foreach (Transform chird in transform)
         {
-            if (chird.tag == "GetEnemy")
+            if (chird.tag == "Enemy")
             {
                 Destroy(chird.gameObject);
             }
@@ -113,16 +118,15 @@ public class OlderBrotherHamster : MonoBehaviour
 
             foreach(Transform chird in transform)
             {
-                if(chird.tag == "GetEnemy")
+                if(chird.tag == "Enemy")
                 {
                     getenemys.Add(chird);
                 }
             }
             for(int i = 0; i < getenemys.Count; i++)
             {
-                getenemys[i].SendMessage("ChangeRecovery", SendMessageOptions.DontRequireReceiver);
+                getenemys[i].SendMessage("ChangeState",5, SendMessageOptions.DontRequireReceiver);
                 Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
                 rb.velocity = new Vector3(Random.Range(-5, 5), Random.Range(3, 6), Random.Range(-5, 5));
                 getenemys[i].parent = null;
             }
@@ -136,13 +140,26 @@ public class OlderBrotherHamster : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy")
         {
-            Damage();
-        }
-        if (collision.transform.tag == "SutanEnemy")
-        {
-            EnemyGet(collision.gameObject);
+            Enemy.EnemyState enemyState = collision.gameObject.GetComponent<Enemy>().GetEnemyState();
+            if (enemyState == Enemy.EnemyState.WALKING ||
+                enemyState == Enemy.EnemyState.CHARGING ||
+                enemyState == Enemy.EnemyState.TACKLE)
+            {
+                if (GameDatas.isFever)
+                {
+                    EnemyGet(collision.gameObject);
+                }
+                else
+                {
+                    Damage();
+                }
+            }
+            if (enemyState == Enemy.EnemyState.SUTAN)
+            {
+                EnemyGet(collision.gameObject);
+            }
         }
     }
 }
