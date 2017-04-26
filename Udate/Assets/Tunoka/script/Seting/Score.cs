@@ -41,7 +41,7 @@ public class Score : MonoBehaviour {
             _displayScore.text = "Score : " + _checkScore.ToString();
         }
     }
-    public void Pointscore(float score)
+    public void Pointscore(float score)//スコアを変更させる
     {
         _score += score;
     }

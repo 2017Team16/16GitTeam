@@ -10,10 +10,12 @@ public class TitleController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //デバック用=======================================================================
-        if (Input.GetKey(KeyCode.Space))
+
+        //=================================================================================
+        if (Input.anyKeyDown)
         {
+            print("ボタンが押されたよ(｀・ω・´)");
             transform.GetComponent<SceneChanger>().FadeOut();
         }
-        //=================================================================================
     }
 }
