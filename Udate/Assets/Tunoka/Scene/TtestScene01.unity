@@ -2534,7 +2534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070915804988ddf489668a7b85d134e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Life: 5
+  m_Life: 10
   m_InvincibleInterval: 3
   m_Speed: 0.1
   enemyInterval: 0.8
@@ -4560,7 +4560,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -203, y: 152}
+  m_AnchoredPosition: {x: 210.7, y: 152}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848676450
