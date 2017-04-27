@@ -11,7 +11,8 @@ public class ConfusionAnime : MonoBehaviour {
     private float _speed = 5;
 
     [SerializeField, Header("自分の親")]
-    private GameObject _root ;
+    private GameObject _root;
+    private Enemy _Enemy;
 
 
     // Use this for initialization
@@ -19,19 +20,19 @@ public class ConfusionAnime : MonoBehaviour {
         if (transform.root.gameObject != null)
         {
             _root = transform.root.gameObject;
+            _Enemy = _root.GetComponent<Enemy>();
         }
         _stunTr = false;
         _Center = transform.FindChild("StarCenter").gameObject;
-    }
+        }
 	
 	// Update is called once per frame
 	void Update () {
-
         if (_root == null) return;
         transform.position = _root.transform.position;
         transform.eulerAngles = new Vector3(0, 0, 0);
-
-        if (_root.transform.tag == "SutanEnemy")//スタン状態の確認
+        
+        if (_Enemy.GetEnemyState().ToString() == "SUTAN")//スタン状態の確認
         {
             _stunTr = true;
         }
@@ -39,6 +40,7 @@ public class ConfusionAnime : MonoBehaviour {
         {
             _stunTr = false;
         }
+
         _Center.SetActive(_stunTr);//スタン状態の有無で表示する
 
         if (_stunTr)//スタン状態だったら動かす

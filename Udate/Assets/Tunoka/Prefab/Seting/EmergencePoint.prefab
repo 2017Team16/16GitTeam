@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _EnemyType:
-  - {fileID: 1000010104405548, guid: fefbc692700501a4396f1b1fa8ac4c4f, type: 2}
+  - {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
   _Type: 0
   _Amount: 1
   _Pointnum: 1
