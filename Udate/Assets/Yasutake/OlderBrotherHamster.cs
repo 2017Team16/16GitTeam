@@ -20,7 +20,9 @@ public class OlderBrotherHamster : MonoBehaviour
     public float enemyInterval = 1.0f;
     private int enemyCount = 0; //持っている敵の数
 
-    private GameObject youngerBrother; //弟
+    private GameObject youngerBrotherPosition; //弟の位置
+    public GameObject youngerBrother; //弟
+    private BrotherStateManager brotherState; //弟の状態
 
     List<Transform> getenemys = new List<Transform>(); //持っている敵
 
@@ -31,8 +33,10 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Scale = m_Texture.transform.localScale;
         reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
 
-        youngerBrother = transform.FindChild("Sphere").gameObject;
+        youngerBrotherPosition = transform.FindChild("Point").gameObject;
         m_InvincibleTime = m_InvincibleInterval;
+
+        brotherState = youngerBrother.GetComponent<BrotherStateManager>();
     }
 
     // Update is called once per frame
@@ -41,11 +45,6 @@ public class OlderBrotherHamster : MonoBehaviour
         Move();
         BrotherGet();
         m_InvincibleTime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            youngerBrother.SendMessage("投げるメソッド", SendMessageOptions.DontRequireReceiver);
-            Debug.Log("poi");
-        }
         if (Input.GetKeyDown(KeyCode.F))  //仮
         {
             GameDatas.isFever = true;
@@ -83,13 +82,13 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>持っている弟の処理</summary>
     private void BrotherGet()
     {
-        if (youngerBrother.transform.tag == "YoungerBrother")
+        youngerBrotherPosition.transform.localPosition = new Vector3(enemyInterval * (enemyCount + 1), 0, 0);
+        if (brotherState.GetState() == BrotherState.NORMAL)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 EnemyKill();
             }
-            youngerBrother.transform.localPosition = new Vector3(enemyInterval * (enemyCount + 1), 0, 0);
         }
     }
 

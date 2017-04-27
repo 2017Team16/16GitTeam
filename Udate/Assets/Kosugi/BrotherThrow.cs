@@ -47,8 +47,8 @@ public class BrotherThrow : MonoBehaviour
     {
         while(true)
         {
-            float dx = Input.GetAxis("BrosVertical");
-            float dz = Input.GetAxis("BrosHorizontal");
+            float dx = Input.GetAxis("BrosHorizontal");
+            float dz = Input.GetAxis("BrosVertical");
             m_Target.transform.transform.Translate(dx * 0.1f, 0.0f, dz * 0.1f);
             yield return null;
 
@@ -178,7 +178,8 @@ public class BrotherThrow : MonoBehaviour
         }
         if(collision.gameObject.tag=="Enemy")
         {
-            collision.gameObject.GetComponent<Collider>().isTrigger = true;
+            //collision.gameObject.GetComponent<Collider>().isTrigger = true;
+            collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
             _enemyHit = true;
         }
     }

@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour
         if (m_Time >= sutanTime)
         {
             ChangeState(0);
+            //gameObject.GetComponent<Collider>().isTrigger = false;
         }
 
     }
