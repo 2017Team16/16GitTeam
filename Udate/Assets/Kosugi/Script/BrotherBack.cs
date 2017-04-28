@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BrotherWait : MonoBehaviour
+public class BrotherBack : MonoBehaviour
 {
     private Transform Player;
     //移動速度
@@ -50,13 +50,19 @@ public class BrotherWait : MonoBehaviour
             transform.LookAt(Player);   
             
             yield return null;
+
+            //ダッシュ用
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+
+            }
         }
         m_BrotherStateManager.SetState(BrotherState.NORMAL);
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == ("Player") && m_BrotherStateManager.GetState() == BrotherState.WAIT)
+        if (collision.gameObject.tag == ("Player") && m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
             _isBack = true;
         }

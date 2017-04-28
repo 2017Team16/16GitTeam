@@ -22,7 +22,7 @@ public class BrotherStateManager : MonoBehaviour
         m_BrosState = m_StartState;
         m_Moves = new Dictionary<BrotherState, MonoBehaviour>()
         {
-            {BrotherState.WAIT, GetComponent<BrotherWait>() },
+            {BrotherState.BACK, GetComponent<BrotherBack>() },
             {BrotherState.NORMAL, GetComponent<Brother>() },
             {BrotherState.THROW, GetComponent<BrotherThrow>()},
             //{BrotherState.CANNON_BLOCK, GetComponent<CannonBlockMove>() },
@@ -77,14 +77,14 @@ public class BrotherStateManager : MonoBehaviour
         }
         //投げ→着地
         if (m_BeforeBrosState == BrotherState.THROW
-            && m_BrosState == BrotherState.WAIT)
+            && m_BrosState == BrotherState.BACK)
         {
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().m_Target.GetComponent<Renderer>().enabled = false;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().IsTriggerOff();
-            m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isBack = false;
+            m_Moves[BrotherState.BACK].GetComponent<BrotherBack>()._isBack = false;
             //m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isMove = false;
 
-            m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>().Move();
+            m_Moves[BrotherState.BACK].GetComponent<BrotherBack>().Move();
         }
         //ANY→通常への変更時
         //if (m_BrosState == BrotherState.NORMAL)

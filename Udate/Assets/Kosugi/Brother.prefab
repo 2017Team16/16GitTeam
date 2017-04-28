@@ -22,9 +22,9 @@ GameObject:
   - 33: {fileID: 33000011515994012}
   - 135: {fileID: 135000013496690842}
   - 23: {fileID: 23000011616523500}
-  - 114: {fileID: 114000013412438020}
   - 54: {fileID: 54000010812663448}
   - 114: {fileID: 114000012918803872}
+  - 114: {fileID: 114000013412438020}
   - 114: {fileID: 114000012483257246}
   - 114: {fileID: 114000010270247420}
   m_Layer: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013276460082}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 673f3acd465a885428ebf889ca82bfa5, type: 3}
   m_Name: 
@@ -128,7 +128,6 @@ MonoBehaviour:
   _enemyHit: 0
   _count: 2
   Player: {fileID: 0}
-  m_EnemyList: []
 --- !u!114 &114000012918803872
 MonoBehaviour:
   m_ObjectHideFlags: 1

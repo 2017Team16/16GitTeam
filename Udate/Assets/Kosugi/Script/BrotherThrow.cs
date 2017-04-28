@@ -196,7 +196,7 @@ public class BrotherThrow : MonoBehaviour
     {
         if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         { 
-            m_BrotherStateManager.SetState(BrotherState.WAIT);
+            m_BrotherStateManager.SetState(BrotherState.BACK);
             //GetComponent<Rigidbody>().useGravity = true;
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)

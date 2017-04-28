@@ -20,7 +20,10 @@ public class Brother : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        transform.position = BrotherPosition.position;
+        if (BrotherPosition != null)
+        {
+            transform.position = BrotherPosition.position;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             m_BrotherStateManager.SetState(BrotherState.THROW);
