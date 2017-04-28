@@ -12,7 +12,7 @@ public class ConfusionAnime : MonoBehaviour {
 
     [SerializeField, Header("自分の親")]
     private GameObject _root;
-    private Enemy _Enemy;
+    private EnemyBase _Enemy;
 
 
     // Use this for initialization
@@ -20,7 +20,7 @@ public class ConfusionAnime : MonoBehaviour {
         if (transform.root.gameObject != null)
         {
             _root = transform.root.gameObject;
-            _Enemy = _root.GetComponent<Enemy>();
+            _Enemy = _root.GetComponent<EnemyBase>();
         }
         _stunTr = false;
         _Center = transform.FindChild("StarCenter").gameObject;
