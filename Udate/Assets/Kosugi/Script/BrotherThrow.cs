@@ -78,7 +78,6 @@ public class BrotherThrow : MonoBehaviour
     /// <returns></returns>
     IEnumerator SimulateProjectile()
     {
-        print(m_Target.transform.position);
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
@@ -131,7 +130,6 @@ public class BrotherThrow : MonoBehaviour
     /// <returns></returns>
     IEnumerator ReSimulateProjectile(float count)
     {
-        print(m_Target.transform.position - Player.position);
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
@@ -189,7 +187,7 @@ public class BrotherThrow : MonoBehaviour
         {
             for (int i = 0; i < m_EnemyList.Count; i++)
             {
-                m_EnemyList[i].GetComponent<Collider>().isTrigger = false; print("floor");print("!");
+                m_EnemyList[i].GetComponent<Collider>().isTrigger = false;
             }
         }
     }
