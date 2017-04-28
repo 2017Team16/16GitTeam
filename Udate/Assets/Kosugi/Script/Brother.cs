@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Brother : MonoBehaviour {
 
-    private Transform Player;
+    [SerializeField, TooltipAttribute("弟用の座標オブジェクト")]
+    private Transform BrotherPosition;
+
     public bool _isFloor;
 
     //弟管理クラス
@@ -12,15 +14,13 @@ public class Brother : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Player = GameObject.Find("Player").transform;
-
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Player.FindChild("Point").gameObject.transform.position;
+        transform.position = BrotherPosition.position;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             m_BrotherStateManager.SetState(BrotherState.THROW);

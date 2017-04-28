@@ -56,7 +56,7 @@ public class BrotherWait : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == ("Player"))
+        if (collision.gameObject.tag == ("Player") && m_BrotherStateManager.GetState() == BrotherState.WAIT)
         {
             _isBack = true;
         }

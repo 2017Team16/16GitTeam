@@ -33,7 +33,7 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Scale = m_Texture.transform.localScale;
         reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
 
-        youngerBrotherPosition = transform.FindChild("Point").gameObject;
+        youngerBrotherPosition = transform.FindChild("BrosPosition").gameObject;
         m_InvincibleTime = m_InvincibleInterval;
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();

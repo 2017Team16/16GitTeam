@@ -24,8 +24,7 @@ public class BrotherStateManager : MonoBehaviour
         {
             {BrotherState.WAIT, GetComponent<BrotherWait>() },
             {BrotherState.NORMAL, GetComponent<Brother>() },
-            {BrotherState.THROW, GetComponent<BrotherThrow>() },
-            //{BrotherState.BACK, GetComponent<BrotherWait>() },
+            {BrotherState.THROW, GetComponent<BrotherThrow>()},
             //{BrotherState.CANNON_BLOCK, GetComponent<CannonBlockMove>() },
             //{BrotherState.STAGE_CLEAR, GetComponent<StageClearMove>() },
             //{BrotherState.STAGE_FINAL_CLEAR, GetComponent<StageFinalClearMove>() }
@@ -64,12 +63,6 @@ public class BrotherStateManager : MonoBehaviour
         //同じ状態への変更は行わない
         if (m_BeforeBrosState == m_BrosState) return;
 
-        //一例
-        if ((m_BeforeBrosState == BrotherState.NONE || m_BeforeBrosState == BrotherState.NORMAL)
-            && m_BrosState == BrotherState.THROW)
-        {
-        }
-
         // 通常→投げ
         if ( m_BeforeBrosState == BrotherState.NORMAL
             && m_BrosState == BrotherState.THROW)
@@ -86,6 +79,7 @@ public class BrotherStateManager : MonoBehaviour
             && m_BrosState == BrotherState.WAIT)
         {
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().m_Target.GetComponent<Renderer>().enabled = false;
+            m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().IsTriggerOff();
             m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isBack = false;
             //m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isMove = false;
 

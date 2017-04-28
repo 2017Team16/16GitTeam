@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BrotherThrow : MonoBehaviour
 {
+    [SerializeField, TooltipAttribute("弟用の座標オブジェクト")]
+    private Transform BrotherPosition;
+
     [SerializeField, TooltipAttribute("投げる角度")]
     private float _firingAngle = 45.0f;
     //重力(変更不要)
@@ -16,6 +20,12 @@ public class BrotherThrow : MonoBehaviour
     [HideInInspector, TooltipAttribute("距離減衰用変数")]
     public float _count = 2.0f;
 
+    [SerializeField, TooltipAttribute("プレイヤーオブジェクト")]
+    private Transform Player;
+
+    private float _targetDistance;
+    private List<GameObject> m_EnemyList;
+
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
 
@@ -26,6 +36,7 @@ public class BrotherThrow : MonoBehaviour
 
     void Start()
     {
+        m_EnemyList = new List<GameObject>();
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
     }
 
@@ -57,7 +68,7 @@ public class BrotherThrow : MonoBehaviour
                 StartCoroutine(SimulateProjectile());
                 yield break;
             }
-            
+            transform.position = BrotherPosition.position;
         }
     }
 
@@ -67,6 +78,7 @@ public class BrotherThrow : MonoBehaviour
     /// <returns></returns>
     IEnumerator SimulateProjectile()
     {
+        print(m_Target.transform.position);
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
@@ -77,7 +89,7 @@ public class BrotherThrow : MonoBehaviour
         transform.position = transform.position + new Vector3(0, 0.0f, 0);
 
         // 投げるオブジェクトからターゲットまでの距離を計算
-        float _targetDistance = Vector3.Distance(transform.position, m_Target.transform.position);
+        _targetDistance = Vector3.Distance(transform.position, m_Target.transform.position);
 
         // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
         float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
@@ -119,21 +131,22 @@ public class BrotherThrow : MonoBehaviour
     /// <returns></returns>
     IEnumerator ReSimulateProjectile(float count)
     {
+        print(m_Target.transform.position - Player.position);
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
-        //m_Target.transform.position += m_Target.transform.position/2;
-        m_Target.transform.position +=new Vector3(
-            m_Target.transform.position.x / count,
+        //再バウンド先
+        m_Target.transform.position += new Vector3(
+            (m_Target.transform.position.x - Player.position.x) / count,
             0,
-            m_Target.transform.position.z / count);
+            (m_Target.transform.position.z - Player.position.z) / count);
 
         // 投げるオブジェクトの開始位置
         //Projectile.position = transform.position + new Vector3(0, 0.0f, 0);
         transform.position = transform.position + new Vector3(0, 0.0f, 0);
 
         // 投げるオブジェクトからターゲットまでの距離を計算
-        float _targetDistance = Vector3.Distance(transform.position, m_Target.transform.position);
+        _targetDistance = Vector3.Distance(transform.position, m_Target.transform.position);
 
         // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
         float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
@@ -169,18 +182,30 @@ public class BrotherThrow : MonoBehaviour
         }
 
     }
+
+    public void IsTriggerOff()
+    {
+        if (m_EnemyList.Count != 0)
+        {
+            for (int i = 0; i < m_EnemyList.Count; i++)
+            {
+                m_EnemyList[i].GetComponent<Collider>().isTrigger = false; print("floor");print("!");
+            }
+        }
+    }
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor")
-        {
+        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW)
+        { 
             m_BrotherStateManager.SetState(BrotherState.WAIT);
             //GetComponent<Rigidbody>().useGravity = true;
         }
-        if(collision.gameObject.tag=="Enemy")
+        if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
-            //collision.gameObject.GetComponent<Collider>().isTrigger = true;
-            collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
             _enemyHit = true;
+            collision.gameObject.GetComponent<Collider>().isTrigger = true;
+            m_EnemyList.Add(collision.gameObject);
+            collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);           
         }
     }
 }
