@@ -190,6 +190,7 @@ public class BrotherThrow : MonoBehaviour
                 m_EnemyList[i].GetComponent<Collider>().isTrigger = false;
             }
         }
+        m_EnemyList.Clear();
     }
     public void OnCollisionEnter(Collision collision)
     {
