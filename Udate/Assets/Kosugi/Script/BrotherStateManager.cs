@@ -67,6 +67,7 @@ public class BrotherStateManager : MonoBehaviour
         if ( m_BeforeBrosState == BrotherState.NORMAL
             && m_BrosState == BrotherState.THROW)
         {
+            m_Moves[BrotherState.NORMAL].GetComponent<Brother>()._isFloor = false;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().m_Target.GetComponent<Renderer>().enabled = true;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._count = 2.0f;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().ThrowStart();
@@ -86,10 +87,10 @@ public class BrotherStateManager : MonoBehaviour
             m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>().Move();
         }
         //ANY→通常への変更時
-        if (m_BrosState == BrotherState.NORMAL)
-        {
-            m_Moves[BrotherState.NORMAL].GetComponent<Brother>()._isFloor = false;
-        }
+        //if (m_BrosState == BrotherState.NORMAL)
+        //{
+        //    m_Moves[BrotherState.NORMAL].GetComponent<Brother>()._isFloor = false;
+        //}
     }
     public BrotherState GetState()
     {
