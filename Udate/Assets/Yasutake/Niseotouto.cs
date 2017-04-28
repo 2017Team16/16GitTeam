@@ -20,7 +20,7 @@ public class Niseotouto : MonoBehaviour
     {
         if(collision.transform.tag == "Enemy")
         {
-            if (collision.gameObject.GetComponent<Enemy>().GetEnemyState() != Enemy.EnemyState.GET)
+            if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
             {
                 collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
             }

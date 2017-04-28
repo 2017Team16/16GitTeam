@@ -5,7 +5,7 @@ public class BrotherBack : MonoBehaviour
 {
     private Transform Player;
     //移動速度
-    public float _speed = 5; 
+    public float _speed = 5;
 
     public bool _isBack = false;
     //public bool _isMove = false;
@@ -17,7 +17,7 @@ public class BrotherBack : MonoBehaviour
     {
         Player = GameObject.Find("Player").transform;
 
-        m_BrotherStateManager = GetComponent<BrotherStateManager>();  
+        m_BrotherStateManager = GetComponent<BrotherStateManager>();
     }
 
     // Update is called once per frame
@@ -44,11 +44,11 @@ public class BrotherBack : MonoBehaviour
             //方向
             Vector3 _direction = Player.position - transform.position;
             //単位化（距離要素を取り除く）
-            _direction = _direction.normalized;   
+            _direction = _direction.normalized;
             transform.position = transform.position + (_direction * _speed * Time.deltaTime);
             //プレイヤーの方を向く
-            transform.LookAt(Player);   
-            
+            transform.LookAt(Player);
+
             yield return null;
 
             //ダッシュ用
@@ -60,7 +60,7 @@ public class BrotherBack : MonoBehaviour
         m_BrotherStateManager.SetState(BrotherState.NORMAL);
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == ("Player") && m_BrotherStateManager.GetState() == BrotherState.BACK)
         {

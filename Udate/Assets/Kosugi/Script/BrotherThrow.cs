@@ -201,10 +201,13 @@ public class BrotherThrow : MonoBehaviour
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
-            _enemyHit = true;
-            collision.gameObject.GetComponent<Collider>().isTrigger = true;
-            m_EnemyList.Add(collision.gameObject);
-            collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);           
+            if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
+            {
+                _enemyHit = true;
+                collision.gameObject.GetComponent<Collider>().isTrigger = true;
+                m_EnemyList.Add(collision.gameObject);
+                collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
+            }          
         }
     }
 }

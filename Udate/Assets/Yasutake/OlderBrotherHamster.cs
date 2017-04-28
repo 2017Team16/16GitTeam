@@ -126,7 +126,7 @@ public class OlderBrotherHamster : MonoBehaviour
             {
                 getenemys[i].SendMessage("ChangeState",5, SendMessageOptions.DontRequireReceiver);
                 Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(Random.Range(-5, 5), Random.Range(3, 6), Random.Range(-5, 5));
+                rb.velocity = new Vector3(Random.Range(-5, 5),0, Random.Range(-5, 5));
                 getenemys[i].parent = null;
             }
             enemyCount = 0;
@@ -141,10 +141,10 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         if (collision.transform.tag == "Enemy")
         {
-            Enemy.EnemyState enemyState = collision.gameObject.GetComponent<Enemy>().GetEnemyState();
-            if (enemyState == Enemy.EnemyState.WALKING ||
-                enemyState == Enemy.EnemyState.CHARGING ||
-                enemyState == Enemy.EnemyState.TACKLE)
+            EnemyBase.EnemyState enemyState = collision.gameObject.GetComponent<EnemyBase>().GetEnemyState();
+            if (enemyState == EnemyBase.EnemyState.WALKING ||
+                enemyState == EnemyBase.EnemyState.CHARGING ||
+                enemyState == EnemyBase.EnemyState.ATTACK)
             {
                 if (GameDatas.isFever)
                 {
@@ -155,7 +155,7 @@ public class OlderBrotherHamster : MonoBehaviour
                     Damage();
                 }
             }
-            if (enemyState == Enemy.EnemyState.SUTAN)
+            if (enemyState == EnemyBase.EnemyState.SUTAN)
             {
                 EnemyGet(collision.gameObject);
             }
