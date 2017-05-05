@@ -3,19 +3,25 @@ using System.Collections;
 
 public class TitleController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	}
+
+    private TitleAnimController _TAnim;
+    private SceneChanger SChang;
+
+    // Use this for initialization
+    void Start () {
+        _TAnim = transform.GetComponent<TitleAnimController>();
+        SChang = transform.GetComponent<SceneChanger>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        //デバック用=======================================================================
-
-        //=================================================================================
-        if (Input.anyKeyDown)
+        print(_TAnim.GetAnimeFlag());
+        if (_TAnim.GetAnimeFlag() && Input.GetKeyDown(KeyCode.Space))
         {
-            print("ボタンが押されたよ(｀・ω・´)");
-            transform.GetComponent<SceneChanger>().FadeOut();
+            print("シーンチェンジだよ");
+            SChang.FadeOut();
         }
     }
+
+    
 }
