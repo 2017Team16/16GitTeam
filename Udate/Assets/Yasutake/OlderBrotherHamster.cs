@@ -26,6 +26,8 @@ public class OlderBrotherHamster : MonoBehaviour
 
     List<Transform> getenemys = new List<Transform>(); //持っている敵
 
+    private NavMeshAgent m_Agent;
+
     // Use this for initialization
     void Start()
     {
@@ -37,6 +39,10 @@ public class OlderBrotherHamster : MonoBehaviour
         m_InvincibleTime = m_InvincibleInterval;
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
+
+        m_Agent = GetComponent<NavMeshAgent>();
+
+        GameDatas.isPlayerLive = true;
     }
 
     // Update is called once per frame
@@ -54,8 +60,8 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>プレイヤーの移動</summary>
     private void Move()
     {
-        Vector3 move = transform.position;
-        move += new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed)/(enemyCount + 1);
+        //Vector3 move = transform.position;
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed)/(enemyCount + 1);
         if (Input.GetAxis("Horizontal") < 0)
         {
             m_Texture.transform.localScale = reverseScale;
@@ -66,7 +72,8 @@ public class OlderBrotherHamster : MonoBehaviour
             m_Texture.transform.localScale = m_Scale;
             lVec = false;
         }
-        transform.position = move;
+        //transform.position = move;
+        m_Agent.Move(move * Time.deltaTime);
     }
 
     /// <summary>スタンした敵と触れた時の処理</summary>
@@ -75,14 +82,14 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         enemyCount++;
         enemy.transform.parent = transform;
-        enemy.transform.localPosition = new Vector3(enemyInterval * enemyCount, 0, 0);
+        enemy.transform.localPosition = new Vector3(0, enemyInterval * enemyCount, 0);
         enemy.SendMessage("ChangeState",4, SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>持っている弟の処理</summary>
     private void BrotherGet()
     {
-        youngerBrotherPosition.transform.localPosition = new Vector3(enemyInterval * (enemyCount + 1), 0, 0);
+        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount + 1), 0);
         if (brotherState.GetState() == BrotherState.NORMAL)
         {
             if (Input.GetKeyDown(KeyCode.Q))
@@ -125,15 +132,17 @@ public class OlderBrotherHamster : MonoBehaviour
             for(int i = 0; i < getenemys.Count; i++)
             {
                 getenemys[i].SendMessage("ChangeState",5, SendMessageOptions.DontRequireReceiver);
-                Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(Random.Range(-5, 5),0, Random.Range(-5, 5));
+                //Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
+                //rb.velocity = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
                 getenemys[i].parent = null;
             }
             enemyCount = 0;
         }
         if(m_Life <= 0)
         {
-            Destroy(gameObject);
+            GameDatas.isPlayerLive = false;
+            Debug.Log("死んだ");
+            //Destroy(gameObject);
         }
     }
 
