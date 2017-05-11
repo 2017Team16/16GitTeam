@@ -11,6 +11,8 @@ public class OlderBrotherHamster : MonoBehaviour
     private float m_InvincibleTime; //無敵時間をはかる変数
     [Header("速さ")]
     public float m_Speed = 1;
+    [Header("ジャンプ力")]
+    public float m_Jump = 300.0f;
     private GameObject m_Texture; //画像を貼っている子供（仮）
     private Vector3 m_Scale; //画像の向き、右（仮、子の向き）
     private Vector3 reverseScale; //画像の向き、左
@@ -27,6 +29,7 @@ public class OlderBrotherHamster : MonoBehaviour
     List<Transform> getenemys = new List<Transform>(); //持っている敵
 
     private NavMeshAgent m_Agent;
+    private Rigidbody m_Rigidbody;
 
     // Use this for initialization
     void Start()
@@ -41,6 +44,7 @@ public class OlderBrotherHamster : MonoBehaviour
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
 
         m_Agent = GetComponent<NavMeshAgent>();
+        m_Rigidbody = GetComponent<Rigidbody>();
 
         GameDatas.isPlayerLive = true;
     }
@@ -48,13 +52,16 @@ public class OlderBrotherHamster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (m_Agent.updatePosition)
+        {
+            Move();
+        }
+        else
+        {
+            Jump();
+        }
         BrotherGet();
         m_InvincibleTime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.F))  //仮
-        {
-            GameDatas.isFever = true;
-        }
     }
 
     /// <summary>プレイヤーの移動</summary>
@@ -74,6 +81,32 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         //transform.position = move;
         m_Agent.Move(move * Time.deltaTime);
+
+
+        if (m_Agent.isOnOffMeshLink)
+        {
+            Debug.Log("test");
+            m_Agent.CompleteOffMeshLink();
+        }
+        if (Input.GetKeyDown(KeyCode.F))  //仮
+        {
+            NavMeshHit navHit = new NavMeshHit();
+            m_Agent.updatePosition = false;
+            NavMesh.SamplePosition(m_Agent.transform.localPosition, out navHit, 1.5f, NavMesh.AllAreas);
+            transform.localPosition = navHit.position  + new Vector3(0,transform.localPosition.y,0);
+            m_Rigidbody.isKinematic = false;
+            Vector3 jumpVector = m_Rigidbody.velocity;
+            jumpVector.y = m_Jump;
+            m_Rigidbody.velocity = jumpVector;
+        }
+    }
+
+    private void Jump()
+    {
+        Vector3 move = transform.localPosition;
+        move += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * m_Speed * Time.deltaTime;
+
+        transform.localPosition = move;
     }
 
     /// <summary>スタンした敵と触れた時の処理</summary>
@@ -168,6 +201,15 @@ public class OlderBrotherHamster : MonoBehaviour
             {
                 EnemyGet(collision.gameObject);
             }
+        }
+        if (!m_Agent.updatePosition && collision.gameObject.tag == "Floor" )
+        {
+            NavMeshHit navHit = new NavMeshHit();
+            NavMesh.SamplePosition(m_Agent.transform.localPosition, out navHit, 1.5f, NavMesh.AllAreas);
+            m_Agent.Resume();
+            m_Agent.Warp(navHit.position);
+            m_Agent.updatePosition = true;
+            m_Rigidbody.isKinematic = true;
         }
     }
 }
