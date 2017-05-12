@@ -25,9 +25,9 @@ public class GameMainRule : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_playerHp <= 0)//ゲームオーバー条件
+        if (_playerHp <= 0)//ゲーム終了条件
         {
-            GameOvera();
+            GameClear();
         }
     }
 
@@ -38,11 +38,5 @@ public class GameMainRule : MonoBehaviour
         transform.GetComponent<SceneChanger>().FadeOut(_GameClearSene);
         lordCheck = false;
     }
-    public void GameOvera()//ゲームオーバー条件を満たしたら呼び出す
-    {
-        if (lordCheck == false) return;
-
-        transform.GetComponent<SceneChanger>().FadeOut(_GameOveraSene);
-        lordCheck = false;
-    }
+    
 }
