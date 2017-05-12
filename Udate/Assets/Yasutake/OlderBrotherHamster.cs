@@ -30,7 +30,6 @@ public class OlderBrotherHamster : MonoBehaviour
 
     [SerializeField, Header("必殺ゲージ用の値")]
     private float m_SpecialPoint = 0.0f;
-    private bool isSpecial = false; //必殺中かどうか
     [Header("必殺の継続時間")]
     public float m_SpecialTime = 5.0f;
 
@@ -53,6 +52,7 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
 
         GameDatas.isPlayerLive = true;
+        GameDatas.isSpecialAttack = false;
     }
 
     // Update is called once per frame
@@ -67,13 +67,13 @@ public class OlderBrotherHamster : MonoBehaviour
             Jump();
         }
         BrotherGet();
-        if (isSpecial)
+        if (GameDatas.isSpecialAttack)
         {
             m_SpecialPoint -= 100.0f / m_SpecialTime * Time.deltaTime;
             if (m_SpecialPoint <= 0.0f)
             {
                 m_SpecialPoint = 0.0f;
-                isSpecial = false;
+                GameDatas.isSpecialAttack = false;
             }
         }
         m_InvincibleTime += Time.deltaTime;
@@ -95,7 +95,7 @@ public class OlderBrotherHamster : MonoBehaviour
             lVec = false;
         }
         //transform.position = move;
-        if (isSpecial) move *= 2.0f;
+        if (GameDatas.isSpecialAttack) move *= 2.0f;
         m_Agent.Move(move * Time.deltaTime);
 
 
@@ -121,7 +121,7 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         Vector3 move = transform.localPosition;
         move += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * m_Speed * Time.deltaTime;
-        if (isSpecial) move *= 2.0f;
+        if (GameDatas.isSpecialAttack) move *= 2.0f;
 
         transform.localPosition = move;
     }
@@ -160,7 +160,7 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             if (chird.tag == "Enemy")
             {
-                if (isSpecial)
+                if (GameDatas.isSpecialAttack)
                 {
                     //スコア２倍
                 }
@@ -179,7 +179,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>必殺技</summary>
     private void SpecialAttack()
     {
-        isSpecial = true;
+        GameDatas.isSpecialAttack = true;
         youngerBrother.SendMessage("必殺技", SendMessageOptions.DontRequireReceiver);
     }
 
@@ -232,14 +232,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 enemyState == EnemyBase.EnemyState.CHARGING ||
                 enemyState == EnemyBase.EnemyState.ATTACK)
             {
-                if (GameDatas.isFever)
-                {
-                    EnemyGet(collision.gameObject);
-                }
-                else
-                {
-                    Damage();
-                }
+                Damage();
             }
             if (enemyState == EnemyBase.EnemyState.SUTAN)
             {
