@@ -80,9 +80,9 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentRadius: 0.5
-    agentHeight: 2
+    agentHeight: 5
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 5
     ledgeDropHeight: 5
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
@@ -399,6 +399,11 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 195000012217927812, guid: 4c6674b2712537849ba8019275dce95f,
+        type: 2}
+      propertyPath: m_WalkableMask
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c6674b2712537849ba8019275dce95f, type: 2}
@@ -724,6 +729,11 @@ Prefab:
     - target: {fileID: 4000013863780718, guid: 6fa81828f689f374da764e0a45501b3f, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000010144112490, guid: 6fa81828f689f374da764e0a45501b3f,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fa81828f689f374da764e0a45501b3f, type: 2}

@@ -28,6 +28,12 @@ public class OlderBrotherHamster : MonoBehaviour
 
     List<Transform> getenemys = new List<Transform>(); //持っている敵
 
+    [SerializeField, Header("必殺ゲージ用の値")]
+    private float m_SpecialPoint = 0.0f;
+    private bool isSpecial = false; //必殺中かどうか
+    [Header("必殺の継続時間")]
+    public float m_SpecialTime = 5.0f;
+
     private NavMeshAgent m_Agent;
     private Rigidbody m_Rigidbody;
 
@@ -61,6 +67,15 @@ public class OlderBrotherHamster : MonoBehaviour
             Jump();
         }
         BrotherGet();
+        if (isSpecial)
+        {
+            m_SpecialPoint -= 100.0f / m_SpecialTime * Time.deltaTime;
+            if (m_SpecialPoint <= 0.0f)
+            {
+                m_SpecialPoint = 0.0f;
+                isSpecial = false;
+            }
+        }
         m_InvincibleTime += Time.deltaTime;
     }
 
@@ -80,6 +95,7 @@ public class OlderBrotherHamster : MonoBehaviour
             lVec = false;
         }
         //transform.position = move;
+        if (isSpecial) move *= 2.0f;
         m_Agent.Move(move * Time.deltaTime);
 
 
@@ -88,7 +104,7 @@ public class OlderBrotherHamster : MonoBehaviour
             Debug.Log("test");
             m_Agent.CompleteOffMeshLink();
         }
-        if (Input.GetKeyDown(KeyCode.F))  //仮
+        if (Input.GetKeyDown(KeyCode.F) && enemyCount == 0)  //仮
         {
             NavMeshHit navHit = new NavMeshHit();
             m_Agent.updatePosition = false;
@@ -105,6 +121,7 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         Vector3 move = transform.localPosition;
         move += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * m_Speed * Time.deltaTime;
+        if (isSpecial) move *= 2.0f;
 
         transform.localPosition = move;
     }
@@ -123,11 +140,15 @@ public class OlderBrotherHamster : MonoBehaviour
     private void BrotherGet()
     {
         youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount + 1), 0);
-        if (brotherState.GetState() == BrotherState.NORMAL)
+        if (brotherState.GetState() == BrotherState.NORMAL) //持っているなら
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 EnemyKill();
+            }
+            if (Input.GetKeyDown(KeyCode.E) && m_SpecialPoint >= 100.0f)
+            {
+                SpecialAttack();
             }
         }
     }
@@ -139,10 +160,27 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             if (chird.tag == "Enemy")
             {
+                if (isSpecial)
+                {
+                    //スコア２倍
+                }
+                else
+                {
+                    m_SpecialPoint += 10.0f;
+                    if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
+                    //スコア処理
+                }
                 Destroy(chird.gameObject);
             }
         }
         enemyCount = 0;
+    }
+
+    /// <summary>必殺技</summary>
+    private void SpecialAttack()
+    {
+        isSpecial = true;
+        youngerBrother.SendMessage("必殺技", SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>敵に当たったときの処理</summary>
@@ -177,6 +215,12 @@ public class OlderBrotherHamster : MonoBehaviour
             Debug.Log("死んだ");
             //Destroy(gameObject);
         }
+    }
+
+    /// <summary>必殺ゲージ用float型を返す</summary>
+    public float GetSpacialPoint()
+    {
+        return m_SpecialPoint / 100.0f;
     }
 
     public void OnCollisionEnter(Collision collision)
