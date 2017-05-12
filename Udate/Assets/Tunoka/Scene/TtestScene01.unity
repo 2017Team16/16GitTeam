@@ -1554,6 +1554,21 @@ Prefab:
       propertyPath: _BlackImage
       value: 
       objectReference: {fileID: 545495700}
+    - target: {fileID: 114000010666472884, guid: 6d47a21e127a338499530075a309fa0d,
+        type: 2}
+      propertyPath: _ENDTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011214190016, guid: 6d47a21e127a338499530075a309fa0d,
+        type: 2}
+      propertyPath: _GameOveraSene
+      value: TtesResult
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011214190016, guid: 6d47a21e127a338499530075a309fa0d,
+        type: 2}
+      propertyPath: _GameClearSene
+      value: TtesResult
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d47a21e127a338499530075a309fa0d, type: 2}
   m_IsPrefabParent: 0

@@ -22,6 +22,7 @@ public class AnimationStartTimer : MonoBehaviour {
         {
             _MoveObj.SetActive(true);
         }
+        else { _MoveObj.SetActive(false); }
 	}
 }
 
