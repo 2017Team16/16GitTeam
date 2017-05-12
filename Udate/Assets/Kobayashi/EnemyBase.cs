@@ -12,7 +12,8 @@ public class EnemyBase : MonoBehaviour
         ATTACK,
         SUTAN,
         GET,
-        RECOVERY
+        RECOVERY,
+        WAIT
     }
 
     protected EnemyState m_State = EnemyState.WALKING;
@@ -61,7 +62,12 @@ public class EnemyBase : MonoBehaviour
             case EnemyState.SUTAN: SutanState(); break;
             case EnemyState.GET: GetState(); break;
             case EnemyState.RECOVERY: RecoveryState(); break;
+            case EnemyState.WAIT: WaitState(); break;
         }
+    }
+
+    protected virtual void WaitState()
+    {
     }
 
     protected virtual void WalkingState()
@@ -102,22 +108,26 @@ public class EnemyBase : MonoBehaviour
         m_Time = 0.0f;
         switch (s)
         {
-            case 0: m_State = EnemyState.WALKING;
+            case 0:
+                m_State = EnemyState.WALKING;
                 m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll; break;
             case 1: m_State = EnemyState.CHARGING; break;
             case 2: m_State = EnemyState.ATTACK; break;
-            case 3: m_State = EnemyState.SUTAN;
+            case 3:
+                m_State = EnemyState.SUTAN;
                 m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 transform.rotation = Quaternion.Euler(0, 0, 0); break;
             case 4: m_State = EnemyState.GET; break;
-            case 5: m_State = EnemyState.RECOVERY;
-                m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY; break; break;
+            case 5:
+                m_State = EnemyState.RECOVERY;
+                m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY; break;
+            case 6: m_State = EnemyState.WAIT; break;
         }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(m_State == EnemyState.RECOVERY && collision.gameObject.tag == "Floor")
+        if (m_State == EnemyState.RECOVERY && collision.gameObject.tag == "Floor")
         {
             ChangeState(3);
         }
@@ -134,5 +144,9 @@ public class EnemyBase : MonoBehaviour
     public EnemyState GetEnemyState()
     {
         return m_State;
+    }
+    public void EnemyScore()
+    {
+
     }
 }
