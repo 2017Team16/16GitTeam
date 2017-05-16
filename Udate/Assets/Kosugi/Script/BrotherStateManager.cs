@@ -25,7 +25,7 @@ public class BrotherStateManager : MonoBehaviour
             {BrotherState.BACK, GetComponent<BrotherBack>() },
             {BrotherState.NORMAL, GetComponent<Brother>() },
             {BrotherState.THROW, GetComponent<BrotherThrow>()},
-            //{BrotherState.CANNON_BLOCK, GetComponent<CannonBlockMove>() },
+            {BrotherState.SPECIAL, GetComponent<BrotherSpecial>() },
             //{BrotherState.STAGE_CLEAR, GetComponent<StageClearMove>() },
             //{BrotherState.STAGE_FINAL_CLEAR, GetComponent<StageFinalClearMove>() }
         };
@@ -75,6 +75,12 @@ public class BrotherStateManager : MonoBehaviour
             //バグ用調整
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._enemyHit = false;
         }
+        //通常→必殺技
+        if (m_BeforeBrosState == BrotherState.NORMAL
+            && m_BrosState == BrotherState.SPECIAL)
+        {
+            m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().EnemySet();
+        }
         //投げ→着地
         if (m_BeforeBrosState == BrotherState.THROW
             && m_BrosState == BrotherState.BACK)
@@ -84,8 +90,16 @@ public class BrotherStateManager : MonoBehaviour
             m_Moves[BrotherState.BACK].GetComponent<BrotherBack>()._isBack = false;
             //m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isMove = false;
 
+            m_Moves[BrotherState.BACK].GetComponent<NavMeshAgent>().enabled = true;
+
             m_Moves[BrotherState.BACK].GetComponent<BrotherBack>().Move();
         }
+        //着地→
+        if(m_BeforeBrosState==BrotherState.BACK)
+        {
+            m_Moves[BrotherState.BACK].GetComponent<NavMeshAgent>().enabled = false;
+        }
+
         //ANY→通常への変更時
         //if (m_BrosState == BrotherState.NORMAL)
         //{
@@ -97,3 +111,4 @@ public class BrotherStateManager : MonoBehaviour
         return m_BrosState;
     }
 }
+

@@ -8,7 +8,7 @@ public class BrotherThrow : MonoBehaviour
     private Transform BrotherPosition;
 
     [SerializeField, TooltipAttribute("投げる角度")]
-    private float _firingAngle = 45.0f;
+    public float _firingAngle = 45.0f;
     //重力(変更不要)
     private float _gravity = 9.8f;
 
@@ -21,7 +21,16 @@ public class BrotherThrow : MonoBehaviour
     public float _count = 2.0f;
 
     [SerializeField, TooltipAttribute("プレイヤーオブジェクト")]
-    private Transform Player;
+    public GameObject Player;
+
+    [SerializeField, TooltipAttribute("衝撃波オブジェクト")]
+    private GameObject m_ShockWave;
+    private float scale;
+
+    //開始地点Y座標
+    private Vector3 StartPos;
+    //着地地点Y座標
+    private Vector3 EndPos;
 
     private float _targetDistance;
     private List<GameObject> m_EnemyList;
@@ -31,13 +40,15 @@ public class BrotherThrow : MonoBehaviour
 
     void Awake()
     {
-
+        
     }
 
     void Start()
     {
         m_EnemyList = new List<GameObject>();
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
+
+        scale = 0.0f;
     }
 
     void Update()
@@ -78,10 +89,10 @@ public class BrotherThrow : MonoBehaviour
     /// <returns></returns>
     IEnumerator SimulateProjectile()
     {
+        StartPos = transform.position;
+
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
-
-        //重要  ターゲット(のオブジェクト)を探す→ターゲットをリアルタイムで変化させてその地点にダミーを表示させる に変更
 
         // 投げるオブジェクトの開始位置
         //Projectile.position = transform.position + new Vector3(0, 0.0f, 0);
@@ -130,14 +141,16 @@ public class BrotherThrow : MonoBehaviour
     /// <returns></returns>
     IEnumerator ReSimulateProjectile(float count)
     {
+        StartPos = transform.position;
+
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
         //再バウンド先
         m_Target.transform.position += new Vector3(
-            (m_Target.transform.position.x - Player.position.x) / count,
+            (m_Target.transform.position.x - Player.transform.position.x) / count,
             0,
-            (m_Target.transform.position.z - Player.position.z) / count);
+            (m_Target.transform.position.z - Player.transform.position.z) / count);
 
         // 投げるオブジェクトの開始位置
         //Projectile.position = transform.position + new Vector3(0, 0.0f, 0);
@@ -180,6 +193,25 @@ public class BrotherThrow : MonoBehaviour
         }
 
     }
+    
+    //簡易的衝撃波
+    IEnumerator ShockWave()
+    {
+        GameObject shockwave = (GameObject)Instantiate(m_ShockWave, EndPos, Quaternion.identity);
+        if (StartPos.y - EndPos.y >= 1.0f)
+        {
+            while (scale < StartPos.y - EndPos.y)
+            {
+                scale += 1.0f;// * Time.deltaTime;
+                shockwave.transform.localScale = new Vector3(scale, shockwave.transform.localScale.y, scale);
+                yield return null;
+            }
+        }
+        //yield return new WaitForSeconds(0.1f);
+        Destroy(shockwave);
+        scale = 0.0f;
+        m_BrotherStateManager.SetState(BrotherState.BACK);
+    }
 
     public void IsTriggerOff()
     {
@@ -195,8 +227,10 @@ public class BrotherThrow : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW)
-        { 
-            m_BrotherStateManager.SetState(BrotherState.BACK);
+        {
+            EndPos = transform.position;
+            StartCoroutine(ShockWave());
+
             //GetComponent<Rigidbody>().useGravity = true;
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)

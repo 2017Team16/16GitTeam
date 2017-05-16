@@ -28,6 +28,11 @@ public class Brother : MonoBehaviour {
         {
             m_BrotherStateManager.SetState(BrotherState.THROW);
         }
+
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            //m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
