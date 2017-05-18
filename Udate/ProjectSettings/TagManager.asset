@@ -10,6 +10,9 @@ TagManager:
   - YoungerBrother
   - RecoveryEnemy
   - Floor
+  - FrontClimbStart
+  - LeftClimbStart
+  - RightClimbStart
   layers:
   - Default
   - TransparentFX

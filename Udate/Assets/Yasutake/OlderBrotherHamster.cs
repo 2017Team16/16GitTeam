@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 public class OlderBrotherHamster : MonoBehaviour
 {
+    enum PlayerState
+    {
+        WALK,
+        CLIMB
+    }
     [Header("体力")]
     public int m_Life = 3;
     [Header("無敵時間")]
@@ -12,7 +17,8 @@ public class OlderBrotherHamster : MonoBehaviour
     [Header("速さ")]
     public float m_Speed = 1;
     [Header("ジャンプ力")]
-    public float m_Jump = 300.0f;
+    public float m_Jump = 3.0f; //デフォルト
+    private float jumpVector = 0.0f;  //実際に与えるジャンプ力(重力計算用)
     private GameObject m_Texture; //画像を貼っている子供（仮）
     private Vector3 m_Scale; //画像の向き、右（仮、子の向き）
     private Vector3 reverseScale; //画像の向き、左
@@ -33,8 +39,19 @@ public class OlderBrotherHamster : MonoBehaviour
     [Header("必殺の継続時間")]
     public float m_SpecialTime = 5.0f;
 
-    private NavMeshAgent m_Agent;
-    private Rigidbody m_Rigidbody;
+    private CharacterController m_Controller;
+    private PlayerState m_State = PlayerState.WALK;
+
+    private Vector3 climbStartPoint = Vector3.zero;
+    private Vector3 climbEndPoint = Vector3.zero;
+    private Vector3 climbEndVector = Vector3.zero;
+    [Header("登る速さ")]
+    public float climbSpeed = 1.0f;
+    private float climbStartTime;
+    private float climbDistance;
+
+    [Header("ゲームルール(スコア)")]
+    public Score gameScore;
 
     // Use this for initialization
     void Start()
@@ -48,8 +65,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
 
-        m_Agent = GetComponent<NavMeshAgent>();
-        m_Rigidbody = GetComponent<Rigidbody>();
+        m_Controller = GetComponent<CharacterController>();
 
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
@@ -58,13 +74,10 @@ public class OlderBrotherHamster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_Agent.updatePosition)
+        switch (m_State)
         {
-            Move();
-        }
-        else
-        {
-            Jump();
+            case PlayerState.WALK: Move(); break;
+            case PlayerState.CLIMB: Climb(); break;
         }
         BrotherGet();
         if (GameDatas.isSpecialAttack)
@@ -76,14 +89,44 @@ public class OlderBrotherHamster : MonoBehaviour
                 GameDatas.isSpecialAttack = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1)) //デバック用
+        {
+            Damage();
+        }
         m_InvincibleTime += Time.deltaTime;
     }
 
     /// <summary>プレイヤーの移動</summary>
     private void Move()
     {
-        //Vector3 move = transform.position;
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal") * m_Speed, 0, Input.GetAxis("Vertical") * m_Speed)/(enemyCount + 1);
+        if (!m_Controller.isGrounded)
+        {
+            jumpVector -= 10 * Time.deltaTime;
+        }
+        else
+        {
+            jumpVector = 0.0f;
+            if (Input.GetKeyDown(KeyCode.F) && enemyCount == 0)
+            {
+                jumpVector = m_Jump;
+                if (brotherState.GetState() != BrotherState.NORMAL && brotherState.GetState() != BrotherState.THROW) jumpVector *= 1.5f;
+            }
+        }
+
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal") / (enemyCount + 1), jumpVector, Input.GetAxis("Vertical") / (enemyCount + 1)) * 10.0f * Time.deltaTime;
+        TextureLR();
+        if (GameDatas.isSpecialAttack)
+        {
+            move.x *= 2;
+            move.z *= 2;
+        }
+
+        m_Controller.Move(move);
+    }
+
+    /// <summary>画像をどっち向きにするか</summary>
+    private void TextureLR()
+    {
         if (Input.GetAxis("Horizontal") < 0)
         {
             m_Texture.transform.localScale = reverseScale;
@@ -94,36 +137,20 @@ public class OlderBrotherHamster : MonoBehaviour
             m_Texture.transform.localScale = m_Scale;
             lVec = false;
         }
-        //transform.position = move;
-        if (GameDatas.isSpecialAttack) move *= 2.0f;
-        m_Agent.Move(move * Time.deltaTime);
-
-
-        if (m_Agent.isOnOffMeshLink)
-        {
-            Debug.Log("test");
-            m_Agent.CompleteOffMeshLink();
-        }
-        if (Input.GetKeyDown(KeyCode.F) && enemyCount == 0)  //仮
-        {
-            NavMeshHit navHit = new NavMeshHit();
-            m_Agent.updatePosition = false;
-            NavMesh.SamplePosition(m_Agent.transform.localPosition, out navHit, 1.5f, NavMesh.AllAreas);
-            transform.localPosition = navHit.position  + new Vector3(0,transform.localPosition.y,0);
-            m_Rigidbody.isKinematic = false;
-            Vector3 jumpVector = m_Rigidbody.velocity;
-            jumpVector.y = m_Jump;
-            m_Rigidbody.velocity = jumpVector;
-        }
     }
+    
 
-    private void Jump()
+    private void Climb()
     {
-        Vector3 move = transform.localPosition;
-        move += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * m_Speed * Time.deltaTime;
-        if (GameDatas.isSpecialAttack) move *= 2.0f;
+        float elapsedTime = (Time.time - climbStartTime) * climbSpeed;
+        float nowPoint = elapsedTime / climbDistance;
+        transform.position = Vector3.Lerp(climbStartPoint, climbEndPoint, nowPoint);
 
-        transform.localPosition = move;
+        if (Vector3.Distance(transform.position, climbEndPoint) < 0.1f)
+        {
+            m_Controller.Move(climbEndVector);
+            m_State = PlayerState.WALK;
+        }
     }
 
     /// <summary>スタンした敵と触れた時の処理</summary>
@@ -133,7 +160,7 @@ public class OlderBrotherHamster : MonoBehaviour
         enemyCount++;
         enemy.transform.parent = transform;
         enemy.transform.localPosition = new Vector3(0, enemyInterval * enemyCount, 0);
-        enemy.SendMessage("ChangeState",4, SendMessageOptions.DontRequireReceiver);
+        enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>持っている弟の処理</summary>
@@ -162,13 +189,13 @@ public class OlderBrotherHamster : MonoBehaviour
             {
                 if (GameDatas.isSpecialAttack)
                 {
-                    //スコア２倍
+                    gameScore.Pointscore(10 * enemyCount * 2); //仮
                 }
                 else
                 {
                     m_SpecialPoint += 10.0f;
                     if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
-                    //スコア処理
+                    gameScore.Pointscore(10 * enemyCount); //仮
                 }
                 Destroy(chird.gameObject);
             }
@@ -186,35 +213,41 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>敵に当たったときの処理</summary>
     private void Damage()
     {
-        if(m_InvincibleTime >= m_InvincibleInterval)
+        if (m_InvincibleTime >= m_InvincibleInterval)
         {
             m_InvincibleTime = 0.0f;
             m_Life--;
 
             getenemys.Clear();
 
-            foreach(Transform chird in transform)
+            foreach (Transform chird in transform)
             {
-                if(chird.tag == "Enemy")
+                if (chird.tag == "Enemy")
                 {
                     getenemys.Add(chird);
                 }
             }
-            for(int i = 0; i < getenemys.Count; i++)
+            for (int i = 0; i < getenemys.Count; i++)
             {
-                getenemys[i].SendMessage("ChangeState",5, SendMessageOptions.DontRequireReceiver);
+                getenemys[i].SendMessage("ChangeState", 5, SendMessageOptions.DontRequireReceiver);
                 //Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
                 //rb.velocity = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+                //NavMeshHit navHit = new NavMeshHit();
+                //NavMeshAgent e_Agent = getenemys[i].GetComponent<NavMeshAgent>();
+                //NavMesh.SamplePosition(e_Agent.transform.localPosition, out navHit, 3.0f, NavMesh.AllAreas);
+                //getenemys[i].transform.localPosition = navHit.position;
+                getenemys[i].localPosition = new Vector3(Random.Range(-3, 3), -0.5f, Random.Range(-3, 3));
                 getenemys[i].parent = null;
             }
             enemyCount = 0;
         }
-        if(m_Life <= 0)
+        if (m_Life <= 0)
         {
             GameDatas.isPlayerLive = false;
             Debug.Log("死んだ");
             //Destroy(gameObject);
         }
+        m_State = PlayerState.WALK;
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>
@@ -223,30 +256,53 @@ public class OlderBrotherHamster : MonoBehaviour
         return m_SpecialPoint / 100.0f;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void ClimbPreparation(float y)
     {
-        if (collision.transform.tag == "Enemy")
+        climbStartPoint = transform.position;
+        climbEndPoint = new Vector3(transform.position.x, y, transform.position.z);
+        m_State = PlayerState.CLIMB;
+        climbStartTime = Time.time;
+        climbDistance = Vector3.Distance(climbStartPoint, climbEndPoint);
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag == "FrontClimbStart" && Input.GetAxis("Vertical") > 0.0f)
         {
-            EnemyBase.EnemyState enemyState = collision.gameObject.GetComponent<EnemyBase>().GetEnemyState();
+            Transform end = other.transform.FindChild("ClimbEnd");
+            if (end == null) return; ClimbPreparation(end.position.y);
+            climbEndVector = Vector3.forward;
+        }
+        if (other.transform.tag == "LeftClimbStart" && Input.GetAxis("Horizontal") > 0.0f)
+        {
+            Transform end = other.transform.FindChild("ClimbEnd");
+            if (end == null) return; ClimbPreparation(end.position.y);
+            climbEndVector = Vector3.right;
+        }
+        if (other.transform.tag == "RightClimbStart" && Input.GetAxis("Horizontal") < 0.0f)
+        {
+            Transform end = other.transform.FindChild("ClimbEnd");
+            if (end == null) return; ClimbPreparation(end.position.y);
+            climbEndVector = Vector3.left;
+        }
+    }
+
+    public void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.transform.tag == "Enemy")
+        {
+            EnemyBase.EnemyState enemyState = hit.gameObject.GetComponent<EnemyBase>().GetEnemyState();
             if (enemyState == EnemyBase.EnemyState.WALKING ||
                 enemyState == EnemyBase.EnemyState.CHARGING ||
                 enemyState == EnemyBase.EnemyState.ATTACK)
             {
                 Damage();
+                Debug.Log("いて");
             }
             if (enemyState == EnemyBase.EnemyState.SUTAN)
             {
-                EnemyGet(collision.gameObject);
+                EnemyGet(hit.gameObject);
             }
-        }
-        if (!m_Agent.updatePosition && collision.gameObject.tag == "Floor" )
-        {
-            NavMeshHit navHit = new NavMeshHit();
-            NavMesh.SamplePosition(m_Agent.transform.localPosition, out navHit, 1.5f, NavMesh.AllAreas);
-            m_Agent.Resume();
-            m_Agent.Warp(navHit.position);
-            m_Agent.updatePosition = true;
-            m_Rigidbody.isKinematic = true;
         }
     }
 }
