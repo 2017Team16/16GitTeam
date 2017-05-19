@@ -15,14 +15,14 @@ public class EscapeEnemy : EnemyBase
     {
         GetComponent<Renderer>().material.color = Color.magenta;
         vec = m_Player.transform.position - transform.position;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
         vec.y = 0;
-        m_Agent.enabled = true;
+        m_Agent.Resume();
         if (vec.sqrMagnitude < searchRange)
         {
             vec.Normalize();
             ChangeState(1);
-            m_Agent.enabled = false;
+            m_Agent.Stop();
         }
     }
     protected override void ChargingState()
@@ -42,7 +42,8 @@ public class EscapeEnemy : EnemyBase
 
     protected override void AttackState()
     {
-        transform.position -= vec * m_Speed;
+        //transform.position -= vec * m_Speed;
+        m_Agent.Move(-vec * m_Speed * Time.deltaTime);
         if (m_Time >= escapeTime)
         {
             ChangeState(0);

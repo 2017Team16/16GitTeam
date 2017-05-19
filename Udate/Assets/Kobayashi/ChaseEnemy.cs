@@ -11,8 +11,8 @@ public class ChaseEnemy : EnemyBase {
         vec = m_Player.transform.position - transform.position;
        // transform.rotation = Quaternion.Euler(0, 0, 0);
         vec.y = 0;
-
-        transform.position += vec * m_Speed;
+        vec.Normalize();
+        m_Agent.Move(vec * m_Speed * Time.deltaTime);
     }
     protected override void ChargingState()
     {

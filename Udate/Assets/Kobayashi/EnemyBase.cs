@@ -24,6 +24,7 @@ public class EnemyBase : MonoBehaviour
     protected float m_Time = 0;
     public float sutanTime = 1.0f;
     public float recoveryTime = 1.0f;
+    public float score = 10;
 
 
 
@@ -110,17 +111,19 @@ public class EnemyBase : MonoBehaviour
         {
             case 0:
                 m_State = EnemyState.WALKING;
-                m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll; break;
+                //m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                break;
             case 1: m_State = EnemyState.CHARGING; break;
             case 2: m_State = EnemyState.ATTACK; break;
             case 3:
                 m_State = EnemyState.SUTAN;
-                m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                //m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 transform.rotation = Quaternion.Euler(0, 0, 0); break;
             case 4: m_State = EnemyState.GET; break;
             case 5:
                 m_State = EnemyState.RECOVERY;
-                m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY; break;
+                //m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY; 
+                break;
             case 6: m_State = EnemyState.WAIT; break;
         }
     }
@@ -145,8 +148,8 @@ public class EnemyBase : MonoBehaviour
     {
         return m_State;
     }
-    public void EnemyScore()
+    public float EnemyScore()
     {
-
+        return score;
     }
 }

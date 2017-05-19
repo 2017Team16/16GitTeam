@@ -52,6 +52,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
     [Header("ゲームルール(スコア)")]
     public Score gameScore;
+    private int m_Chain = 0;
 
     // Use this for initialization
     void Start()
@@ -189,13 +190,15 @@ public class OlderBrotherHamster : MonoBehaviour
             {
                 if (GameDatas.isSpecialAttack)
                 {
-                    gameScore.Pointscore(10 * enemyCount * 2); //仮
+                    m_Chain += enemyCount;
+                    gameScore.Pointscore(10 * enemyCount * 2, m_Chain, enemyCount); //仮
                 }
                 else
                 {
                     m_SpecialPoint += 10.0f;
                     if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
-                    gameScore.Pointscore(10 * enemyCount); //仮
+                    m_Chain += enemyCount;
+                    gameScore.Pointscore(10 * enemyCount,m_Chain,enemyCount); //仮
                 }
                 Destroy(chird.gameObject);
             }
@@ -240,6 +243,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 getenemys[i].parent = null;
             }
             enemyCount = 0;
+            m_Chain = 0;
         }
         if (m_Life <= 0)
         {
