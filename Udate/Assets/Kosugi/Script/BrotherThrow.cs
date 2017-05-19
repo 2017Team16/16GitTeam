@@ -39,6 +39,8 @@ public class BrotherThrow : MonoBehaviour
     private float _targetDistance;
     private List<GameObject> m_EnemyList;
 
+    private bool isflying = false;
+
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
 
@@ -62,6 +64,7 @@ public class BrotherThrow : MonoBehaviour
 
     public void ThrowStart()
     {
+        isflying = false;
         StartCoroutine(TargetMove());
     }
 
@@ -109,6 +112,7 @@ IEnumerator TargetMove()
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 m_Target = obj;
+                isflying = true;
                 StartCoroutine(SimulateProjectile());
                 yield break;
             }
@@ -259,7 +263,7 @@ IEnumerator TargetMove()
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW)
+        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW &&isflying)
         {
             EndPos = transform.position;
             StartCoroutine(ShockWave());

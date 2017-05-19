@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sutanTime: 1
   recoveryTime: 1
+  score: 10
   chargingTime: 0.5
   escapeTime: 0.6
   escapedTime: 1
