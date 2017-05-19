@@ -31,15 +31,15 @@ public class Brother : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.O))
         {
-            //m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+            m_BrotherStateManager.SetState(BrotherState.SPECIAL);
         }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor")
-        {
-            _isFloor = true;
-        }
+        //if (collision.gameObject.tag == "Floor"&& m_BrotherStateManager.GetState() == BrotherState.NORMAL)
+        //{
+        //    _isFloor = true;
+        //}
     }
 }

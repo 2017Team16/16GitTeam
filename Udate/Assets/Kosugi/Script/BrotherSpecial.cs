@@ -12,8 +12,8 @@ public class BrotherSpecial : MonoBehaviour
     private float _gravity = 9.8f;
 
     /*BrotherThrowから*/
-    [HideInInspector, TooltipAttribute("エネミーに当たったかどうか")]
-    public bool _enemyHit;
+    //[HideInInspector, TooltipAttribute("エネミーに当たったかどうか")]
+    public bool _enemyHit = false;
     //当たった敵のリスト
     private List<GameObject> m_EnemyList;
     //プレイヤーオブジェクト
@@ -42,21 +42,19 @@ public class BrotherSpecial : MonoBehaviour
 
     public void EnemySet()
     {
-        GameObject[] enemys;
-        enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        print(enemys.Length);
         for (int i = 0; i < enemys.Length; i++)
         {
             m_Enemys.Add(enemys[i]);
             m_Enemys[i].GetComponent<NavMeshAgent>().speed = 0.1f;
         }
-//プレイヤーを感知できていない
         m_Enemys.Add(Player);
         StartCoroutine(Special());
-        //m_BrotherStateManager.SetState(BrotherState.NORMAL);
+        //m_BrotherStateManager.SetState(BrotherState.NORMAL); 
     }
     IEnumerator Special()
     {
-        print(m_Enemys.Count);
             for (int i = 0; i < m_Enemys.Count; i++)
             {
                 _enemyHit = false;
@@ -90,25 +88,20 @@ public class BrotherSpecial : MonoBehaviour
 
                     yield return null;
                 }
-                yield return null;
             }       
     }
 
-    /*・弟と兄は一瞬のうちに全ての敵に当たっている(設定)
-      　→敵がスローモーション風になってる間に弟は敵に当たる
-      ・最後の敵に当たったら弟は兄にダイレクト帰還
-      ・通常の投げと必殺技の投げがほぼ同じなので
-      　なるべく一緒にしてプログラムを減らすこと！
-    */
     public void IsTriggerOff()
     {
         if (m_EnemyList.Count != 0)
         {
             for (int i = 0; i < m_EnemyList.Count; i++)
             {
+                m_Enemys[i].GetComponent<NavMeshAgent>().speed = 3.5f;
                 m_EnemyList[i].GetComponent<Collider>().isTrigger = false;
             }
         }
+        m_Enemys.Clear();
         m_EnemyList.Clear();
     }
     public void OnCollisionEnter(Collision collision)
@@ -120,6 +113,7 @@ public class BrotherSpecial : MonoBehaviour
         }
         if(collision.gameObject.tag == "Player" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
         {
+            _enemyHit = true;
             m_BrotherStateManager.SetState(BrotherState.NORMAL);
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
@@ -127,7 +121,7 @@ public class BrotherSpecial : MonoBehaviour
             if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
             {
                 _enemyHit = true;
-                collision.gameObject.GetComponent<Collider>().isTrigger = true;
+                //collision.gameObject.GetComponent<Collider>().isTrigger = true;
                 m_EnemyList.Add(collision.gameObject);
                 collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
             }

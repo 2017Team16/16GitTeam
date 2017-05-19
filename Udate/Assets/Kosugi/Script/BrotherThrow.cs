@@ -9,11 +9,15 @@ public class BrotherThrow : MonoBehaviour
 
     [SerializeField, TooltipAttribute("投げる角度")]
     public float _firingAngle = 45.0f;
-    //重力(変更不要)
+    [HideInInspector, TooltipAttribute("重力(変更禁止)")]
     private float _gravity = 9.8f;
-
-    [SerializeField, TooltipAttribute("ターゲットオブジェクト")]
+    
+    [SerializeField, TooltipAttribute("ターゲットobj")]
+    private GameObject m_TargetObj;
+    [HideInInspector, TooltipAttribute("ターゲット")]
     public GameObject m_Target;
+    [SerializeField, TooltipAttribute("ターゲット指定用obj")]
+    public GameObject m_TargetPos;
 
     [HideInInspector, TooltipAttribute("エネミーに当たったかどうか")]
     public bool _enemyHit;
@@ -61,21 +65,50 @@ public class BrotherThrow : MonoBehaviour
         StartCoroutine(TargetMove());
     }
 
-    /// <summary>
-    /// ターゲットの移動
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator TargetMove()
+    struct RayHitInfo
+{
+    public RaycastHit hit;
+    //当たったか？
+    public bool isHit;
+};
+IEnumerator TargetMove()
     {
-        while(true)
+        GameObject obj = Instantiate(m_TargetObj);
+        while (true)
         {
+            //float dx = Input.GetAxis("BrosHorizontal");
+            //float dz = Input.GetAxis("BrosVertical");
+            //m_Target.transform.transform.Translate(dx * 0.1f, 0.0f, dz * 0.1f);
+            //yield return null;
+
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    StartCoroutine(SimulateProjectile());
+            //    yield break;
+            //}
+            //transform.position = BrotherPosition.position;
+
             float dx = Input.GetAxis("BrosHorizontal");
             float dz = Input.GetAxis("BrosVertical");
-            m_Target.transform.transform.Translate(dx * 0.1f, 0.0f, dz * 0.1f);
+            m_TargetPos.transform.Translate(dx * 0.1f, 0.0f, dz * 0.1f);
+
+            Vector3 rayPos = m_TargetPos.transform.position;
+            Ray ray = new Ray(rayPos, -m_TargetPos.transform.up);
+            RaycastHit hit;
+            int layermask = 1 << 8;
+            RayHitInfo m_Hitinfo;
+            m_Hitinfo.isHit=Physics.Raycast(ray,out hit, 20.0f, layermask, QueryTriggerInteraction.Ignore);
+            m_Hitinfo.hit = hit;
+            Debug.DrawRay(rayPos, -m_TargetPos.transform.up*20.0f, Color.black, 0.1f, true);
+
+            if (m_Hitinfo.isHit)
+                obj.transform.position 
+                    = new Vector3(m_Hitinfo.hit.point.x, m_Hitinfo.hit.point.y + obj.transform.localScale.y / 2, m_Hitinfo.hit.point.z);
             yield return null;
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                m_Target = obj;
                 StartCoroutine(SimulateProjectile());
                 yield break;
             }
@@ -116,7 +149,7 @@ public class BrotherThrow : MonoBehaviour
 
         // 放物線の計算
         float elapse_time = 0;
-        while (!transform.GetComponent<Brother>()._isFloor)//elapse_time < flightDuration)
+        while (m_BrotherStateManager.GetState() == BrotherState.THROW)//!transform.GetComponent<Brother>()._isFloor)//elapse_time < flightDuration)
         {
             transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
 
@@ -174,7 +207,7 @@ public class BrotherThrow : MonoBehaviour
 
         // 放物線の計算
         float elapse_time = 0;
-        while (!transform.GetComponent<Brother>()._isFloor)//elapse_time < flightDuration)
+        while (m_BrotherStateManager.GetState()== BrotherState.THROW)//!transform.GetComponent<Brother>()._isFloor)//elapse_time < flightDuration)
         {
             transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
 
