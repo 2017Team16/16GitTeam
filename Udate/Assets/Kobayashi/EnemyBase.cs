@@ -86,7 +86,7 @@ public class EnemyBase : MonoBehaviour
     private void SutanState()
     {
         GetComponent<Renderer>().material.color = Color.black;
-        m_Agent.enabled = false;
+        m_Agent.Stop();
         if (m_Time >= sutanTime)
         {
             ChangeState(0);
