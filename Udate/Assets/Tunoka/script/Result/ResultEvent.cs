@@ -49,6 +49,8 @@ public class ResultEvent : MonoBehaviour
         {
             _Timer = 0;
             _EventNum += 1;
+            _Score += _Chain * 50;
+            print(_Score);
         }
     }
     void Event1()//最初のアニメーション
@@ -56,9 +58,10 @@ public class ResultEvent : MonoBehaviour
         _AdditionText.text = "+連続コンボ　：　"+ _Chain;
         if (_Timer >= 2)
         {
-            _Score += _Chain * 50;
             _Timer = 0;
             _EventNum += 1;
+            _Score += _Maxpush * 100;
+            print(_Score);
         }
     }
     void Event2()//_Chainの加算アニメーション
@@ -67,7 +70,6 @@ public class ResultEvent : MonoBehaviour
         _AdditionText.text = "+一回で潰した最大数　：　" + _Chain;
         if (_Timer >= 2)
         {
-            _Score += _Maxpush * 100;
             _Timer = 0;
             _EventNum += 1;
         }

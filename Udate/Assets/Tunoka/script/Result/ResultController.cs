@@ -25,11 +25,11 @@ public class ResultController : MonoBehaviour {
     void Start () {
         _Score = Score.getScore();
         _Chain = Score.getChain();
-        _Maxpush = Score.getScore();
+        _Maxpush = Score.getMaxPush();
         _Kill = Score.getKill();
 
 
-        LastScore = _Score + _Maxpush * 100 + _Chain * 50  ;
+        LastScore = _Score + _Maxpush * 100 + _Chain * 50  ; 
         _rankingSeting = GameObject.Find("Ranking").GetComponent<RankingSeting>();
 
         _rankingSeting.RankListIn(LastScore);
