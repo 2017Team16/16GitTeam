@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011447309396}
+  - 114: {fileID: 114000012335589188}
   - 114: {fileID: 114000010817865048}
   m_Layer: 0
   m_Name: EmergencePoint
@@ -327,3 +328,20 @@ MonoBehaviour:
   _Pointnum: 1
   _Enemyspawner: {fileID: 1000010927091714, guid: 8fd6d9e9b2b0e4645a31711cb78ceca9,
     type: 2}
+  _Player: {fileID: 0}
+--- !u!114 &114000012335589188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012300023102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cac1b163fd21148b99675908c89015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _SpawnerTime: 10
+  _SpawnerNum: 5
+  _Distance: 5
+  _CountEnemys: []
+  _EnemyType: 0

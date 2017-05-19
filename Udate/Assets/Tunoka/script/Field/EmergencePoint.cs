@@ -6,42 +6,45 @@ public class EmergencePoint : MonoBehaviour {
     [SerializeField, Header("敵の種類入れ")]
     private GameObject[] _EnemyType;
 
-    [SerializeField, Header("出る敵の種類(_EnemyTypeの配列から選ぶ)")]
-    public int _Type = 0;
-    [SerializeField, Header("出る敵の数")]
-    public float _Amount = 1;
-    [SerializeField, Header("出る場所(子にある名前と同じ数値)")]
-    public float _Pointnum = 1;
-    [SerializeField, Header("出現用Particle(Dustsmoke)")]
-    public GameObject _Enemyspawner ;
+    private int _Type = 0;//出る敵の種類
+    private float _Amount = 1;//出る敵の数
+    private float _Pointnum = 1;//"出る場所
+    private float _Distance = 5;//スポーンさせない距離
 
+    [SerializeField, Header("出現用Particle(Dustsmoke)")]
+    private GameObject _Enemyspawner ;
+
+    public GameObject _Player;
     void Start () {
 	
 	}
 	
 	void Update () {
-        //デバック用=======================================================================
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            print("デバック用のエネミー召喚(Oキー)が押されたよ");
-            spawner(0,1,1);
-        }
-        //=================================================================================
 
     }
-    void spawner(int type , float amount , float pointnum)//出る敵の種類 出る敵の数 出る場所
+    public void spawner(int type , float amount , float distance)//出る敵の種類 出る敵の数 出る範囲
     {
         _Type     = type;
         _Amount   = amount;
-        _Pointnum = pointnum;
+        _Pointnum = Random.Range(1, transform.childCount+1);
+        _Distance = distance;
 
 
-        if (transform.childCount < _Pointnum || _Pointnum <= 0)//ポインち場所
+        //プレイヤーが出現ポイント付近にいないか
+        if ((Vector3.Distance(_Player.transform.position, transform.FindChild(_Pointnum.ToString()).gameObject.transform.position)) <= _Distance)
         {
-            print("そのポイントは存在しないよ"); 
-            return;
+            //プレイヤーがいた場合出現ポイントを変更する
+            if (transform.childCount <= 1)//ただし他に出現ポイントがなかったらそこで終わる
+            {
+                return;
+            }
+            _Pointnum++;//場所を一個ずらす
+            if (transform.childCount < _Pointnum )//範囲外になったら最初に戻す
+            {
+                _Pointnum = 1;
+            }
         }
-
+        //敵を出現させる
         GameObject wreckClone = (GameObject)Instantiate
            (_Enemyspawner, 
             transform.FindChild(_Pointnum.ToString()).gameObject.transform.position, 

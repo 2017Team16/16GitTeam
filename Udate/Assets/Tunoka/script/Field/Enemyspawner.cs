@@ -25,7 +25,10 @@ public class Enemyspawner : MonoBehaviour {
     }
     void EnemyOccurrence()
     {
-        GameObject wreckClone = (GameObject)Instantiate(_Type, transform.position, Quaternion.identity);
+        for (int i = 0; i < _amount; i ++)
+        {
+            GameObject wreckClone = (GameObject)Instantiate(_Type, transform.position, Quaternion.identity);
+        }
     }
     public void OccurrenceSetting(GameObject tupe , float amount)
     {
