@@ -111,6 +111,7 @@ public class EnemyBase : MonoBehaviour
         {
             case 0:
                 m_State = EnemyState.WALKING;
+                m_Agent.enabled = true;
                 //m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 break;
             case 1: m_State = EnemyState.CHARGING; break;

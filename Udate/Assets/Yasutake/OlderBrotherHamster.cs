@@ -184,25 +184,27 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>敵をつぶす</summary>
     private void EnemyKill()
     {
+        float score = 0;
+
         foreach (Transform chird in transform)
         {
             if (chird.tag == "Enemy")
             {
                 if (GameDatas.isSpecialAttack)
                 {
-                    m_Chain += enemyCount;
-                    gameScore.Pointscore(10 * enemyCount * 2, m_Chain, enemyCount); //仮
+                    score += chird.GetComponent<EnemyBase>().EnemyScore() * 2;
                 }
                 else
                 {
+                    score += chird.GetComponent<EnemyBase>().EnemyScore();
                     m_SpecialPoint += 10.0f;
                     if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
-                    m_Chain += enemyCount;
-                    gameScore.Pointscore(10 * enemyCount,m_Chain,enemyCount); //仮
                 }
+                m_Chain++;
                 Destroy(chird.gameObject);
             }
         }
+        gameScore.Pointscore(score, m_Chain, enemyCount); //仮
         enemyCount = 0;
     }
 

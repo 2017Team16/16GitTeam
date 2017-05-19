@@ -11,6 +11,16 @@ public class EscapeEnemy : EnemyBase
     public int _Counter = 0;
     public int escapedCounter = 0;
 
+    void Start()
+    {
+
+        m_Rigidbody = GetComponent<Rigidbody>();
+        m_Agent = GetComponent<NavMeshAgent>();
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+        SetNewPatrolPointToDestination();
+        score = 100;
+    }
+
     protected override void WalkingState()
     {
         GetComponent<Renderer>().material.color = Color.magenta;
