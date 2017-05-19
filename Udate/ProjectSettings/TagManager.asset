@@ -13,6 +13,7 @@ TagManager:
   - FrontClimbStart
   - LeftClimbStart
   - RightClimbStart
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

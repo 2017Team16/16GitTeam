@@ -139,11 +139,14 @@ public class OlderBrotherHamster : MonoBehaviour
             lVec = false;
         }
     }
-    
+
 
     private void Climb()
     {
-        float elapsedTime = (Time.time - climbStartTime) * climbSpeed;
+        float speed;
+        speed = (GameDatas.isSpecialAttack) ? climbSpeed * 2 : climbSpeed;
+
+        float elapsedTime = (Time.time - climbStartTime) * speed;
         float nowPoint = elapsedTime / climbDistance;
         transform.position = Vector3.Lerp(climbStartPoint, climbEndPoint, nowPoint);
 
@@ -246,6 +249,8 @@ public class OlderBrotherHamster : MonoBehaviour
             }
             enemyCount = 0;
             m_Chain = 0;
+            Debug.Log("いて");
+            m_State = PlayerState.WALK;
         }
         if (m_Life <= 0)
         {
@@ -253,7 +258,6 @@ public class OlderBrotherHamster : MonoBehaviour
             Debug.Log("死んだ");
             //Destroy(gameObject);
         }
-        m_State = PlayerState.WALK;
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>
@@ -303,12 +307,20 @@ public class OlderBrotherHamster : MonoBehaviour
                 enemyState == EnemyBase.EnemyState.ATTACK)
             {
                 Damage();
-                Debug.Log("いて");
             }
             if (enemyState == EnemyBase.EnemyState.SUTAN)
             {
                 EnemyGet(hit.gameObject);
             }
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.transform.tag == "EnemyBullet")
+        {
+            Damage();
         }
     }
 }

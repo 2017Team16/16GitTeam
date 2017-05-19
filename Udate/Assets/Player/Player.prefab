@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Life: 5
   m_InvincibleInterval: 3
   m_Speed: 5
-  m_Jump: 3
+  m_Jump: 2
   enemyInterval: 0.8
   youngerBrother: {fileID: 0}
   m_SpecialPoint: 0
@@ -275,7 +275,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08

@@ -39,7 +39,7 @@ public class ShotEnemy : EnemyBase
                 Shot();
             }
 
-            transform.LookAt(m_PlayerLookPoint);
+            //transform.LookAt(m_PlayerLookPoint);
         }
         else
         {
