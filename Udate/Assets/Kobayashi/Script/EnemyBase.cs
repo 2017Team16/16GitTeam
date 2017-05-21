@@ -25,8 +25,7 @@ public class EnemyBase : MonoBehaviour
     public float sutanTime = 1.0f;
     public float recoveryTime = 1.0f;
     public float score = 10;
-
-
+    
 
     // Use this for initialization
     void Start()
@@ -99,10 +98,10 @@ public class EnemyBase : MonoBehaviour
 
     private void RecoveryState()
     {
-        if (m_Time >= recoveryTime)
-        {
-            ChangeState(3);
-        }
+        //if (m_Time >= recoveryTime)
+        //{
+        //    ChangeState(3);
+        //}
     }
     protected void ChangeState(int s)
     {
@@ -112,18 +111,18 @@ public class EnemyBase : MonoBehaviour
             case 0:
                 m_State = EnemyState.WALKING;
                 m_Agent.enabled = true;
-                //m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 break;
             case 1: m_State = EnemyState.CHARGING; break;
             case 2: m_State = EnemyState.ATTACK; break;
             case 3:
                 m_State = EnemyState.SUTAN;
-                //m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 transform.rotation = Quaternion.Euler(0, 0, 0); break;
             case 4: m_State = EnemyState.GET; break;
             case 5:
                 m_State = EnemyState.RECOVERY;
-                //m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY; 
+                m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                 break;
             case 6: m_State = EnemyState.WAIT; break;
         }

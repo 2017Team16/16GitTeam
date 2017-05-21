@@ -42,13 +42,13 @@ public class OlderBrotherHamster : MonoBehaviour
     private CharacterController m_Controller;
     private PlayerState m_State = PlayerState.WALK;
 
-    private Vector3 climbStartPoint = Vector3.zero;
-    private Vector3 climbEndPoint = Vector3.zero;
-    private Vector3 climbEndVector = Vector3.zero;
+    private Vector3 climbStartPoint = Vector3.zero; //壁のぼり開始地点
+    private Vector3 climbEndPoint = Vector3.zero; //壁のぼり終了地点
+    private Vector3 climbEndVector = Vector3.zero; //壁のぼり後、落ちないように進む方向
     [Header("登る速さ")]
     public float climbSpeed = 1.0f;
-    private float climbStartTime;
-    private float climbDistance;
+    private float climbStartTime; //壁のぼり開始時間
+    private float climbDistance; //登る壁の長さ
 
     [Header("ゲームルール(スコア)")]
     public Score gameScore;
@@ -140,7 +140,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
     }
 
-
+    /// <summary>壁のぼり</summary>
     private void Climb()
     {
         float speed;
@@ -207,7 +207,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 Destroy(chird.gameObject);
             }
         }
-        gameScore.Pointscore(score, m_Chain, enemyCount); //仮
+        gameScore.Pointscore(score, m_Chain, enemyCount);
         enemyCount = 0;
     }
 
@@ -244,12 +244,15 @@ public class OlderBrotherHamster : MonoBehaviour
                 //NavMeshAgent e_Agent = getenemys[i].GetComponent<NavMeshAgent>();
                 //NavMesh.SamplePosition(e_Agent.transform.localPosition, out navHit, 3.0f, NavMesh.AllAreas);
                 //getenemys[i].transform.localPosition = navHit.position;
-                getenemys[i].localPosition = new Vector3(Random.Range(-3, 3), -0.5f, Random.Range(-3, 3));
+                float randX = Random.Range(-1.0f, 1.0f);
+                float randZ = Random.Range(-1.0f, 1.0f);
+                getenemys[i].localPosition = new Vector3(randX, getenemys[i].localPosition.y, randZ);
                 getenemys[i].parent = null;
+                Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
+                rb.velocity = new Vector3(randX * 2, Random.Range(0.1f, 1.0f), randZ * 2);
             }
             enemyCount = 0;
             m_Chain = 0;
-            Debug.Log("いて");
             m_State = PlayerState.WALK;
         }
         if (m_Life <= 0)

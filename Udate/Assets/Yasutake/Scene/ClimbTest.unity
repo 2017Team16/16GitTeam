@@ -2604,6 +2604,23 @@ Transform:
   - {fileID: 1543193932}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1 &522685533 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012059629012, guid: 280a57a84c8fa52439c77af245f2e25e,
+    type: 2}
+  m_PrefabInternal: {fileID: 592426696}
+--- !u!114 &522685534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 522685533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ffb2d2c2d9d444e9483b8ebe12aa68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _EnemyType: 1
 --- !u!1 &546247753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2918,7 +2935,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011342917772, guid: 280a57a84c8fa52439c77af245f2e25e, type: 2}
       propertyPath: m_RootOrder
-      value: 20
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4000010269574386, guid: 280a57a84c8fa52439c77af245f2e25e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4418,6 +4435,11 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -9.97
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010817865048, guid: 66196e4644d93d148a2c91fe75e76452,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 1273428616}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66196e4644d93d148a2c91fe75e76452, type: 2}
   m_IsPrefabParent: 0
@@ -5512,12 +5534,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010270549556, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
@@ -5730,26 +5752,6 @@ Prefab:
       propertyPath: gameScore
       value: 
       objectReference: {fileID: 2102794353}
-    - target: {fileID: 143000013726003516, guid: 4c6674b2712537849ba8019275dce95f,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 136000013870632648, guid: 4c6674b2712537849ba8019275dce95f,
-        type: 2}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 143000013726003516, guid: 4c6674b2712537849ba8019275dce95f,
-        type: 2}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012490529456, guid: 4c6674b2712537849ba8019275dce95f,
-        type: 2}
-      propertyPath: enemyInterval
-      value: 1.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c6674b2712537849ba8019275dce95f, type: 2}
   m_IsPrefabParent: 0
@@ -6242,7 +6244,7 @@ Prefab:
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
@@ -6515,7 +6517,7 @@ Prefab:
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
@@ -6942,7 +6944,7 @@ Prefab:
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
@@ -8705,12 +8707,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010270549556, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54000011978757240, guid: 05a5f6b8bafe2824bacc6914ef4b61bc,
         type: 2}
