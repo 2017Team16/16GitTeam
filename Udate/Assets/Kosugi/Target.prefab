@@ -23,7 +23,7 @@ GameObject:
   - 135: {fileID: 135000011508746742}
   - 23: {fileID: 23000010068172190}
   m_Layer: 0
-  m_Name: BrotherFake
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

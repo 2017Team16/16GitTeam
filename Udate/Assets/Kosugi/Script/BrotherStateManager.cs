@@ -64,44 +64,44 @@ public class BrotherStateManager : MonoBehaviour
         if (m_BeforeBrosState == m_BrosState) return;
 
         // 通常→投げ
-        if ( m_BeforeBrosState == BrotherState.NORMAL
-            && m_BrosState == BrotherState.THROW)
+        if (m_BeforeBrosState == BrotherState.NORMAL &&
+             m_BrosState == BrotherState.THROW)
         {
             //m_Moves[BrotherState.NORMAL].GetComponent<Brother>()._isFloor = false;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._count = 2.0f;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().ThrowStart();
-
-            //バグ用調整
-            m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._enemyHit = false;
         }
         //通常→必殺技
-        if (m_BeforeBrosState == BrotherState.NORMAL
-            && m_BrosState == BrotherState.SPECIAL)
+        if (m_BeforeBrosState == BrotherState.NORMAL &&
+             m_BrosState == BrotherState.SPECIAL)
         {
             m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().EnemySet();
         }
         //必殺技→通常
-        if (m_BeforeBrosState == BrotherState.SPECIAL
-            && m_BrosState == BrotherState.NORMAL)
+        if (m_BeforeBrosState == BrotherState.SPECIAL &&
+             m_BrosState == BrotherState.NORMAL)
         {
+            m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>()._hit = false;
             m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().IsTriggerOff();
-            
         }
         //投げ→着地
-        if (m_BeforeBrosState == BrotherState.THROW
-            && m_BrosState == BrotherState.BACK)
+        if (m_BeforeBrosState == BrotherState.THROW &&
+             m_BrosState == BrotherState.BACK)
         {
-            m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().IsTriggerOff();
-            Destroy(m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().m_Target);
-            m_Moves[BrotherState.BACK].GetComponent<BrotherBack>()._isBack = false;
+            m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._enemyHit = false;
+            Destroy(m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().Target);
+
+            //m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().IsTriggerOff();
+
+            //m_Moves[BrotherState.BACK].GetComponent<BrotherBack>()._isBack = false;
             //m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isMove = false;
 
             m_Moves[BrotherState.BACK].GetComponent<NavMeshAgent>().enabled = true;
-
             m_Moves[BrotherState.BACK].GetComponent<BrotherBack>().Move();
         }
-        //着地→
-        if(m_BeforeBrosState==BrotherState.BACK)
+        //着地→通常
+        if (m_BeforeBrosState == BrotherState.BACK &&
+            m_BrosState == BrotherState.NORMAL)
         {
             m_Moves[BrotherState.BACK].GetComponent<NavMeshAgent>().enabled = false;
         }

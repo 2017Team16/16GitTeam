@@ -215,7 +215,7 @@ public class OlderBrotherHamster : MonoBehaviour
     private void SpecialAttack()
     {
         GameDatas.isSpecialAttack = true;
-        youngerBrother.SendMessage("必殺技", SendMessageOptions.DontRequireReceiver);
+        youngerBrother.SendMessage("Special", SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>敵に当たったときの処理</summary>

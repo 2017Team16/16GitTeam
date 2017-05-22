@@ -3,11 +3,13 @@ using System.Collections;
 
 public class BrotherBack : MonoBehaviour
 {
-    private Transform Player;
+    [SerializeField, TooltipAttribute("プレイヤーオブジェクト")]
+    private GameObject Player;
+
     //移動速度
     public float _speed = 5;
 
-    public bool _isBack = false;
+    //public bool _isBack = false;
     //public bool _isMove = false;
 
     NavMeshAgent m_Nav;
@@ -17,8 +19,6 @@ public class BrotherBack : MonoBehaviour
 
     void Start()
     {
-        Player = GameObject.Find("Player").transform;
-
         m_Nav = GetComponent<NavMeshAgent>();
 
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
@@ -29,9 +29,9 @@ public class BrotherBack : MonoBehaviour
     {
         if (m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
-            m_Nav.destination = Player.position;
-            if (_isBack)
-                m_BrotherStateManager.SetState(BrotherState.NORMAL);
+            m_Nav.destination = Player.transform.position;
+            //if (_isBack)
+            //    m_BrotherStateManager.SetState(BrotherState.NORMAL);
         }
     }
 
@@ -74,7 +74,7 @@ public class BrotherBack : MonoBehaviour
     {
         if (collision.gameObject.tag == ("Player") && m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
-            _isBack = true;
+            m_BrotherStateManager.SetState(BrotherState.NORMAL);
         }
     }
 }

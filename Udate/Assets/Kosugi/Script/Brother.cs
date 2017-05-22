@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Brother : MonoBehaviour {
 
-    [SerializeField, TooltipAttribute("弟用の座標オブジェクト")]
+    [SerializeField, TooltipAttribute("ポジション用オブジェクト")]
     private Transform BrotherPosition;
 
+    [HideInInspector, TooltipAttribute("床に当たっているか")]
     public bool _isFloor;
 
     //弟管理クラス
@@ -28,18 +29,19 @@ public class Brother : MonoBehaviour {
         {
             m_BrotherStateManager.SetState(BrotherState.THROW);
         }
-
-        if(Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             m_BrotherStateManager.SetState(BrotherState.SPECIAL);
         }
     }
 
+    public void Special()
+    {
+        m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.tag == "Floor"&& m_BrotherStateManager.GetState() == BrotherState.NORMAL)
-        //{
-        //    _isFloor = true;
-        //}
+
     }
 }

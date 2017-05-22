@@ -17,9 +17,9 @@ public class BrotherShockWave : MonoBehaviour {
 	}
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)
+        if (other.gameObject.tag == "Enemy" &&
+            (m_BrotherStateManager.GetState() == BrotherState.THROW || m_BrotherStateManager.GetState() == BrotherState.BACK))
         {
-            print("!");
             other.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
         }
     }
