@@ -4919,26 +4919,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010821876144, guid: 6f55d7823d2a55d4a82c6a295d1099bb,
-        type: 2}
-      propertyPath: _Player
-      value: 
-      objectReference: {fileID: 1273428616}
     - target: {fileID: 114000014150498938, guid: 6f55d7823d2a55d4a82c6a295d1099bb,
         type: 2}
       propertyPath: _Player
       value: 
       objectReference: {fileID: 1273428616}
-    - target: {fileID: 114000011394281468, guid: 6f55d7823d2a55d4a82c6a295d1099bb,
+    - target: {fileID: 114000010821876144, guid: 6f55d7823d2a55d4a82c6a295d1099bb,
         type: 2}
-      propertyPath: _SpawnerTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010603473656, guid: 6f55d7823d2a55d4a82c6a295d1099bb,
-        type: 2}
-      propertyPath: _SpawnerTime
-      value: 15
-      objectReference: {fileID: 0}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 1273428616}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f55d7823d2a55d4a82c6a295d1099bb, type: 2}
   m_IsPrefabParent: 0

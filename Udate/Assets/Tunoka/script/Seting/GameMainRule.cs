@@ -4,7 +4,7 @@ using System.Collections;
 public class GameMainRule : MonoBehaviour
 {
 
-
+    private OlderBrotherHamster _Player;//プレイヤーの　HPがある場所
     [SerializeField, Header("プレイヤーのHP(確認用)")]
     private float _playerHp;
     [SerializeField, Header("ゲームオーバーのシーンの名前を指定")]
@@ -16,8 +16,8 @@ public class GameMainRule : MonoBehaviour
 
     void Start()
     {
-        //仮のHP
-        _playerHp = 10;
+        _Player = GameObject.Find("Player").GetComponent<OlderBrotherHamster>();
+        _playerHp = _Player.m_Life;
         lordCheck = true;
 
     }
@@ -25,6 +25,7 @@ public class GameMainRule : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _playerHp = _Player.m_Life;
         if (_playerHp <= 0)//ゲーム終了条件
         {
             GameClear();

@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cac1b163fd21148b99675908c89015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SpawnerTime: 30
+  _SpawnerTime: 15
   _SpawnerMaxNum: 2
   _SpawnerNum: 1
   _Distance: 5
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9cac1b163fd21148b99675908c89015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SpawnerTime: 35
+  _SpawnerTime: 10
   _SpawnerMaxNum: 5
   _SpawnerNum: 3
   _Distance: 5
