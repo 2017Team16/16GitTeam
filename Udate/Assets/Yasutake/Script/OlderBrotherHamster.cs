@@ -9,8 +9,10 @@ public class OlderBrotherHamster : MonoBehaviour
         WALK,
         CLIMB
     }
-    [Header("体力")]
-    public int m_Life = 3;
+    [Header("最初の体力")]
+    public int m_Life = 6;
+    [Header("最大体力")]
+    public int m_MaxLife = 6;
     [Header("無敵時間")]
     public float m_InvincibleInterval = 3.0f;
     private float m_InvincibleTime; //無敵時間をはかる変数
@@ -224,7 +226,7 @@ public class OlderBrotherHamster : MonoBehaviour
         if (m_InvincibleTime >= m_InvincibleInterval)
         {
             m_InvincibleTime = 0.0f;
-            m_Life--;
+            AddLife(-1);
 
             getenemys.Clear();
 
@@ -255,12 +257,29 @@ public class OlderBrotherHamster : MonoBehaviour
             m_Chain = 0;
             m_State = PlayerState.WALK;
         }
-        if (m_Life <= 0)
+
+    }
+    /// <summary>体力の増減</summary>
+    /// <param name="n">足す数値</param>
+    private void AddLife(int n)
+    {
+        m_Life += n;
+        Mathf.Clamp(m_Life, 0, m_MaxLife);
+        if(m_Life <= 0)
         {
             GameDatas.isPlayerLive = false;
             Debug.Log("死んだ");
             //Destroy(gameObject);
         }
+    }
+
+    /// <summary>最大体力の増減</summary>
+    /// <param name="n">足す数値</param>
+    private void AddMaxLife(int n)
+    {
+        m_MaxLife += n;
+        Mathf.Clamp(m_MaxLife, 0, 10);
+        AddLife(n);
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>
