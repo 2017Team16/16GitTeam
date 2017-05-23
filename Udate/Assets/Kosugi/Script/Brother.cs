@@ -25,10 +25,12 @@ public class Brother : MonoBehaviour {
         {
             transform.position = BrotherPosition.position;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("XboxL1"))
         {
             m_BrotherStateManager.SetState(BrotherState.THROW);
         }
+        /*デバッグ用*/
         if (Input.GetKeyDown(KeyCode.C))
         {
             m_BrotherStateManager.SetState(BrotherState.SPECIAL);
