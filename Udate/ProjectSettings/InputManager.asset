@@ -297,10 +297,10 @@ InputManager:
     m_Name: XboxA
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 0
+    negativeButton: joystick button 0
+    positiveButton: f
     altNegativeButton: 
-    altPositiveButton: f
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -313,10 +313,10 @@ InputManager:
     m_Name: XboxB
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 1
+    negativeButton: joystick button 1
+    positiveButton: q
     altNegativeButton: 
-    altPositiveButton: q
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -329,8 +329,8 @@ InputManager:
     m_Name: XboxX
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 2
+    negativeButton: joystick button 2
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -345,10 +345,10 @@ InputManager:
     m_Name: XboxL1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 4
+    negativeButton: joystick button 4
+    positiveButton: 
     altNegativeButton: 
-    altPositiveButton: space
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -358,46 +358,13 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: RHorizontal
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.19
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 3
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: RVertical
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.19
-    sensitivity: 1000
-    snap: 0
-    invert: 1
-    type: 2
-    axis: 4
-    joyNum: 0
-  - serializedVersion: 3
-<<<<<<< HEAD
     m_Name: XboxR1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 5
+    negativeButton: joystick button 5
+    positiveButton: 
     altNegativeButton: 
-    altPositiveButton: e
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -405,7 +372,8 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-=======
+    joyNum: 0
+  - serializedVersion: 3
     m_Name: BrosHorizontal
     descriptiveName: 
     descriptiveNegativeName: 
@@ -436,5 +404,4 @@ InputManager:
     invert: 1
     type: 2
     axis: 4
->>>>>>> b047f7acae629dbda5439a2cb061f6a2576efccb
     joyNum: 0

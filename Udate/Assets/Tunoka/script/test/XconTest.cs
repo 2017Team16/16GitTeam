@@ -26,22 +26,7 @@ public class XconTest : MonoBehaviour {
         {
             print("ステックが下に倒された");
         }
-        if (Input.GetAxis("RHorizontal") > 0)
-        {
-            print("右ステックが右に倒された");
-        }
-        if (Input.GetAxis("RHorizontal") < 0)
-        {
-            print("右ステックが左に倒された");
-        }
-        if (Input.GetAxis("RVertical") > 0)
-        {
-            print("右ステックが上に倒された");
-        }
-        if (Input.GetAxis("RVertical") < 0)
-        {
-            print("右ステックが下に倒された");
-        }
+
         if (Input.GetButton("XboxA"))
         {
             print("Aボタン");
