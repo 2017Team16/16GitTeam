@@ -261,7 +261,7 @@ public class OlderBrotherHamster : MonoBehaviour
     }
     /// <summary>体力の増減</summary>
     /// <param name="n">足す数値</param>
-    private void AddLife(int n)
+    public void AddLife(int n)
     {
         m_Life += n;
         Mathf.Clamp(m_Life, 0, m_MaxLife);
@@ -275,7 +275,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
     /// <summary>最大体力の増減</summary>
     /// <param name="n">足す数値</param>
-    private void AddMaxLife(int n)
+    public void AddMaxLife(int n)
     {
         m_MaxLife += n;
         Mathf.Clamp(m_MaxLife, 0, 10);

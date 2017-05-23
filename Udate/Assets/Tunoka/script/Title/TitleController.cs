@@ -26,7 +26,7 @@ public class TitleController : MonoBehaviour {
 
         if (_CursorNum == 3)//説明画面表示中
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("XboxB"))
             {
                 _CursorNum = 0;
             }
@@ -34,19 +34,19 @@ public class TitleController : MonoBehaviour {
         else if (_TAnim.GetAnimeFlag() )
         {
             _RuleIme.SetActive(false);
-            if (_CursorNum == 0 && Input.GetKeyDown(KeyCode.Space))
+            if (_CursorNum == 0 && Input.GetButtonDown("XboxB"))
             {
                 SceneChangeButton();
             }
-            if (_CursorNum == 1 && Input.GetKeyDown(KeyCode.Space))
+            if (_CursorNum == 1 && Input.GetButtonDown("XboxB"))
             {
                 RuleButton();
             }
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetAxis("Vertical") > 0)
             {
                 _CursorNum = 0;
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetAxis("Vertical") < 0)
             {
                 _CursorNum = 1;
             }

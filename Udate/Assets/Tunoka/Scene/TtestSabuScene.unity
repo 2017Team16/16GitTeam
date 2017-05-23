@@ -4929,6 +4929,11 @@ Prefab:
       propertyPath: _Player
       value: 
       objectReference: {fileID: 1273428616}
+    - target: {fileID: 114000011394281468, guid: 6f55d7823d2a55d4a82c6a295d1099bb,
+        type: 2}
+      propertyPath: _EnemyType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f55d7823d2a55d4a82c6a295d1099bb, type: 2}
   m_IsPrefabParent: 0

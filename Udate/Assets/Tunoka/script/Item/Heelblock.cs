@@ -32,8 +32,8 @@ public class Heelblock : MonoBehaviour {
     {
         if (collider.transform.tag == "Player")
         {
+            collider.transform.GetComponent<OlderBrotherHamster>().AddLife((int)_Heel);
             Destroy(transform.gameObject);
-            //collider.transform.GetComponent<OlderBrotherHamster>().AddLife(_Heel);
         }
 
     }

@@ -20,6 +20,10 @@ public class ResultController : MonoBehaviour {
     [SerializeField, Header("画面表示用のオブジェクト")]
     private Text _displayLastScore;
 
+
+
+
+    
     private RankingSeting _rankingSeting;
     // Use this for initialization
     void Start () {

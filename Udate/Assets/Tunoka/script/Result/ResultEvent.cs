@@ -17,6 +17,10 @@ public class ResultEvent : MonoBehaviour
     private Text _AdditionText;
     private float _Timer;
 
+
+    [SerializeField, Header("選択中のオブジェクト")]
+    private GameObject _SelectWaku;
+
     public Vector3 test;
     // Use this for initialization
     void Start ()
@@ -78,6 +82,7 @@ public class ResultEvent : MonoBehaviour
     {
         iTween.MoveTo(_ScoreObj, iTween.Hash("position" , test, "time", 3));
         iTween.ScaleTo(_ScoreObj, iTween.Hash("x", 1, "y", 1, "time", 3));
+        _SelectWaku.SetActive(true);
         gameObject.SetActive(false);
     }
 
