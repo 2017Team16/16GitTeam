@@ -109,7 +109,7 @@ public class OlderBrotherHamster : MonoBehaviour
         else
         {
             jumpVector = 0.0f;
-            if (Input.GetButton("XboxA") && enemyCount == 0)
+            if (Input.GetButtonDown("XboxA") && enemyCount == 0)
             {
                 jumpVector = m_Jump;
                 if (brotherState.GetState() != BrotherState.NORMAL && brotherState.GetState() != BrotherState.THROW) jumpVector *= 1.5f;
@@ -175,11 +175,11 @@ public class OlderBrotherHamster : MonoBehaviour
         youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount + 1), 0);
         if (brotherState.GetState() == BrotherState.NORMAL) //持っているなら
         {
-            if (Input.GetButton("XboxB"))
+            if (Input.GetButtonDown("XboxB"))
             {
                 EnemyKill();
             }
-            if (Input.GetButton("XboxR1") && m_SpecialPoint >= 100.0f)
+            if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
             {
                 SpecialAttack();
             }
@@ -264,7 +264,7 @@ public class OlderBrotherHamster : MonoBehaviour
     public void AddLife(int n)
     {
         m_Life += n;
-        Mathf.Clamp(m_Life, 0, m_MaxLife);
+        m_Life = Mathf.Clamp(m_Life, 0, m_MaxLife);
         if(m_Life <= 0)
         {
             GameDatas.isPlayerLive = false;
@@ -278,7 +278,7 @@ public class OlderBrotherHamster : MonoBehaviour
     public void AddMaxLife(int n)
     {
         m_MaxLife += n;
-        Mathf.Clamp(m_MaxLife, 0, 10);
+        m_MaxLife = Mathf.Clamp(m_MaxLife, 0, 10);
         AddLife(n);
     }
 
