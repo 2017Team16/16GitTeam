@@ -18,7 +18,7 @@ public class SelectWaku : MonoBehaviour {
         }
         if (SelectNum == 1 && Input.GetButtonDown("XboxB"))
         {
-            _SceneChanger.FadeOut(" TtestScene01");
+            _SceneChanger.FadeOut("TtestScene01");
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
