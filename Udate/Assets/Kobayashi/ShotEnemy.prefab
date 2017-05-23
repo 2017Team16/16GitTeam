@@ -208,7 +208,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012059629012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.87, y: 8.636488, z: 9.12}
+  m_LocalPosition: {x: -8.3, y: 8.636488, z: 9.12}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -550,6 +550,7 @@ MonoBehaviour:
   m_Bullet: {fileID: 1000011694215236, guid: 6d18e0217de753a419c14a04f8cfed5f, type: 2}
   muzzle: {fileID: 4000010269574386}
   b_Speed: 500
+  bulletTime: 1
 --- !u!195 &195000011643525810
 NavMeshAgent:
   m_ObjectHideFlags: 1
