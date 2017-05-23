@@ -22,6 +22,9 @@ public class BrotherThrow : MonoBehaviour
     [HideInInspector, TooltipAttribute("ターゲット")]
     public GameObject Target;
 
+    [SerializeField, TooltipAttribute("ターゲット移動速度")]
+    private float _targetSpeed = 0.1f;
+
     [SerializeField, TooltipAttribute("投げる角度")]
     public float _firingAngle = 45.0f;
     [HideInInspector, TooltipAttribute("重力(変更禁止)")]
@@ -97,7 +100,7 @@ public class BrotherThrow : MonoBehaviour
 
             float dx = Input.GetAxis("BrosHorizontal");
             float dz = Input.GetAxis("BrosVertical");
-            m_TargetCreate.transform.Translate(dx * 0.1f, 0.0f, dz * 0.1f);
+            m_TargetCreate.transform.Translate(dx * _targetSpeed, 0.0f, dz * _targetSpeed);
 
             Vector3 rayPos = m_TargetCreate.transform.position;
             Ray ray = new Ray(rayPos, -m_TargetCreate.transform.up);
