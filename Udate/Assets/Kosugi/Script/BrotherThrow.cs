@@ -124,7 +124,7 @@ public class BrotherThrow : MonoBehaviour
                 StartCoroutine(SimulateProjectile());
                 yield break;
             }
-            else if(Input.GetKeyDown(KeyCode.P))
+            else if(Input.GetButtonDown("XboxB"))
             {
                 Destroy(Target);
                 m_BrotherStateManager.SetState(BrotherState.NORMAL);
