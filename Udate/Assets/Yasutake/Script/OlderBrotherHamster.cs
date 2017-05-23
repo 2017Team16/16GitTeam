@@ -109,7 +109,7 @@ public class OlderBrotherHamster : MonoBehaviour
         else
         {
             jumpVector = 0.0f;
-            if (Input.GetKeyDown(KeyCode.F) && enemyCount == 0)
+            if (Input.GetButton("XboxA") && enemyCount == 0)
             {
                 jumpVector = m_Jump;
                 if (brotherState.GetState() != BrotherState.NORMAL && brotherState.GetState() != BrotherState.THROW) jumpVector *= 1.5f;
@@ -175,11 +175,11 @@ public class OlderBrotherHamster : MonoBehaviour
         youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount + 1), 0);
         if (brotherState.GetState() == BrotherState.NORMAL) //持っているなら
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetButton("XboxB"))
             {
                 EnemyKill();
             }
-            if (Input.GetKeyDown(KeyCode.E) && m_SpecialPoint >= 100.0f)
+            if (Input.GetButton("XboxR1") && m_SpecialPoint >= 100.0f)
             {
                 SpecialAttack();
             }
