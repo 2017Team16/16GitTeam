@@ -9,6 +9,8 @@ public class EnemyType : MonoBehaviour {
         Tackle,
         // タックル
         Shot,
+        // 巡回
+        Patrol,
         //逃げる
         Escape
     }
