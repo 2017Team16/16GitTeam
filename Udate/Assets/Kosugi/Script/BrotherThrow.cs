@@ -113,7 +113,8 @@ public class BrotherThrow : MonoBehaviour
                     = new Vector3(m_Hitinfo.hit.point.x, m_Hitinfo.hit.point.y + Target.transform.localScale.y / 2, m_Hitinfo.hit.point.z);
             yield return null;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            //if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("XboxL1"))
             {
                 isflying = true;
 
@@ -273,7 +274,8 @@ public class BrotherThrow : MonoBehaviour
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
-            if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.SUTAN)
+            if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.SUTAN
+                && collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
             {
                 _enemyHit = true;
                 //collision.gameObject.GetComponent<Collider>().isTrigger = true;
