@@ -2643,10 +2643,6 @@ Prefab:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
       propertyPath: m_Name
       value: TackleEnemy (2)
       objectReference: {fileID: 0}
@@ -6881,6 +6877,11 @@ Prefab:
       propertyPath: m_Life
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012490529456, guid: 4c6674b2712537849ba8019275dce95f,
+        type: 2}
+      propertyPath: m_SpecialPoint
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c6674b2712537849ba8019275dce95f, type: 2}
   m_IsPrefabParent: 0
@@ -8597,7 +8598,7 @@ Prefab:
     - target: {fileID: 114000010991394282, guid: 6ce2a8e4e2c8e8a4ea6af80bdc4d5598,
         type: 2}
       propertyPath: Item01Time
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 23000012818985598, guid: 6ce2a8e4e2c8e8a4ea6af80bdc4d5598,
         type: 2}
@@ -9268,7 +9269,7 @@ Prefab:
     - target: {fileID: 114000010666472884, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _ENDTime
-      value: 100
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d47a21e127a338499530075a309fa0d, type: 2}

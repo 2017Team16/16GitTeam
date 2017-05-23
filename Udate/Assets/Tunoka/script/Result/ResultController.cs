@@ -33,7 +33,8 @@ public class ResultController : MonoBehaviour {
         _Kill = Score.getKill();
 
 
-        LastScore = _Score + _Maxpush * 100 + _Chain * 50  ; 
+        LastScore = _Score + _Maxpush * 100 + _Chain * 50  ;
+        print(LastScore);
         _rankingSeting = GameObject.Find("Ranking").GetComponent<RankingSeting>();
 
         _rankingSeting.RankListIn(LastScore);

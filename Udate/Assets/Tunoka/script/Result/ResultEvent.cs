@@ -25,9 +25,9 @@ public class ResultEvent : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        _Score = Score.getScore();
+        _Score = Score.getScore() ;
         _Chain = Score.getChain();
-        _Maxpush = Score.getScore();
+        _Maxpush = Score.getMaxPush();
         _EventNum = 0;
         _Timer =0 ;
         _displayScore = _ScoreObj.GetComponent<Text>();
