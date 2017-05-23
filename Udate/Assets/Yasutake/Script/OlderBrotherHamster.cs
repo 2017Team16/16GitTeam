@@ -92,10 +92,10 @@ public class OlderBrotherHamster : MonoBehaviour
                 GameDatas.isSpecialAttack = false;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1)) //デバック用
-        {
-            Damage();
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse1)) //デバック用
+        //{
+        //    Damage();
+        //}
         m_InvincibleTime += Time.deltaTime;
     }
 
@@ -155,6 +155,10 @@ public class OlderBrotherHamster : MonoBehaviour
         if (Vector3.Distance(transform.position, climbEndPoint) < 0.1f)
         {
             m_Controller.Move(climbEndVector);
+            m_State = PlayerState.WALK;
+        }
+        if (Input.GetAxis("Vertical") < 0)
+        {
             m_State = PlayerState.WALK;
         }
     }
