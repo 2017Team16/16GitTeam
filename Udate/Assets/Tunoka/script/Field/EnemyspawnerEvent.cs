@@ -29,7 +29,9 @@ public class EnemyspawnerEvent : MonoBehaviour {
         // タックル
         Tackle,
         // タックル
-        Shot,
+        Shot, 
+        // 巡回
+        Patrol,
         //逃げる
         Escape
     }
@@ -45,7 +47,8 @@ public class EnemyspawnerEvent : MonoBehaviour {
         {
             case Type.Tackle: _EnemyTypeNum = 0; break;
             case Type.Shot: _EnemyTypeNum = 1; break;
-            case Type.Escape: _EnemyTypeNum = 2; break;
+            case Type.Patrol: _EnemyTypeNum = 2; break;
+            case Type.Escape: _EnemyTypeNum = 3; break;
         }
     }
 	// Update is called once per frame
