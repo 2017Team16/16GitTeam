@@ -12,7 +12,7 @@ public class ShotEnemy : EnemyBase
     public Transform muzzle;
     GameObject bullets;
     public float b_Speed = 0;
-    //public float bulletTime = 0;
+    public float bulletTime = 0;
 
     private Transform m_PlayerLookPoint;
     private Transform m_EyePoint;
@@ -34,9 +34,10 @@ public class ShotEnemy : EnemyBase
         {
             print("みえてる");
 
-            if (bullets == null)
+            if (m_Time >= bulletTime)
             {
                 Shot();
+                m_Time = 0;
             }
 
             //transform.LookAt(m_PlayerLookPoint);
