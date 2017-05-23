@@ -46,7 +46,8 @@ public class BrotherSpecial : MonoBehaviour
         GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < enemys.Length; i++)
         {
-            m_Enemys.Add(enemys[i]);
+            if (enemys[i].GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
+                m_Enemys.Add(enemys[i]);
             //m_Enemys[i].GetComponent<NavMeshAgent>().speed = 0.1f;
         }
         m_Enemys.Add(Player);

@@ -124,6 +124,13 @@ public class BrotherThrow : MonoBehaviour
                 StartCoroutine(SimulateProjectile());
                 yield break;
             }
+            else if(Input.GetKeyDown(KeyCode.P))
+            {
+                Destroy(Target);
+                m_BrotherStateManager.SetState(BrotherState.NORMAL);
+
+                yield break;
+            }
             transform.position = BrotherPosition.position;
         }
     }
