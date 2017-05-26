@@ -7,15 +7,15 @@ public class OlderBrotherHamster : MonoBehaviour
     enum PlayerState
     {
         WALK,
-        CLIMB
+        CLIMB,
     }
-    [Header("最初の体力")]
+    [Header("体力")]
     public int m_Life = 6;
-    [Header("最大体力")]
-    public int m_MaxLife = 6;
+    private int[] m_MaxLife = { 6, 8, 10 }; //最大体力の候補
+    private int m_MaxLifeIndex = 0; //いまの最大体力はどれか
     [Header("無敵時間")]
     public float m_InvincibleInterval = 3.0f;
-    private float m_InvincibleTime; //無敵時間をはかる変数
+    private float m_InvincibleTime = 0; //無敵時間をはかる変数
     [Header("速さ")]
     public float m_Speed = 1;
     [Header("ジャンプ力")]
@@ -41,7 +41,7 @@ public class OlderBrotherHamster : MonoBehaviour
     [Header("必殺の継続時間")]
     public float m_SpecialTime = 5.0f;
 
-    private CharacterController m_Controller;
+    private Rigidbody m_Rigidbody;
     private PlayerState m_State = PlayerState.WALK;
 
     private Vector3 climbStartPoint = Vector3.zero; //壁のぼり開始地点
@@ -59,7 +59,8 @@ public class OlderBrotherHamster : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        m_Texture = transform.FindChild("Quad").gameObject;
+        AddLife(0);
+        m_Texture = transform.FindChild("Ani").gameObject;
         m_Scale = m_Texture.transform.localScale;
         reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
 
@@ -68,8 +69,8 @@ public class OlderBrotherHamster : MonoBehaviour
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
 
-        m_Controller = GetComponent<CharacterController>();
-
+        m_Rigidbody = GetComponent<Rigidbody>();
+        
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
     }
@@ -77,6 +78,10 @@ public class OlderBrotherHamster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameDatas.isPlayerLive)
+        {
+            return;
+        }
         switch (m_State)
         {
             case PlayerState.WALK: Move(); break;
@@ -92,39 +97,33 @@ public class OlderBrotherHamster : MonoBehaviour
                 GameDatas.isSpecialAttack = false;
             }
         }
-        //if (Input.GetKeyDown(KeyCode.Mouse1)) //デバック用
-        //{
-        //    Damage();
-        //}
         m_InvincibleTime += Time.deltaTime;
     }
 
     /// <summary>プレイヤーの移動</summary>
     private void Move()
     {
-        if (!m_Controller.isGrounded)
+        Vector3 newVelocity = m_Rigidbody.velocity;
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, -Vector3.up, Color.red);
+        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f) && Input.GetButtonDown("XboxA") && enemyCount == 0)
         {
-            jumpVector -= 10 * Time.deltaTime;
-        }
-        else
-        {
-            jumpVector = 0.0f;
-            if (Input.GetButtonDown("XboxA") && enemyCount == 0)
-            {
-                jumpVector = m_Jump;
-                if (brotherState.GetState() != BrotherState.NORMAL && brotherState.GetState() != BrotherState.THROW) jumpVector *= 1.5f;
-            }
+            Debug.Log(hit.transform.name);
+            newVelocity.y = m_Jump;
+            if (brotherState.GetState() != BrotherState.NORMAL
+                && brotherState.GetState() != BrotherState.THROW) newVelocity.y *= 1.5f;
+            m_Rigidbody.velocity = newVelocity;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal") / (enemyCount + 1), jumpVector, Input.GetAxis("Vertical") / (enemyCount + 1)) * 10.0f * Time.deltaTime;
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal") / (enemyCount + 1), 0,
+            Input.GetAxis("Vertical") / (enemyCount + 1)) * m_Speed * Time.deltaTime;
         TextureLR();
         if (GameDatas.isSpecialAttack)
         {
             move.x *= 2;
             move.z *= 2;
         }
-
-        m_Controller.Move(move);
+        m_Rigidbody.MovePosition(transform.position + move);
     }
 
     /// <summary>画像をどっち向きにするか</summary>
@@ -148,19 +147,20 @@ public class OlderBrotherHamster : MonoBehaviour
         float speed;
         speed = (GameDatas.isSpecialAttack) ? climbSpeed * 2 : climbSpeed;
 
-        float elapsedTime = (Time.time - climbStartTime) * speed;
+        float elapsedTime = (Time.time - climbStartTime) * speed / (enemyCount + 1);
         float nowPoint = elapsedTime / climbDistance;
         transform.position = Vector3.Lerp(climbStartPoint, climbEndPoint, nowPoint);
 
         if (Vector3.Distance(transform.position, climbEndPoint) < 0.1f)
         {
-            m_Controller.Move(climbEndVector);
+            m_Rigidbody.MovePosition(transform.position + climbEndVector);
             m_State = PlayerState.WALK;
         }
         if (Input.GetAxis("Vertical") < 0)
         {
             m_State = PlayerState.WALK;
         }
+        m_Rigidbody.velocity = Vector3.zero;
     }
 
     /// <summary>スタンした敵と触れた時の処理</summary>
@@ -169,14 +169,14 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         enemyCount++;
         enemy.transform.parent = transform;
-        enemy.transform.localPosition = new Vector3(0, enemyInterval * enemyCount, 0);
+        enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1) + 2.8f, 0);
         enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>持っている弟の処理</summary>
     private void BrotherGet()
     {
-        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount + 1), 0);
+        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.8f, 0);
         if (brotherState.GetState() == BrotherState.NORMAL) //持っているなら
         {
             if (Input.GetButtonDown("XboxB"))
@@ -268,22 +268,22 @@ public class OlderBrotherHamster : MonoBehaviour
     public void AddLife(int n)
     {
         m_Life += n;
-        m_Life = Mathf.Clamp(m_Life, 0, m_MaxLife);
-        if(m_Life <= 0)
+        m_Life = Mathf.Clamp(m_Life, 0, m_MaxLife[m_MaxLifeIndex]);
+        if(m_Life == 0)
         {
             GameDatas.isPlayerLive = false;
             Debug.Log("死んだ");
-            //Destroy(gameObject);
         }
+        if (m_MaxLifeIndex == 2 && m_Life <= m_MaxLife[1]) m_MaxLifeIndex--;
+        if (m_MaxLifeIndex == 1 && m_Life <= m_MaxLife[0]) m_MaxLifeIndex--;
     }
 
-    /// <summary>最大体力の増減</summary>
-    /// <param name="n">足す数値</param>
-    public void AddMaxLife(int n)
+    /// <summary>最大体力の増加</summary>
+    public void AddMaxLife()
     {
-        m_MaxLife += n;
-        m_MaxLife = Mathf.Clamp(m_MaxLife, 0, 10);
-        AddLife(n);
+        m_MaxLifeIndex++;
+        if (m_MaxLifeIndex > 2) m_MaxLifeIndex = 2;
+        AddLife(2);
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>
@@ -303,6 +303,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
+        if (m_State == PlayerState.CLIMB) return;
         if (other.transform.tag == "FrontClimbStart" && Input.GetAxis("Vertical") > 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
@@ -323,11 +324,11 @@ public class OlderBrotherHamster : MonoBehaviour
         }
     }
 
-    public void OnControllerColliderHit(ControllerColliderHit hit)
+    public void OnCollisionEnter(Collision collision)
     {
-        if (hit.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy")
         {
-            EnemyBase.EnemyState enemyState = hit.gameObject.GetComponent<EnemyBase>().GetEnemyState();
+            EnemyBase.EnemyState enemyState = collision.gameObject.GetComponent<EnemyBase>().GetEnemyState();
             if (enemyState == EnemyBase.EnemyState.WALKING ||
                 enemyState == EnemyBase.EnemyState.CHARGING ||
                 enemyState == EnemyBase.EnemyState.ATTACK)
@@ -336,14 +337,9 @@ public class OlderBrotherHamster : MonoBehaviour
             }
             if (enemyState == EnemyBase.EnemyState.SUTAN)
             {
-                EnemyGet(hit.gameObject);
+                EnemyGet(collision.gameObject);
             }
         }
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-
         if (collision.transform.tag == "EnemyBullet")
         {
             Damage();
