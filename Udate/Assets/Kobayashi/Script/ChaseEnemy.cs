@@ -8,11 +8,7 @@ public class ChaseEnemy : EnemyBase {
     protected override void WalkingState()
     {
         GetComponent<Renderer>().material.color = Color.yellow;
-        vec = m_Player.transform.position - transform.position;
-       // transform.rotation = Quaternion.Euler(0, 0, 0);
-        vec.y = 0;
-        vec.Normalize();
-        m_Agent.Move(vec * m_Speed * Time.deltaTime);
+        SetNewPatrolPointToDestination();
     }
     protected override void ChargingState()
     {
@@ -26,6 +22,6 @@ public class ChaseEnemy : EnemyBase {
     }
     protected override void SetNewPatrolPointToDestination()
     {
-       // m_Agent.destination = new Vector3(Random.Range(-4, 4), 0, Random.Range(-5, 5));
+        m_Agent.destination = m_Player.transform.position;
     }
 }

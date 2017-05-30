@@ -25,17 +25,33 @@ public class PatrolEnemy : EnemyBase
         SetNewPatrolPointToDestination();
 
     }
+
+    void Update()
+    {
+        if (m_Player == null) return;
+        m_Time += Time.deltaTime;
+        StateUpdate();
+    }
+
     protected override void WalkingState()
     {
         GetComponent<Renderer>().material.color = Color.blue;
         if (HasArrived())
         {
             SetNewPatrolPointToDestination();
+            ChangeState(1);
+            m_Agent.Stop();
         }
     }
 
     protected override void ChargingState()
     {
+        if(m_Time >= stayTime)
+        {
+            ChangeState(0);
+            m_Time = 0;
+            m_Agent.Resume();
+        }
     }
 
     protected override void AttackState()

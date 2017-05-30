@@ -10,6 +10,7 @@ public class AniTest : MonoBehaviour
     {
         WALK,
         CLIMB,
+        CRUSH
     }
     [Header("体力")]
     public int m_Life = 6;
@@ -29,6 +30,7 @@ public class AniTest : MonoBehaviour
 
     [Header("持っている敵の間隔")]
     public float enemyInterval = 1.0f;
+    private float enemyIntervalDefault = 0.0f;
     private int enemyCount = 0; //持っている敵の数
 
     private GameObject youngerBrotherPosition; //弟の位置
@@ -65,6 +67,7 @@ public class AniTest : MonoBehaviour
 
         youngerBrotherPosition = transform.FindChild("BrosPosition").gameObject;
         m_InvincibleTime = m_InvincibleInterval;
+        enemyIntervalDefault = enemyInterval;
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
 
@@ -85,9 +88,14 @@ public class AniTest : MonoBehaviour
         {
             case PlayerState.WALK: Move(); break;
             case PlayerState.CLIMB: Climb(); break;
+            case PlayerState.CRUSH: Crush();break;
         }
+        m_InvincibleTime += Time.deltaTime;
+
+        if (m_State == PlayerState.CRUSH) return;
+
         BrotherGet();
-        if (GameDatas.isSpecialAttack)
+        if (GameDatas.isSpecialAttack) //必殺技の効果時間
         {
             m_SpecialPoint -= 100.0f / m_SpecialTime * Time.deltaTime;
             if (m_SpecialPoint <= 0.0f)
@@ -96,7 +104,6 @@ public class AniTest : MonoBehaviour
                 GameDatas.isSpecialAttack = false;
             }
         }
-        m_InvincibleTime += Time.deltaTime;
     }
 
     /// <summary>プレイヤーの移動</summary>
@@ -162,6 +169,30 @@ public class AniTest : MonoBehaviour
         m_Rigidbody.velocity = Vector3.zero;
     }
 
+    /// <summary>敵をつぶす演出</summary>
+    private void Crush()
+    {
+        enemyInterval *= 0.95f;
+        int getenemycount = 0;
+        foreach (Transform chird in transform)
+        {
+            if (chird.tag == "Enemy")
+            {
+                getenemycount++;
+                Vector3 newScale = chird.transform.localScale;
+                newScale.y *= 0.95f;
+                chird.transform.localScale = newScale;
+                chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 3, 0);
+            }
+        }
+        if(enemyInterval < enemyIntervalDefault / 2.0f)
+        {
+            EnemyKill();
+            enemyInterval = enemyIntervalDefault;
+            m_State = PlayerState.WALK;
+        }
+    }
+
     /// <summary>スタンした敵と触れた時の処理</summary>
     /// <param name="enemy">敵のゲームオブジェクト</param>
     private void EnemyGet(GameObject enemy)
@@ -170,6 +201,7 @@ public class AniTest : MonoBehaviour
         enemy.transform.parent = transform;
         enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1)+3, 0);
         enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
+        enemy.GetComponent<Collider>().enabled = false;
     }
 
     /// <summary>持っている弟の処理</summary>
@@ -180,12 +212,22 @@ public class AniTest : MonoBehaviour
         {
             if (Input.GetButtonDown("XboxB"))
             {
-                EnemyKill();
+                //EnemyKill();
+                m_State = PlayerState.CRUSH;
             }
             if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
             {
                 SpecialAttack();
             }
+            youngerBrother.GetComponent<Collider>().enabled = false;
+            GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
+            GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2,0);
+        }
+        else
+        {
+            youngerBrother.GetComponent<Collider>().enabled = true;
+            GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount;
+            GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
         }
     }
 
@@ -250,10 +292,11 @@ public class AniTest : MonoBehaviour
                 //getenemys[i].transform.localPosition = navHit.position;
                 float randX = Random.Range(-1.0f, 1.0f);
                 float randZ = Random.Range(-1.0f, 1.0f);
-                getenemys[i].localPosition = new Vector3(randX, getenemys[i].localPosition.y, randZ);
+                //getenemys[i].localPosition = new Vector3(getenemys[i].localPosition.x, getenemys[i].localPosition.y, getenemys[i].localPosition.z);
                 getenemys[i].parent = null;
+                getenemys[i].GetComponent<Collider>().enabled = true;
                 Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(randX * 2, Random.Range(0.1f, 1.0f), randZ * 2);
+                rb.velocity = new Vector3(randX * 10, Random.Range(0.1f, 1.0f), randZ * 10);
             }
             enemyCount = 0;
             m_Chain = 0;
@@ -290,6 +333,8 @@ public class AniTest : MonoBehaviour
         return m_SpecialPoint / 100.0f;
     }
 
+    /// <summary>壁のぼりの準備</summary>
+    /// <param name="y">登る高さ</param>
     private void ClimbPreparation(float y)
     {
         climbStartPoint = transform.position;
@@ -301,7 +346,7 @@ public class AniTest : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        if (m_State == PlayerState.CLIMB) return;
+        if (m_State != PlayerState.WALK) return;
         if (other.transform.tag == "FrontClimbStart" && Input.GetAxis("Vertical") > 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
@@ -325,6 +370,7 @@ public class AniTest : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (m_State == PlayerState.CRUSH) return;
         if (collision.transform.tag == "Enemy")
         {
             EnemyBase.EnemyState enemyState = collision.gameObject.GetComponent<EnemyBase>().GetEnemyState();
