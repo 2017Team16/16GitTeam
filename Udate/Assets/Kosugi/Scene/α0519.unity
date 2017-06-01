@@ -89,7 +89,7 @@ NavMeshSettings:
     minRegionArea: 2
     cellSize: 0.16666667
     manualCellSize: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3d52da464f506704c8d8c5e4802e5119, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: a0fd7091462daf24582d6c19996b358c, type: 2}
 --- !u!1 &20037761
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - 4: {fileID: 23806592}
   - 33: {fileID: 23806594}
   - 23: {fileID: 23806593}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - 4: {fileID: 36702881}
   - 33: {fileID: 36702883}
   - 23: {fileID: 36702882}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   - 4: {fileID: 69370813}
   - 33: {fileID: 69370815}
   - 23: {fileID: 69370814}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   - 4: {fileID: 81165718}
   - 33: {fileID: 81165720}
   - 23: {fileID: 81165719}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - 4: {fileID: 91712713}
   - 33: {fileID: 91712715}
   - 23: {fileID: 91712714}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 93674435}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wakusen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +628,7 @@ GameObject:
   - 4: {fileID: 94053913}
   - 33: {fileID: 94053915}
   - 23: {fileID: 94053914}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -694,7 +694,7 @@ GameObject:
   - 4: {fileID: 110593553}
   - 33: {fileID: 110593555}
   - 23: {fileID: 110593554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +760,7 @@ GameObject:
   - 4: {fileID: 110642955}
   - 33: {fileID: 110642957}
   - 23: {fileID: 110642956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,7 +894,7 @@ GameObject:
   - 4: {fileID: 119569491}
   - 33: {fileID: 119569493}
   - 23: {fileID: 119569492}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -960,7 +960,7 @@ GameObject:
   - 4: {fileID: 125431278}
   - 33: {fileID: 125431280}
   - 23: {fileID: 125431279}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1026,7 @@ GameObject:
   - 4: {fileID: 128740855}
   - 33: {fileID: 128740857}
   - 23: {fileID: 128740856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - 4: {fileID: 226957162}
   - 33: {fileID: 226957164}
   - 23: {fileID: 226957163}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1405,7 +1405,7 @@ GameObject:
   - 4: {fileID: 268587616}
   - 33: {fileID: 268587618}
   - 23: {fileID: 268587617}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1471,7 +1471,7 @@ GameObject:
   - 4: {fileID: 277078879}
   - 33: {fileID: 277078881}
   - 23: {fileID: 277078880}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1537,7 @@ GameObject:
   - 4: {fileID: 284304008}
   - 33: {fileID: 284304010}
   - 23: {fileID: 284304009}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1603,7 +1603,7 @@ GameObject:
   - 4: {fileID: 294030290}
   - 33: {fileID: 294030292}
   - 23: {fileID: 294030291}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1669,7 +1669,7 @@ GameObject:
   - 4: {fileID: 297813146}
   - 33: {fileID: 297813148}
   - 23: {fileID: 297813147}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1735,7 +1735,7 @@ GameObject:
   - 4: {fileID: 326170152}
   - 33: {fileID: 326170154}
   - 23: {fileID: 326170153}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1881,7 +1881,7 @@ GameObject:
   - 4: {fileID: 339321252}
   - 33: {fileID: 339321254}
   - 23: {fileID: 339321253}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1947,7 +1947,7 @@ GameObject:
   - 4: {fileID: 340866880}
   - 33: {fileID: 340866882}
   - 23: {fileID: 340866881}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2013,7 +2013,7 @@ GameObject:
   - 4: {fileID: 358842743}
   - 33: {fileID: 358842745}
   - 23: {fileID: 358842744}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2079,7 +2079,7 @@ GameObject:
   - 4: {fileID: 367261257}
   - 33: {fileID: 367261259}
   - 23: {fileID: 367261258}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2145,7 +2145,7 @@ GameObject:
   - 4: {fileID: 371608355}
   - 33: {fileID: 371608357}
   - 23: {fileID: 371608356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2211,7 +2211,7 @@ GameObject:
   - 4: {fileID: 376557880}
   - 33: {fileID: 376557882}
   - 23: {fileID: 376557881}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2277,7 +2277,7 @@ GameObject:
   - 4: {fileID: 395260010}
   - 33: {fileID: 395260012}
   - 23: {fileID: 395260011}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2344,9 +2344,10 @@ GameObject:
   - 33: {fileID: 398494700}
   - 65: {fileID: 398494699}
   - 23: {fileID: 398494698}
-  m_Layer: 0
+  - 114: {fileID: 398494701}
+  m_Layer: 10
   m_Name: Cube (4)
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2357,10 +2358,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 398494696}
-  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.50000006, w: 0.5}
-  m_LocalPosition: {x: -0.274, y: 5.79, z: -0.235}
-  m_LocalScale: {x: 7.5644183, y: 0.070082456, z: 0.49272823}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90.00001}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.26, y: 5.79, z: -0.23499998}
+  m_LocalScale: {x: 7.5644183, y: 0.5, z: 0.1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children: []
   m_Father: {fileID: 1792193409}
   m_RootOrder: 4
@@ -2412,6 +2413,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 398494696}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &398494701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 398494696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &402629940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,7 +2504,7 @@ GameObject:
   - 4: {fileID: 427043127}
   - 33: {fileID: 427043129}
   - 23: {fileID: 427043128}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2558,7 +2570,7 @@ GameObject:
   - 4: {fileID: 428593169}
   - 33: {fileID: 428593171}
   - 23: {fileID: 428593170}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2624,7 +2636,7 @@ GameObject:
   - 4: {fileID: 452266086}
   - 33: {fileID: 452266088}
   - 23: {fileID: 452266087}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3030,7 +3042,7 @@ GameObject:
   - 4: {fileID: 546247754}
   - 33: {fileID: 546247756}
   - 23: {fileID: 546247755}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3166,7 +3178,7 @@ GameObject:
   - 4: {fileID: 564108586}
   - 33: {fileID: 564108588}
   - 23: {fileID: 564108587}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3232,7 +3244,7 @@ GameObject:
   - 4: {fileID: 572340992}
   - 33: {fileID: 572340994}
   - 23: {fileID: 572340993}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3299,9 +3311,10 @@ GameObject:
   - 33: {fileID: 572712024}
   - 65: {fileID: 572712023}
   - 23: {fileID: 572712022}
-  m_Layer: 0
+  - 114: {fileID: 572712025}
+  m_Layer: 10
   m_Name: Cube (6)
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3312,10 +3325,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 572712020}
-  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.50000006, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.70710677}
   m_LocalPosition: {x: 0.154, y: 8.61, z: -0.235}
-  m_LocalScale: {x: 1.9317676, y: 0.0700825, z: 0.36488083}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90.00001}
+  m_LocalScale: {x: 1.9317676, y: 0.7, z: 0.07}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
   m_Children: []
   m_Father: {fileID: 1792193409}
   m_RootOrder: 6
@@ -3367,6 +3380,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 572712020}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &572712025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 572712020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &576848506
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,6 +3517,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012059629012, guid: 280a57a84c8fa52439c77af245f2e25e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 280a57a84c8fa52439c77af245f2e25e, type: 2}
   m_IsPrefabParent: 0
@@ -3504,7 +3532,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 599574965}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wakusen (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3624,7 +3652,7 @@ GameObject:
   - 4: {fileID: 635351573}
   - 33: {fileID: 635351575}
   - 23: {fileID: 635351574}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3690,7 +3718,7 @@ GameObject:
   - 4: {fileID: 640169585}
   - 33: {fileID: 640169587}
   - 23: {fileID: 640169586}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3757,9 +3785,10 @@ GameObject:
   - 33: {fileID: 649684184}
   - 65: {fileID: 649684183}
   - 23: {fileID: 649684182}
-  m_Layer: 0
+  - 114: {fileID: 649684185}
+  m_Layer: 10
   m_Name: Cube (1)
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3825,6 +3854,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 649684180}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &649684185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 649684180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &653921670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,7 +3875,7 @@ GameObject:
   - 4: {fileID: 653921671}
   - 33: {fileID: 653921673}
   - 23: {fileID: 653921672}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3901,7 +3941,7 @@ GameObject:
   - 4: {fileID: 661044765}
   - 33: {fileID: 661044767}
   - 23: {fileID: 661044766}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3967,7 +4007,7 @@ GameObject:
   - 4: {fileID: 664582311}
   - 33: {fileID: 664582313}
   - 23: {fileID: 664582312}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4033,7 +4073,7 @@ GameObject:
   - 4: {fileID: 672282162}
   - 33: {fileID: 672282164}
   - 23: {fileID: 672282163}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4287,7 +4327,7 @@ GameObject:
   - 4: {fileID: 695026205}
   - 33: {fileID: 695026207}
   - 23: {fileID: 695026206}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4423,7 +4463,7 @@ GameObject:
   - 4: {fileID: 742133900}
   - 33: {fileID: 742133902}
   - 23: {fileID: 742133901}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4559,7 +4599,7 @@ GameObject:
   - 4: {fileID: 779736409}
   - 33: {fileID: 779736411}
   - 23: {fileID: 779736410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4625,7 +4665,7 @@ GameObject:
   - 4: {fileID: 795041297}
   - 33: {fileID: 795041299}
   - 23: {fileID: 795041298}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4689,7 +4729,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 821914084}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wakusen (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4728,7 +4768,7 @@ GameObject:
   - 4: {fileID: 824367851}
   - 33: {fileID: 824367853}
   - 23: {fileID: 824367852}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4794,7 +4834,7 @@ GameObject:
   - 4: {fileID: 832128712}
   - 33: {fileID: 832128714}
   - 23: {fileID: 832128713}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4947,7 +4987,7 @@ GameObject:
   - 4: {fileID: 871825902}
   - 33: {fileID: 871825904}
   - 23: {fileID: 871825903}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5014,6 +5054,7 @@ GameObject:
   - 33: {fileID: 901064261}
   - 65: {fileID: 901064260}
   - 23: {fileID: 901064259}
+  - 114: {fileID: 901064262}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Floor
@@ -5029,7 +5070,7 @@ Transform:
   m_GameObject: {fileID: 901064257}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 9.1427355, z: 0.115}
-  m_LocalScale: {x: 1.0000005, y: 1, z: 0.7697916}
+  m_LocalScale: {x: 1, y: 1, z: 0.7697916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1792193409}
@@ -5082,6 +5123,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 901064257}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &901064262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 901064257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &924957393
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,7 +5207,7 @@ GameObject:
   - 4: {fileID: 925695521}
   - 33: {fileID: 925695523}
   - 23: {fileID: 925695522}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5222,9 +5274,10 @@ GameObject:
   - 33: {fileID: 933212838}
   - 65: {fileID: 933212837}
   - 23: {fileID: 933212836}
-  m_Layer: 0
+  - 114: {fileID: 933212839}
+  m_Layer: 10
   m_Name: Cube (5)
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5235,10 +5288,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933212834}
-  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.50000006, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.70710677}
   m_LocalPosition: {x: 0.427, y: 5.79, z: -0.235}
-  m_LocalScale: {x: 7.5644226, y: 0.07008251, z: 0.18955903}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90.00001}
+  m_LocalScale: {x: 7.5644226, y: 0.2, z: 0.07}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
   m_Children: []
   m_Father: {fileID: 1792193409}
   m_RootOrder: 5
@@ -5290,6 +5343,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 933212834}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &933212839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 933212834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &953361715
 Prefab:
   m_ObjectHideFlags: 0
@@ -5419,7 +5483,7 @@ GameObject:
   - 23: {fileID: 972668686}
   m_Layer: 8
   m_Name: Takadai (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5495,7 +5559,7 @@ GameObject:
   - 4: {fileID: 974331060}
   - 33: {fileID: 974331062}
   - 23: {fileID: 974331061}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5788,6 +5852,41 @@ Prefab:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1273428616}
+    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: _targetSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: _gravityMultiply
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 135000013496690842, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000011616523500, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195000012136483776, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135000013496690842, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000010812663448, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: m_Mass
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaaaddd43699f5b4daead6eb9196d726, type: 2}
   m_IsPrefabParent: 0
@@ -5944,7 +6043,7 @@ GameObject:
   - 4: {fileID: 1078338598}
   - 33: {fileID: 1078338600}
   - 23: {fileID: 1078338599}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6010,7 +6109,7 @@ GameObject:
   - 4: {fileID: 1088433835}
   - 33: {fileID: 1088433837}
   - 23: {fileID: 1088433836}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6076,7 +6175,7 @@ GameObject:
   - 4: {fileID: 1093555295}
   - 33: {fileID: 1093555297}
   - 23: {fileID: 1093555296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6142,7 +6241,7 @@ GameObject:
   - 4: {fileID: 1095517055}
   - 33: {fileID: 1095517057}
   - 23: {fileID: 1095517056}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6277,9 +6376,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1109961687}
   - 65: {fileID: 1109961688}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: saku (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6552,6 +6651,7 @@ MonoBehaviour:
   m_Bullet: {fileID: 1000011694215236, guid: 6d18e0217de753a419c14a04f8cfed5f, type: 2}
   muzzle: {fileID: 536513174}
   b_Speed: 500
+  bulletTime: 0
 --- !u!195 &1146260991
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6740,7 +6840,7 @@ GameObject:
   - 4: {fileID: 1177259194}
   - 33: {fileID: 1177259196}
   - 23: {fileID: 1177259195}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6876,7 +6976,7 @@ GameObject:
   - 4: {fileID: 1198115895}
   - 33: {fileID: 1198115897}
   - 23: {fileID: 1198115896}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6942,7 +7042,7 @@ GameObject:
   - 4: {fileID: 1202602560}
   - 33: {fileID: 1202602562}
   - 23: {fileID: 1202602561}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7008,7 +7108,7 @@ GameObject:
   - 4: {fileID: 1204187629}
   - 33: {fileID: 1204187631}
   - 23: {fileID: 1204187630}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7160,7 +7260,7 @@ GameObject:
   - 4: {fileID: 1234481797}
   - 33: {fileID: 1234481799}
   - 23: {fileID: 1234481798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7227,9 +7327,10 @@ GameObject:
   - 33: {fileID: 1254149371}
   - 65: {fileID: 1254149370}
   - 23: {fileID: 1254149369}
-  m_Layer: 0
+  - 114: {fileID: 1254149372}
+  m_Layer: 10
   m_Name: Cube (3)
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -7240,10 +7341,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254149367}
-  m_LocalRotation: {x: -0.50000006, y: -0.5, z: 0.50000006, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.70710677}
   m_LocalPosition: {x: -0.014, y: 5.79, z: 0.468}
-  m_LocalScale: {x: 7.5644107, y: 0.07008241, z: 1.0127342}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90.00001}
+  m_LocalScale: {x: 7.5644107, y: 1, z: 0.07}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
   m_Children: []
   m_Father: {fileID: 1792193409}
   m_RootOrder: 3
@@ -7295,6 +7396,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254149367}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1254149372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1254149367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1272289987
 GameObject:
   m_ObjectHideFlags: 0
@@ -7305,7 +7417,7 @@ GameObject:
   - 4: {fileID: 1272289988}
   - 33: {fileID: 1272289990}
   - 23: {fileID: 1272289989}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7433,7 +7545,7 @@ GameObject:
   - 4: {fileID: 1282139486}
   - 33: {fileID: 1282139488}
   - 23: {fileID: 1282139487}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7569,7 +7681,7 @@ GameObject:
   - 4: {fileID: 1322193806}
   - 33: {fileID: 1322193808}
   - 23: {fileID: 1322193807}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7635,7 +7747,7 @@ GameObject:
   - 4: {fileID: 1354740074}
   - 33: {fileID: 1354740076}
   - 23: {fileID: 1354740075}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7701,7 +7813,7 @@ GameObject:
   - 4: {fileID: 1356274440}
   - 33: {fileID: 1356274442}
   - 23: {fileID: 1356274441}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7767,7 +7879,7 @@ GameObject:
   - 4: {fileID: 1356453317}
   - 33: {fileID: 1356453319}
   - 23: {fileID: 1356453318}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7833,7 +7945,7 @@ GameObject:
   - 4: {fileID: 1364744160}
   - 33: {fileID: 1364744162}
   - 23: {fileID: 1364744161}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7898,9 +8010,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1373498084}
   - 65: {fileID: 1373498085}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: saku (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7988,6 +8100,10 @@ Prefab:
       propertyPath: m_Constraints
       value: 126
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
   m_IsPrefabParent: 0
@@ -8001,7 +8117,7 @@ GameObject:
   - 4: {fileID: 1426447970}
   - 33: {fileID: 1426447972}
   - 23: {fileID: 1426447971}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8137,7 +8253,7 @@ GameObject:
   - 4: {fileID: 1447032366}
   - 33: {fileID: 1447032368}
   - 23: {fileID: 1447032367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8250,6 +8366,10 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
@@ -8533,7 +8653,7 @@ GameObject:
   - 4: {fileID: 1531506158}
   - 33: {fileID: 1531506160}
   - 23: {fileID: 1531506159}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8676,7 +8796,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1552924615}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wakusen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8717,7 +8837,7 @@ GameObject:
   - 4: {fileID: 1559666845}
   - 33: {fileID: 1559666847}
   - 23: {fileID: 1559666846}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8831,6 +8951,10 @@ Prefab:
       propertyPath: m_Constraints
       value: 126
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
   m_IsPrefabParent: 0
@@ -8844,7 +8968,7 @@ GameObject:
   - 4: {fileID: 1583541450}
   - 33: {fileID: 1583541452}
   - 23: {fileID: 1583541451}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8910,7 +9034,7 @@ GameObject:
   - 4: {fileID: 1586132759}
   - 33: {fileID: 1586132761}
   - 23: {fileID: 1586132760}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8976,7 +9100,7 @@ GameObject:
   - 4: {fileID: 1598770120}
   - 33: {fileID: 1598770122}
   - 23: {fileID: 1598770121}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9150,6 +9274,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05a5f6b8bafe2824bacc6914ef4b61bc, type: 2}
   m_IsPrefabParent: 0
@@ -9163,7 +9291,7 @@ GameObject:
   - 4: {fileID: 1621159526}
   - 33: {fileID: 1621159528}
   - 23: {fileID: 1621159527}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9378,7 +9506,7 @@ GameObject:
   - 4: {fileID: 1642359328}
   - 33: {fileID: 1642359330}
   - 23: {fileID: 1642359329}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9602,7 +9730,7 @@ GameObject:
   - 4: {fileID: 1657576197}
   - 33: {fileID: 1657576199}
   - 23: {fileID: 1657576198}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9738,7 +9866,7 @@ GameObject:
   - 4: {fileID: 1672667299}
   - 33: {fileID: 1672667301}
   - 23: {fileID: 1672667300}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9804,7 +9932,7 @@ GameObject:
   - 4: {fileID: 1677344333}
   - 33: {fileID: 1677344335}
   - 23: {fileID: 1677344334}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9870,7 +9998,7 @@ GameObject:
   - 4: {fileID: 1689656079}
   - 33: {fileID: 1689656081}
   - 23: {fileID: 1689656080}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9936,7 +10064,7 @@ GameObject:
   - 4: {fileID: 1694382793}
   m_Layer: 0
   m_Name: Waku (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9968,7 +10096,7 @@ GameObject:
   - 4: {fileID: 1706477641}
   - 33: {fileID: 1706477643}
   - 23: {fileID: 1706477642}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10107,9 +10235,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1721326002}
   - 65: {fileID: 1721326003}
-  m_Layer: 0
+  - 114: {fileID: 1721326004}
+  m_Layer: 10
   m_Name: saku
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10157,6 +10286,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1721326004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1721326001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1740996546
 GameObject:
   m_ObjectHideFlags: 0
@@ -10167,7 +10307,7 @@ GameObject:
   - 4: {fileID: 1740996547}
   - 33: {fileID: 1740996549}
   - 23: {fileID: 1740996548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10290,7 +10430,7 @@ GameObject:
   - 4: {fileID: 1769319722}
   - 33: {fileID: 1769319724}
   - 23: {fileID: 1769319723}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10356,7 +10496,7 @@ GameObject:
   - 4: {fileID: 1779260917}
   - 33: {fileID: 1779260919}
   - 23: {fileID: 1779260918}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10422,7 +10562,7 @@ GameObject:
   - 4: {fileID: 1786451157}
   - 33: {fileID: 1786451159}
   - 23: {fileID: 1786451158}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10488,7 +10628,7 @@ GameObject:
   - 4: {fileID: 1789696862}
   - 33: {fileID: 1789696864}
   - 23: {fileID: 1789696863}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10592,7 +10732,7 @@ GameObject:
   - 4: {fileID: 1840739283}
   - 33: {fileID: 1840739285}
   - 23: {fileID: 1840739284}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10798,7 +10938,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1955231082}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wakusen (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10839,7 +10979,7 @@ GameObject:
   - 4: {fileID: 1974127312}
   - 33: {fileID: 1974127314}
   - 23: {fileID: 1974127313}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10905,7 +11045,7 @@ GameObject:
   - 4: {fileID: 1975630137}
   - 33: {fileID: 1975630139}
   - 23: {fileID: 1975630138}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11033,7 +11173,7 @@ GameObject:
   - 4: {fileID: 1988769391}
   - 33: {fileID: 1988769393}
   - 23: {fileID: 1988769392}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11099,7 +11239,7 @@ GameObject:
   - 4: {fileID: 1992758089}
   - 33: {fileID: 1992758091}
   - 23: {fileID: 1992758090}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11164,9 +11304,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 2006721004}
   - 65: {fileID: 2006721005}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: saku (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11226,7 +11366,7 @@ GameObject:
   - 4: {fileID: 2017401023}
   - 33: {fileID: 2017401025}
   - 23: {fileID: 2017401024}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11292,7 +11432,7 @@ GameObject:
   - 4: {fileID: 2036067428}
   - 33: {fileID: 2036067430}
   - 23: {fileID: 2036067429}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11358,7 +11498,7 @@ GameObject:
   - 4: {fileID: 2038352473}
   - 33: {fileID: 2038352475}
   - 23: {fileID: 2038352474}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11582,7 +11722,7 @@ GameObject:
   - 4: {fileID: 2048106763}
   - 33: {fileID: 2048106765}
   - 23: {fileID: 2048106764}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11648,7 +11788,7 @@ GameObject:
   - 4: {fileID: 2051261939}
   - 33: {fileID: 2051261941}
   - 23: {fileID: 2051261940}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11801,7 +11941,7 @@ GameObject:
   - 4: {fileID: 2093231433}
   - 33: {fileID: 2093231435}
   - 23: {fileID: 2093231434}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen (Side) (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12023,7 +12163,7 @@ GameObject:
   - 4: {fileID: 2121518712}
   - 33: {fileID: 2121518714}
   - 23: {fileID: 2121518713}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12089,7 +12229,7 @@ GameObject:
   - 4: {fileID: 2130130230}
   - 33: {fileID: 2130130232}
   - 23: {fileID: 2130130231}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12198,9 +12338,10 @@ GameObject:
   - 33: {fileID: 2146800067}
   - 65: {fileID: 2146800066}
   - 23: {fileID: 2146800065}
-  m_Layer: 0
+  - 114: {fileID: 2146800068}
+  m_Layer: 10
   m_Name: Cube (2)
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -12266,3 +12407,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2146800063}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2146800068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2146800063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd35ba8ce5858a488210c35f8ecbb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

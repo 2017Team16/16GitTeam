@@ -34,6 +34,7 @@ public class Brother : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.C))
         {
             m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+            Time.timeScale = 0;
         }
     }
 

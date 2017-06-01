@@ -44,8 +44,6 @@ public class BrotherBack : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        
-
         yield return null;
 
         //_isMove = true;

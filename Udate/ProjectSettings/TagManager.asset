@@ -15,6 +15,7 @@ TagManager:
   - RightClimbStart
   - EnemyBullet
   - Epoint
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - 
   - 
   - Floor
-  - 
-  - 
+  - NoFloor
+  - Wall
   - 
   - 
   - 

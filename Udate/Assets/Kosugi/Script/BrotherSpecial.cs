@@ -63,12 +63,6 @@ public class BrotherSpecial : MonoBehaviour
         {
             print(m_Enemys.Count);
             _hit = false;
-            if (m_Enemys[i] == Player)
-            {
-                _isPlayer = true;
-            }
-            else
-                _isPlayer = false;
 
             // 投げるオブジェクトの開始位置
             transform.position = transform.position + new Vector3(0, 0.0f, 0);
@@ -93,10 +87,27 @@ public class BrotherSpecial : MonoBehaviour
             float elapse_time = 0;
             while (!_hit && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
             {
-                transform.Translate(0, (Vy - ((_gravity * _gravityMultiply) * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
+                transform.Translate(0, (Vy - ((_gravity * _gravityMultiply) * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
 
-                elapse_time += Time.deltaTime;
+                elapse_time += Time.unscaledDeltaTime;
 
+                if ((int)transform.position.y == (int)m_Enemys[i].transform.position.y
+                && (Vy - ((_gravity * _gravityMultiply) * elapse_time)) * Time.unscaledDeltaTime < 0)
+                {
+                    if (m_Enemys[i] == Player && i == m_Enemys.Count - 1)
+                    {
+                        Time.timeScale = 1;
+                        //_hit = true;
+                        //m_Enemys.Clear();
+                        
+                        //m_BrotherStateManager.SetState(BrotherState.NORMAL);
+                    }
+                    else
+                    { 
+                        m_Enemys[i].gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
+                    }
+                    _hit = true;
+                }
                 yield return null;
             }
         }
@@ -121,7 +132,7 @@ public class BrotherSpecial : MonoBehaviour
         {
             _hit = true;
         }
-        if (collision.gameObject.tag == "Player" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL && _isPlayer == true)
+        if (collision.gameObject.tag == "Player" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
         {
             _hit = true;
             m_Enemys.Clear();
