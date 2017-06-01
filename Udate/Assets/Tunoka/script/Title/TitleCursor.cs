@@ -18,7 +18,7 @@ public class TitleCursor : MonoBehaviour {
         {
             transform.localPosition = new Vector3(-130, -30, 0);
         }
-        else
+        else if (_CursorNum == 1)
         {
             transform.localPosition = new Vector3(-130, -110, 0);
 

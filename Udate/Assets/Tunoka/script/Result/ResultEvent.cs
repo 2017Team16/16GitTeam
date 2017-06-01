@@ -10,6 +10,7 @@ public class ResultEvent : MonoBehaviour
     [SerializeField, Header("画面表示用のオブジェクト")]
     private GameObject _ScoreObj;
     private Text _displayScore;
+    public GameObject _EffectObg;
     [SerializeField, Header("今のイベント状態")]
     private int _EventNum = 0;
     [SerializeField, Header("加算オブジェ")]
@@ -55,6 +56,11 @@ public class ResultEvent : MonoBehaviour
             _EventNum += 1;
             _Score += _Chain * 50;
             print(_Score);
+            _ScoreObj.GetComponent<Animator>().Play("ResultScoreAnimation", 0, 0);
+            GameObject wreckClone = (GameObject)Instantiate
+              (_EffectObg,
+               new Vector3(_ScoreObj.transform.position.x, _ScoreObj.transform.position.y, _ScoreObj.transform.position.z - 10),
+               Quaternion.identity);
         }
     }
     void Event1()//最初のアニメーション
@@ -66,6 +72,12 @@ public class ResultEvent : MonoBehaviour
             _EventNum += 1;
             _Score += _Maxpush * 100;
             print(_Score);
+            _ScoreObj.GetComponent<Animator>().Play("ResultScoreAnimation",0,0);
+            //Effectを出す
+            GameObject wreckClone = (GameObject)Instantiate
+               (_EffectObg,
+               new Vector3(_ScoreObj.transform.position.x, _ScoreObj.transform.position.y, _ScoreObj.transform.position.z - 10),
+                Quaternion.identity);
         }
     }
     void Event2()//_Chainの加算アニメーション

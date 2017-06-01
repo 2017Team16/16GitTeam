@@ -10,20 +10,20 @@ public class Heelblock : MonoBehaviour {
     [SerializeField, Header("回転速度")]
     private float _speed = 1;
 
-
+    private Transform _ime;
     // Use this for initialization
     void Start ()
     {
-        transform.eulerAngles = new Vector3(0f, 270, 180f);
-
+        _ime = transform.FindChild("Item-Heel").gameObject.transform;
+        _ime.eulerAngles = new Vector3(0f, 270, 180f);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        transform.eulerAngles += new Vector3(0f, _speed, 0f);
-        if (transform.eulerAngles.y >= 90 && transform.eulerAngles.y <= 270)
+        _ime.eulerAngles += new Vector3(0f, _speed, 0f);
+        if (_ime.eulerAngles.y >= 90 && _ime.eulerAngles.y <= 270)
         {
-            transform.eulerAngles = new Vector3(0f, 270, 180f);
+            _ime.eulerAngles = new Vector3(0f, 270, 180f);
         }
 
 
@@ -32,7 +32,7 @@ public class Heelblock : MonoBehaviour {
     {
         if (collider.transform.tag == "Player")
         {
-            collider.transform.GetComponent<OlderBrotherHamster>().AddLife((int)_Heel);
+            collider.transform.GetComponent<OlderBrotherHamster>().AddLife((int)2);
             Destroy(transform.gameObject);
         }
 

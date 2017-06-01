@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ec64149a826cc4b9758c8f422fd993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTime: 1
+  bulletTime: 2
 --- !u!135 &135000010367358052
 SphereCollider:
   m_ObjectHideFlags: 1

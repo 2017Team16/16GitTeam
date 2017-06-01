@@ -31,7 +31,7 @@ public class TitleController : MonoBehaviour {
                 _CursorNum = 0;
             }
         }
-        else if (_TAnim.GetAnimeFlag() )
+        else if (_TAnim.GetAnimeFlag() && _CursorNum >= 0)
         {
             _RuleIme.SetActive(false);
             if (_CursorNum == 0 && Input.GetButtonDown("XboxB"))
@@ -55,7 +55,7 @@ public class TitleController : MonoBehaviour {
     }
     public void SceneChangeButton()
     {
-
+        _CursorNum = -1;//カーソル操作を終了させる
         print("シーンチェンジだよ");
         SChang.FadeOut();
 

@@ -35,7 +35,7 @@ public class PatrolEnemy : EnemyBase
 
     protected override void WalkingState()
     {
-        GetComponent<Renderer>().material.color = Color.blue;
+        GetComponent<Renderer>().material.color = Color.yellow;
         if (HasArrived())
         {
             SetNewPatrolPointToDestination();

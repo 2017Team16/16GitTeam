@@ -31,6 +31,7 @@ public class lifeUi : MonoBehaviour {
         {
             _ime.fillAmount = 0;
         }
+      
 
 
     }
