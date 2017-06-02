@@ -72,7 +72,7 @@ public class BrotherSpecial : MonoBehaviour
             float _targetDistance = Vector3.Distance(transform.position, m_Enemys[i].transform.position);
 
             // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
+            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity *3));
 
             // X軸とY軸での速度をそれぞれ計算
             float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
@@ -89,14 +89,13 @@ public class BrotherSpecial : MonoBehaviour
             float flightTimer = flightDuration;
             while (!_hit && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
             {
-                transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
+                transform.Translate(0, (Vy - (_gravity*3 * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
 
                 elapse_time += Time.unscaledDeltaTime;
 
                 if (elapse_time >= flightDuration)
                 {
-                    print("ZERO");
-                    if (m_Enemys[i] == Player && i == m_Enemys.Count - 1 && !_hit)
+                    if (m_Enemys[i] == Player && i == m_Enemys.Count - 1)
                     {
                         Time.timeScale = 1;
                         //_hit = true;

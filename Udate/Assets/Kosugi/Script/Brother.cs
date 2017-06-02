@@ -41,6 +41,7 @@ public class Brother : MonoBehaviour {
     public void Special()
     {
         m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+        Time.timeScale = 0;
     }
 
     public void OnCollisionEnter(Collision collision)

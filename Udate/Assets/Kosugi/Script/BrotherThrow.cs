@@ -54,6 +54,9 @@ public class BrotherThrow : MonoBehaviour
     //壁の前ベクトル
     Vector3 wallFront = Vector3.zero;
 
+    private bool next = false;
+    private bool noFirst = false;
+
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
 
@@ -161,70 +164,26 @@ public class BrotherThrow : MonoBehaviour
     }
 
     /// <summary>
-    /// 最初の投げ
+    /// 投げ
     /// </summary>
     /// <returns></returns>
     IEnumerator SimulateProjectile()
     {
-        StartPos = transform.position;
+        next = false;
 
-        // プログラム開始までの待機時間
-        //yield return new WaitForSeconds(1.5f);
-
-        // 投げるオブジェクトの開始位置
-        //Projectile.position = transform.position + new Vector3(0, 0.0f, 0);
-        transform.position = transform.position + new Vector3(0, 0.0f, 0);
-
-        // 投げるオブジェクトからターゲットまでの距離を計算
-        _targetDistance = Vector3.Distance(transform.position, Target.transform.position);
-
-        // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-        float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
-
-        // X軸とY軸での速度をそれぞれ計算
-        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
-        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_firingAngle * Mathf.Deg2Rad);
-
-        // 滞空時間を計算
-        //float flightDuration = _targetDistance / Vx;
-
-        // ターゲットまで投げる時のオブジェクトの回転度合い
-        transform.rotation = Quaternion.LookRotation(Target.transform.position - transform.position);
-
-        // 放物線の計算
-        float elapse_time = 0;
-        while (m_BrotherStateManager.GetState() == BrotherState.THROW)//!transform.GetComponent<Brother>()._isFloor)//elapse_time < flightDuration)
-        {
-            transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
-            elapse_time += Time.deltaTime;
-
-            if (_enemyHit)
-            {
-                _enemyHit = false;
-                StartCoroutine(ReSimulateProjectile(_count));
-                
-                yield break;
-            }
-            yield return null;
-        }
-    }
-    /// <summary>
-    /// 二回以降の投げ
-    /// </summary>
-    /// <param name="count"></param>
-    /// <returns></returns>
-    IEnumerator ReSimulateProjectile(float count)
-    {
         StartPos = transform.position;
 
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
         //再バウンド先
-        Target.transform.position += new Vector3(
-            (Target.transform.position.x - Player.transform.position.x) / count,
-            0,
-            (Target.transform.position.z - Player.transform.position.z) / count);
+        if (noFirst)
+        {
+            Target.transform.position += new Vector3(
+                (Target.transform.position.x - Player.transform.position.x) / _count,
+                0,
+                (Target.transform.position.z - Player.transform.position.z) / _count);
+        }
 
         // 投げるオブジェクトの開始位置
         //Projectile.position = transform.position + new Vector3(0, 0.0f, 0);
@@ -248,27 +207,19 @@ public class BrotherThrow : MonoBehaviour
 
         // 放物線の計算
         float elapse_time = 0;
-        while (m_BrotherStateManager.GetState() == BrotherState.THROW)//!transform.GetComponent<Brother>()._isFloor)//elapse_time < flightDuration)
+        while (m_BrotherStateManager.GetState() == BrotherState.THROW)//elapse_time < flightDuration)
         {
             transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
-
             elapse_time += Time.deltaTime;
 
-            if (_enemyHit)
-            {
-                _enemyHit = false;
-                _count *= 2.0f;
-                StartCoroutine(ReSimulateProjectile(_count));
-
-                yield break;
-            }
+            if (next)
+                yield return SimulateProjectile();
 
             yield return null;
         }
-
     }
 
-    //簡易的衝撃波
+    //衝撃波
     IEnumerator ShockWave()
     {
         GameObject shockwave = (GameObject)Instantiate(m_ShockWave, EndPos, Quaternion.identity);
@@ -276,7 +227,7 @@ public class BrotherThrow : MonoBehaviour
         {
             while (_scale < StartPos.y - EndPos.y)
             {
-                _scale += 1.0f;// * Time.deltaTime;
+                _scale += 1.0f;
                 shockwave.transform.localScale = new Vector3(_scale, shockwave.transform.localScale.y, _scale);
                 yield return null;
             }
@@ -285,21 +236,14 @@ public class BrotherThrow : MonoBehaviour
         _scale = 0.0f;
     }
 
-    public void IsTriggerOff()
-    {
-        //if (m_EnemyList.Count != 0)
-        //{
-        //    for (int i = 0; i < m_EnemyList.Count; i++)
-        //    {
-        //        m_EnemyList[i].GetComponent<Collider>().isTrigger = false;
-        //    }
-        //}
-        //m_EnemyList.Clear();
-    }
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && isflying)
         {
+            _count = 2.0f;
+            next = false;
+            noFirst = false;
+
             if (transform.position.y >= collision.transform.position.y)
             {
                 EndPos = transform.position;
@@ -312,16 +256,19 @@ public class BrotherThrow : MonoBehaviour
             if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.SUTAN
                 && collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
             {
-                _enemyHit = true;
-                //collision.gameObject.GetComponent<Collider>().isTrigger = true;
-                //m_EnemyList.Add(collision.gameObject);
+                if (noFirst)
+                    _count *= 2.0f;
+                next = true;
+
                 collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
+                if (!noFirst)
+                    noFirst = true;
             }
         }
         //壁の跳ね返り
         if (collision.gameObject.tag == "Wall" && m_BrotherStateManager.GetState() == BrotherState.THROW)
-        {
-            
+        { 
+            //Wallレイヤーのオブジェクトに対して事前準備
             Ray ray = new Ray(transform.position, front);
             RaycastHit hit;
             int layermask = 1 << 10;
@@ -330,11 +277,13 @@ public class BrotherThrow : MonoBehaviour
             m_Hitinfo.hit = hit;
             Debug.DrawRay(transform.position, front * 5.0f, Color.black, 0.1f, true);
 
+            //壁の面に対して垂直なベクトルを生成
             if (m_Hitinfo.isHit)
             {
                 wallFront= m_Hitinfo.hit.normal.normalized;
             }
 
+            //向きを変更・確定
             if (Vector3.Dot(front, wallFront) >= 0)
                 transform.forward = Vector3.Reflect(front, -wallFront);
             else
