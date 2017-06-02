@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 3746333a5b27294489415b564de1f8d5
-timeCreated: 1496322936
+guid: a449e41e8b948db4d9d793cce6b0b5d0
+timeCreated: 1496323669
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tayii-ani2_0
-    21300002: tayii-ani2_1
-    21300004: tayii-ani2_2
-    21300006: tayii-ani2_3
-    21300008: tayii-ani2_4
-    21300010: tayii-ani2_5
-    21300012: tayii-ani2_6
+    21300000: tayii-brothers_0
+    21300002: tayii-brothers_1
+    21300004: tayii-brothers_2
+    21300006: tayii-brothers_3
+    21300008: tayii-brothers_4
+    21300010: tayii-brothers_5
+    21300012: tayii-brothers_6
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,93 +60,93 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tayii-ani2_0
+      name: tayii-brothers_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 0
+        width: 232
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_1
+      name: tayii-brothers_1
       rect:
         serializedVersion: 2
-        x: 201
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 230
+        y: 0
+        width: 232
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_2
+      name: tayii-brothers_2
       rect:
         serializedVersion: 2
-        x: 402
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 464
+        y: 0
+        width: 232
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_3
+      name: tayii-brothers_3
       rect:
         serializedVersion: 2
-        x: 603
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 696
+        y: 0
+        width: 241
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_4
+      name: tayii-brothers_4
       rect:
         serializedVersion: 2
-        x: 804
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 940
+        y: 0
+        width: 224
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_5
+      name: tayii-brothers_5
       rect:
         serializedVersion: 2
-        x: 1005
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1160
+        y: 0
+        width: 232
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_6
+      name: tayii-brothers_6
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 2
-        width: 201
-        height: 203
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1392
+        y: 0
+        width: 232
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

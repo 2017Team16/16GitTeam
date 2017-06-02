@@ -26,6 +26,7 @@ public class OlderBrotherHamster : MonoBehaviour
     private Vector3 m_Scale; //画像の向き、右（仮、子の向き）
     private Vector3 reverseScale; //画像の向き、左
     private bool lVec = false; //左を向くか
+    private Animator m_Animator;
 
     [Header("持っている敵の間隔")]
     public float enemyInterval = 1.0f;
@@ -65,6 +66,7 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Texture = transform.FindChild("Ani").gameObject;
         m_Scale = m_Texture.transform.localScale;
         reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
+        m_Animator = m_Texture.GetComponent<Animator>();
 
         youngerBrotherPosition = transform.FindChild("BrosPosition").gameObject;
         m_InvincibleTime = m_InvincibleInterval;
@@ -139,11 +141,13 @@ public class OlderBrotherHamster : MonoBehaviour
         if (Input.GetAxis("Horizontal") < 0)
         {
             m_Texture.transform.localScale = reverseScale;
+            youngerBrotherPosition.transform.localScale = reverseScale;
             lVec = true;
         }
         else if (Input.GetAxis("Horizontal") > 0 || !lVec)
         {
             m_Texture.transform.localScale = m_Scale;
+            youngerBrotherPosition.transform.localScale = m_Scale;
             lVec = false;
         }
     }
@@ -218,12 +222,19 @@ public class OlderBrotherHamster : MonoBehaviour
             {
                 SpecialAttack();
             }
+            youngerBrother.GetComponent<MeshRenderer>().enabled = false;
+            youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
+            m_Animator.SetBool("isBrotherNormal", true);
             youngerBrother.GetComponent<Collider>().enabled = false;
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
         }
         else
         {
+            youngerBrother.GetComponent<MeshRenderer>().enabled = true;
+            youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
+            if (enemyCount > 0) m_Animator.SetBool("isBrotherNormal", true);
+            else m_Animator.SetBool("isBrotherNormal", false);
             youngerBrother.GetComponent<Collider>().enabled = true;
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount;
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);

@@ -33,7 +33,7 @@ public class Item_MaxUp : MonoBehaviour {
     {
         if (collider.transform.tag == "Player")
         {
-            collider.transform.GetComponent<OlderBrotherHamster>().AddMaxLife((int)_Heel);
+            collider.transform.GetComponent<OlderBrotherHamster>().AddMaxLife();
             Destroy(transform.gameObject);
         }
 

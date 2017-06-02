@@ -1,16 +1,18 @@
 fileFormatVersion: 2
-guid: 3746333a5b27294489415b564de1f8d5
-timeCreated: 1496322936
+guid: 5ef84f7609bde224da0c1f015f7c2c3c
+timeCreated: 1496322449
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tayii-ani2_0
-    21300002: tayii-ani2_1
-    21300004: tayii-ani2_2
-    21300006: tayii-ani2_3
-    21300008: tayii-ani2_4
-    21300010: tayii-ani2_5
-    21300012: tayii-ani2_6
+    21300000: nageru-ani_0
+    21300002: nageru-ani_1
+    21300004: nageru-ani_2
+    21300006: nageru-ani_3
+    21300008: nageru-ani_4
+    21300010: nageru-ani_5
+    21300012: nageru-ani_6
+    21300014: nageru-ani_7
+    21300016: nageru-ani_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,93 +62,119 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tayii-ani2_0
+      name: nageru-ani_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
-        width: 201
-        height: 203
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_1
+      name: nageru-ani_1
       rect:
         serializedVersion: 2
-        x: 201
-        y: 2
-        width: 201
-        height: 203
+        x: 355
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_2
+      name: nageru-ani_2
       rect:
         serializedVersion: 2
-        x: 402
-        y: 2
-        width: 201
-        height: 203
+        x: 710
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_3
+      name: nageru-ani_3
       rect:
         serializedVersion: 2
-        x: 603
-        y: 2
-        width: 201
-        height: 203
+        x: 1065
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_4
+      name: nageru-ani_4
       rect:
         serializedVersion: 2
-        x: 804
-        y: 2
-        width: 201
-        height: 203
+        x: 1420
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_5
+      name: nageru-ani_5
       rect:
         serializedVersion: 2
-        x: 1005
-        y: 2
-        width: 201
-        height: 203
+        x: 1775
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tayii-ani2_6
+      name: nageru-ani_6
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 2
-        width: 201
-        height: 203
+        x: 2130
+        y: 0
+        width: 355
+        height: 231
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: nageru-ani_7
+      rect:
+        serializedVersion: 2
+        x: 2485
+        y: 0
+        width: 355
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: nageru-ani_8
+      rect:
+        serializedVersion: 2
+        x: 2840
+        y: 0
+        width: 355
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
