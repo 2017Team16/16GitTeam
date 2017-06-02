@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BrotherSpecial : MonoBehaviour
 {
@@ -11,8 +12,6 @@ public class BrotherSpecial : MonoBehaviour
     private float _firingAngle = 45.0f;
     [HideInInspector, TooltipAttribute("重力(変更禁止)")]
     private float _gravity = 9.8f;
-    [SerializeField, TooltipAttribute("速度調整用掛け数(掛けるほど速い)")]
-    private float _gravityMultiply = 2.0f;
 
     [HideInInspector, TooltipAttribute("当たったかどうか")]
     public bool _hit = false;
@@ -43,14 +42,16 @@ public class BrotherSpecial : MonoBehaviour
 
     public void EnemySet()
     {
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        Transform[] enemysTrans = GameObject.FindGameObjectsWithTag("Enemy").Select(e=>e.transform).ToArray();
+        Transform[] enemys = enemysTrans.OrderBy(e => e.transform.position.y).ToArray();
         for (int i = 0; i < enemys.Length; i++)
         {
             if (enemys[i].GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
-                m_Enemys.Add(enemys[i]);
+                m_Enemys.Add(enemys[i].gameObject);
             //m_Enemys[i].GetComponent<NavMeshAgent>().speed = 0.1f;
         }
         m_Enemys.Add(Player);
+        print(m_Enemys.Count);
         StartCoroutine(SpecialMove());
     }
 
@@ -61,7 +62,7 @@ public class BrotherSpecial : MonoBehaviour
     {
         for (int i = 0; i < m_Enemys.Count; i++)
         {
-            print(m_Enemys.Count);
+            print(m_Enemys[i].name);
             _hit = false;
 
             // 投げるオブジェクトの開始位置
@@ -71,7 +72,7 @@ public class BrotherSpecial : MonoBehaviour
             float _targetDistance = Vector3.Distance(transform.position, m_Enemys[i].transform.position);
 
             // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity * _gravityMultiply));
+            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
 
             // X軸とY軸での速度をそれぞれ計算
             float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
@@ -85,29 +86,31 @@ public class BrotherSpecial : MonoBehaviour
 
             // 放物線の計算
             float elapse_time = 0;
+            float flightTimer = flightDuration;
             while (!_hit && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
             {
-                transform.Translate(0, (Vy - ((_gravity * _gravityMultiply) * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
+                transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
 
                 elapse_time += Time.unscaledDeltaTime;
 
-                if ((int)transform.position.y == (int)m_Enemys[i].transform.position.y
-                && (Vy - ((_gravity * _gravityMultiply) * elapse_time)) * Time.unscaledDeltaTime < 0)
+                if (elapse_time >= flightDuration)
                 {
-                    if (m_Enemys[i] == Player && i == m_Enemys.Count - 1)
+                    print("ZERO");
+                    if (m_Enemys[i] == Player && i == m_Enemys.Count - 1 && !_hit)
                     {
                         Time.timeScale = 1;
                         //_hit = true;
                         //m_Enemys.Clear();
-                        
+
                         //m_BrotherStateManager.SetState(BrotherState.NORMAL);
                     }
                     else
-                    { 
+                    {
                         m_Enemys[i].gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
                     }
                     _hit = true;
                 }
+
                 yield return null;
             }
         }

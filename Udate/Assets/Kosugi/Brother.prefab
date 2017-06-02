@@ -92,7 +92,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013276460082}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.01
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_ShockWave: {fileID: 1000010277938884, guid: c2ce5760f60e9ef4b967df039b0b8680,
     type: 2}
   Target: {fileID: 0}
+  _targetSpeed: 0.2
   _firingAngle: 45
   _enemyHit: 0
   _count: 2
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  _gravityMultiply: 4
+  _gravityMultiply: 2
   _hit: 0
 --- !u!114 &114000013412438020
 MonoBehaviour:
