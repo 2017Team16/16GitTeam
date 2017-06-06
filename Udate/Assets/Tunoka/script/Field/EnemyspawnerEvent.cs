@@ -33,7 +33,9 @@ public class EnemyspawnerEvent : MonoBehaviour {
         // 巡回
         Patrol,
         //逃げる
-        Escape
+        Escape,
+        //追いかけ
+        Chase
     }
 
 
@@ -49,6 +51,7 @@ public class EnemyspawnerEvent : MonoBehaviour {
             case Type.Shot: _EnemyTypeNum = 1; break;
             case Type.Patrol: _EnemyTypeNum = 2; break;
             case Type.Escape: _EnemyTypeNum = 3; break;
+            case Type.Chase: _EnemyTypeNum = 4; break;
         }
     }
 	// Update is called once per frame

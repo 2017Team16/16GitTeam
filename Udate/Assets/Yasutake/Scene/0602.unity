@@ -90,7 +90,7 @@ NavMeshSettings:
     minRegionArea: 2
     cellSize: 0.16666667
     manualCellSize: 0
-  m_NavMeshData: {fileID: 23800000, guid: 002e3b4aa0c77cf479cdb30b4ee93453, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 75c1284516d274c4fa4989439d911a27, type: 2}
 --- !u!1 &1504229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1263,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 713894990}
   m_RootOrder: 2
+--- !u!1 &220366657 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f,
+    type: 2}
+  m_PrefabInternal: {fileID: 2114088614}
+--- !u!114 &220366665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220366657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9706dea8cb3bb5447b17b1d898dc63cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &235545733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,6 +3452,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012059629012, guid: 2546b759046b206449b928b2068dc899, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2546b759046b206449b928b2068dc899, type: 2}
   m_IsPrefabParent: 0
@@ -4514,6 +4534,10 @@ Prefab:
     - target: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
       propertyPath: m_Name
       value: TackleEnemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
@@ -6090,7 +6114,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 949602324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.6, y: 0.3, z: -17.4}
+  m_LocalPosition: {x: 24.6, y: 0.3, z: -15.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -7350,6 +7374,10 @@ Prefab:
       value: 
       objectReference: {fileID: 1000012059629012, guid: 2546b759046b206449b928b2068dc899,
         type: 2}
+    - target: {fileID: 1000012433253874, guid: 6f55d7823d2a55d4a82c6a295d1099bb, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f55d7823d2a55d4a82c6a295d1099bb, type: 2}
   m_IsPrefabParent: 0
@@ -7527,6 +7555,10 @@ Prefab:
     - target: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
       propertyPath: m_Name
       value: TackleEnemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
@@ -8460,7 +8492,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1385469238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3, y: 0.3, z: -17.4}
+  m_LocalPosition: {x: 2.3, y: 0.3, z: -15.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -8823,7 +8855,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442395384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.5, y: 0.3, z: -18.1}
+  m_LocalPosition: {x: 14.5, y: 0.3, z: -16.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -9550,7 +9582,7 @@ Prefab:
         type: 2}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 1542926194}
+      objectReference: {fileID: 1634179301}
     - target: {fileID: 114000013412438020, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: BrotherPosition
@@ -10111,6 +10143,16 @@ Prefab:
         type: 2}
       propertyPath: m_SpecialPoint
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012930278052, guid: 4c6674b2712537849ba8019275dce95f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 95000011853742552, guid: 4c6674b2712537849ba8019275dce95f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c6674b2712537849ba8019275dce95f, type: 2}
@@ -12158,6 +12200,10 @@ Prefab:
     - target: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
       propertyPath: m_Name
       value: TackleEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013495991288, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eca7c7c709f6933449fd5d5b49bf574f, type: 2}

@@ -117,7 +117,6 @@ public class OlderBrotherHamster : MonoBehaviour
         Debug.DrawRay(transform.position, -Vector3.up, Color.red);
         if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f) && Input.GetButtonDown("XboxA") && enemyCount == 0)
         {
-            Debug.Log(hit.transform.name);
             newVelocity.y = m_Jump;
             if (brotherState.GetState() != BrotherState.NORMAL
                 && brotherState.GetState() != BrotherState.THROW) newVelocity.y *= 1.5f;
@@ -378,7 +377,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnCollisionStay(Collision collision)
     {
         if (m_State == PlayerState.CRUSH) return;
         if (collision.transform.tag == "Enemy")

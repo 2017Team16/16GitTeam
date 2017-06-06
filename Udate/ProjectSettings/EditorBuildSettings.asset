@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/Tunoka/Scene/PleyTest.unity
   - enabled: 1
     path: Assets/Yasutake/Scene/0602.unity
+  - enabled: 1
+    path: Assets/Yasutake/Scene/MainStage00.unity
