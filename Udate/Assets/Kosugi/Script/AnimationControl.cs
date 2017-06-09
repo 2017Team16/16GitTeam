@@ -40,7 +40,7 @@ public class AnimationControl : MonoBehaviour {
         }
         else
         {
-            m_BrosAnim.transform.position = new Vector3(transform.position.x + 1.0f, 1.5f, transform.position.z + 0.5f);
+            m_BrosAnim.transform.position = new Vector3(transform.position.x + 1.0f, 1.5f, transform.position.z + 1.0f);
             m_Anim.SetTrigger("death");
             m_Anim.GetComponent<SpriteRenderer>().enabled = true;
         }

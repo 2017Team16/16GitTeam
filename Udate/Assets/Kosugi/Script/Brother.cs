@@ -31,19 +31,21 @@ public class Brother : MonoBehaviour {
             m_BrotherStateManager.SetState(BrotherState.THROW);
         }
         /*デバッグ用*/
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            m_BrotherStateManager.SetState(BrotherState.SPECIAL);
-            GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
-            GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
-            Time.timeScale = 0;
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+        //    GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
+        //    GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        //    Time.timeScale = 0;
+        //}
     }
 
     public void Special()
     {
+        GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = true;
         m_BrotherStateManager.SetState(BrotherState.SPECIAL);
         GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
+        GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         Time.timeScale = 0;
     }
 
