@@ -109,6 +109,7 @@ public class ShotEnemy : EnemyBase
         Vector3 force;
         force = vec * b_Speed;
         bullets.GetComponent<Rigidbody>().AddForce(force);
-        bullets.transform.position = muzzle.position;
+        //bullets.transform.position = muzzle.position;
+        bullets.transform.position = transform.position + new Vector3(vec.x,0,vec.z) * 1.5f;
     }
 }
