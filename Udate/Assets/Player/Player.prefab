@@ -398,6 +398,8 @@ MonoBehaviour:
   m_SpecialTime: 5
   climbSpeed: 10
   gameScore: {fileID: 0}
+  mySoul: {fileID: 1000011725084526, guid: 277f0a4c2ba1c4546b08ce1d82f560cc, type: 2}
+  mySweat: {fileID: 1000013889371626, guid: 125d0f4af4530614a8ff625d0b0e6fc7, type: 2}
   m_Clips:
   - {fileID: 8300000, guid: a34af52f82d8ec147ac3d7296e00af92, type: 3}
   - {fileID: 8300000, guid: c0f7ddcbaf771b84ba0840641447883a, type: 3}

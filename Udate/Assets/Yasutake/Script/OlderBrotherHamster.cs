@@ -57,8 +57,15 @@ public class OlderBrotherHamster : MonoBehaviour
     public Score gameScore;
     private int m_Chain = 0;
 
+    [Header("魂のプレハブ")]
+    public GameObject mySoul;
+    [Header("汗のプレハブ")]
+    public GameObject mySweat;
+    private float sewatTime = 0.0f;
+
     //サウンド関係
     private AudioSource m_Audio;
+    [Header("プレイヤーのサウンドたち")]
     public AudioClip[] m_Clips;
     private float walkSoundPlayInterval = 0.0f;
     private bool isJump = false;
@@ -172,6 +179,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 isJump = false;
             }
         }
+
+        Sweat();
     }
 
     /// <summary>プレイヤーの移動</summary>
@@ -472,6 +481,9 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Life = Mathf.Clamp(m_Life, 0, m_MaxLife[m_MaxLifeIndex]);
         if (m_Life == 0)
         {
+            GameObject soul = Instantiate(mySoul);
+            soul.transform.position = transform.position;
+            soul.transform.parent = transform;
             GameDatas.isPlayerLive = false;
             m_Animator.Play("PlayerDeath");
             m_Audio.PlayOneShot(m_Clips[3]);
@@ -634,6 +646,17 @@ public class OlderBrotherHamster : MonoBehaviour
         else
         {
             m_Audio.PlayOneShot(m_Clips[7]);
+        }
+    }
+
+    private void Sweat()
+    {
+        sewatTime += Time.deltaTime;
+        if(enemyCount >= 4 && sewatTime > 0.3f)
+        {
+            GameObject sweat = Instantiate(mySweat);
+            sweat.transform.parent = transform;
+            sewatTime = 0.0f;
         }
     }
 
