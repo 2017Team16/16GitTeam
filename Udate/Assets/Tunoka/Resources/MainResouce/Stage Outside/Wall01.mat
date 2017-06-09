@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Wall
+  m_Name: Wall01
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 1
@@ -49,7 +49,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: d16ad4b6a70dbac45b805fbe2549b923, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8d978f1443d96ca4588862d827663ea8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -76,7 +76,7 @@ Material:
       second: 1
     - first:
         name: _Cutoff
-      second: 0
+      second: 0.5
     - first:
         name: _DetailNormalMapScale
       second: 1
@@ -88,7 +88,7 @@ Material:
       second: 1
     - first:
         name: _Glossiness
-      second: 1
+      second: 0.5
     - first:
         name: _GlossyReflections
       second: 1
