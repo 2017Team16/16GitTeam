@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Item_MaxUp : MonoBehaviour {
-
+    [SerializeField, Header("SE用弟")]
+    public AudioSource _audio;
+    public AudioClip _clip01;
 
     [SerializeField, Header("回復値")]
     private float _Heel = 2;
@@ -16,6 +18,7 @@ public class Item_MaxUp : MonoBehaviour {
     {
         _ime = transform.FindChild("Item-MaxUp").gameObject.transform;
         _ime.eulerAngles = new Vector3(0f, 270, 180f);
+        _audio = GameObject.Find("SE").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,6 +36,10 @@ public class Item_MaxUp : MonoBehaviour {
     {
         if (collider.transform.tag == "Player")
         {
+<<<<<<< 42063690eb0faf5db2ed9eb076af0d1f2e3e0a7a
+=======
+            _audio.PlayOneShot(_clip01);
+>>>>>>> 色々！
             collider.transform.GetComponent<OlderBrotherHamster>().AddMaxLife();
             Destroy(transform.gameObject);
         }

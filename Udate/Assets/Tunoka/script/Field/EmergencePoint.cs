@@ -44,11 +44,13 @@ public class EmergencePoint : MonoBehaviour {
                 _Pointnum = 1;
             }
         }
+
         //敵を出現させる
         GameObject wreckClone = (GameObject)Instantiate
            (_Enemyspawner, 
             transform.FindChild(_Pointnum.ToString()).gameObject.transform.position, 
             Quaternion.identity);
+
         wreckClone.GetComponent<Enemyspawner>().OccurrenceSetting(_EnemyType[_Type], _Amount);
     }
 }

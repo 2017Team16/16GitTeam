@@ -52,4 +52,5 @@ public class TitleAnimController : MonoBehaviour {
     {
         _Animationstep++;
     }
+    
 }

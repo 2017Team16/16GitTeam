@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Enemyspawner : MonoBehaviour {
 
+    [SerializeField, Header("SE用弟")]
+    public AudioSource _audio;
+    public AudioClip _clip01;
+
     private GameObject _Type ;
     private float _amount = 1;
 
@@ -12,6 +16,8 @@ public class Enemyspawner : MonoBehaviour {
 
     void Start () {
         _particleSystem = transform.GetComponent<ParticleSystem>();
+        _audio = GameObject.Find("SE").GetComponent<AudioSource>();
+
     }
 	
 	// Update is called once per frame
@@ -25,6 +31,7 @@ public class Enemyspawner : MonoBehaviour {
     }
     void EnemyOccurrence()
     {
+        _audio.PlayOneShot(_clip01);
         for (int i = 0; i < _amount; i ++)
         {
             GameObject wreckClone = (GameObject)Instantiate(_Type, transform.position, Quaternion.identity);
