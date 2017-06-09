@@ -92,7 +92,7 @@ public class ResultEvent : MonoBehaviour
     void Event2()//_Chainの加算アニメーション
     {
 
-        _AdditionText.text = "+一回で潰した最大数　：　" + _Chain;
+        _AdditionText.text = "+一回で潰した最大数　：　" + _Maxpush;
         if (_Timer >= 2)
         {
             _audio.PlayOneShot(_clip03);
