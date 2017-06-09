@@ -350,7 +350,7 @@ public class OlderBrotherHamster : MonoBehaviour
                     brotherTarget.x = -1.0f;
                 }
 
-                if (Vector3.Distance(youngerBrotherPosition.transform.localPosition, brotherTarget) < 0.5f)
+                if (youngerBrotherPosition.transform.localPosition.y > brotherTarget.y)
                 {
                     isWithBrother = true;
                     brotherAnimator.Play("BrotherWait");
