@@ -12,7 +12,9 @@ public class EnemyType : MonoBehaviour {
         // 巡回
         Patrol,
         //逃げる
-        Escape
+        Escape,
+        //追いかけ
+        Chase
     }
 
     [SerializeField, Header("自分のタイプ")]

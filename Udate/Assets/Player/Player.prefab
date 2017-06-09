@@ -24,6 +24,7 @@ GameObject:
   - 23: {fileID: 23000013456717836}
   - 114: {fileID: 114000012490529456}
   - 54: {fileID: 54000014032459484}
+  - 82: {fileID: 82000013425079370}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -268,6 +269,80 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 0}
+--- !u!82 &82000013425079370
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010273018126}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95000010222953352
 Animator:
   serializedVersion: 3
@@ -294,7 +369,7 @@ Animator:
   m_GameObject: {fileID: 1000014265952590}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b40742970dc66d5408ed46e45569e162, type: 2}
+  m_Controller: {fileID: 9100000, guid: e9b9ad8573505e445882f025b22f55c0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -313,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070915804988ddf489668a7b85d134e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Life: 10
+  m_Life: 6
   m_InvincibleInterval: 3
   m_Speed: 10
   m_Jump: 15
@@ -323,6 +398,17 @@ MonoBehaviour:
   m_SpecialTime: 5
   climbSpeed: 10
   gameScore: {fileID: 0}
+  mySoul: {fileID: 1000011725084526, guid: 277f0a4c2ba1c4546b08ce1d82f560cc, type: 2}
+  mySweat: {fileID: 1000013889371626, guid: 125d0f4af4530614a8ff625d0b0e6fc7, type: 2}
+  m_Clips:
+  - {fileID: 8300000, guid: a34af52f82d8ec147ac3d7296e00af92, type: 3}
+  - {fileID: 8300000, guid: c0f7ddcbaf771b84ba0840641447883a, type: 3}
+  - {fileID: 8300000, guid: 410f8eea5183bfd439d5de267a342d16, type: 3}
+  - {fileID: 8300000, guid: fba90a99edf990742814b55890ed2b93, type: 3}
+  - {fileID: 8300000, guid: 42e788e83ba86d241be47104ee50bc95, type: 3}
+  - {fileID: 8300000, guid: cb457f0ef168e514f892239f40a8a704, type: 3}
+  - {fileID: 8300000, guid: e64cbd577cb0a48479ab2728c6635f23, type: 3}
+  - {fileID: 8300000, guid: 6a56171cbc6da7843b19d8c51ab039b1, type: 3}
 --- !u!114 &114000012877220854
 MonoBehaviour:
   m_ObjectHideFlags: 1

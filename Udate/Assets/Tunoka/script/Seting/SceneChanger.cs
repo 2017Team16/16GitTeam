@@ -19,13 +19,15 @@ public class SceneChanger : MonoBehaviour {
     [SerializeField, Header("音楽")]
     private GameObject[] _SaundObj;
 
-
+    [SerializeField, Header("FadeInをやるかどうか")]
+    private bool FadeOff = false;
     void Awake()
     {
         _BlackImage.gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, 255);
     }
     void Start()
     {
+        if (FadeOff == true) return;
         FadeIn();
     }
     public void HalfFadeIn()

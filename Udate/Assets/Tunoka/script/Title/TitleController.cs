@@ -3,6 +3,9 @@ using System.Collections;
 
 public class TitleController : MonoBehaviour {
 
+    public AudioSource _audio;
+    public AudioClip _clip01;
+    public AudioClip _clip02;
 
     private TitleAnimController _TAnim;
     private SceneChanger SChang;
@@ -28,6 +31,7 @@ public class TitleController : MonoBehaviour {
         {
             if (Input.GetButtonDown("XboxB"))
             {
+                _audio.PlayOneShot(_clip02);
                 _CursorNum = 0;
             }
         }
@@ -36,18 +40,28 @@ public class TitleController : MonoBehaviour {
             _RuleIme.SetActive(false);
             if (_CursorNum == 0 && Input.GetButtonDown("XboxB"))
             {
+                _audio.PlayOneShot(_clip02);
                 SceneChangeButton();
             }
             if (_CursorNum == 1 && Input.GetButtonDown("XboxB"))
             {
                 RuleButton();
+                _audio.PlayOneShot(_clip02);
             }
             if (Input.GetAxis("Vertical") > 0)
             {
+                if(_CursorNum != 0)
+                {
+                    _audio.PlayOneShot(_clip01);
+                }
                 _CursorNum = 0;
             }
             if (Input.GetAxis("Vertical") < 0)
             {
+                if (_CursorNum != 1)
+                {
+                    _audio.PlayOneShot(_clip01);
+                }
                 _CursorNum = 1;
             }
         }

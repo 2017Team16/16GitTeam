@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Heelblock : MonoBehaviour {
 
+    [SerializeField, Header("SE用弟")]
+    public AudioSource _audio;
+    public AudioClip _clip01;
 
     [SerializeField, Header("回復値")]
     private float _Heel = 1;
@@ -16,10 +19,12 @@ public class Heelblock : MonoBehaviour {
     {
         _ime = transform.FindChild("Item-Heel").gameObject.transform;
         _ime.eulerAngles = new Vector3(0f, 270, 180f);
+        _audio = GameObject.Find("SE").GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         _ime.eulerAngles += new Vector3(0f, _speed, 0f);
         if (_ime.eulerAngles.y >= 90 && _ime.eulerAngles.y <= 270)
         {
@@ -32,6 +37,7 @@ public class Heelblock : MonoBehaviour {
     {
         if (collider.transform.tag == "Player")
         {
+            _audio.PlayOneShot(_clip01);
             collider.transform.GetComponent<OlderBrotherHamster>().AddLife((int)2);
             Destroy(transform.gameObject);
         }

@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc13dd78faaf5984b908dbe175143ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audio: {fileID: 0}
+  _clip01: {fileID: 8300000, guid: 4e14897a15774f743a9cabcdb67b1d5c, type: 3}
 --- !u!198 &198000014194425782
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -21,12 +21,10 @@ public class OlderBrotherHamster : MonoBehaviour
     public float m_Speed = 1;
     [Header("ジャンプ力")]
     public float m_Jump = 3.0f; //デフォルト
-    private float jumpVector = 0.0f;  //実際に与えるジャンプ力(重力計算用)
     private GameObject m_Texture; //画像を貼っている子供（仮）
     private Vector3 m_Scale; //画像の向き、右（仮、子の向き）
     private Vector3 reverseScale; //画像の向き、左
     private bool lVec = false; //左を向くか
-    private Animator m_Animator;
 
     [Header("持っている敵の間隔")]
     public float enemyInterval = 1.0f;
@@ -59,6 +57,29 @@ public class OlderBrotherHamster : MonoBehaviour
     public Score gameScore;
     private int m_Chain = 0;
 
+    [Header("魂のプレハブ")]
+    public GameObject mySoul;
+    [Header("汗のプレハブ")]
+    public GameObject mySweat;
+    private float sewatTime = 0.0f;
+
+    //サウンド関係
+    private AudioSource m_Audio;
+    [Header("プレイヤーのサウンドたち")]
+    public AudioClip[] m_Clips;
+    private float walkSoundPlayInterval = 0.0f;
+    private bool isJump = false;
+
+    //アニメ用変数たち
+    private Animator m_Animator;
+    private bool isWithBrother = false;
+    private BrotherState maeBroState = BrotherState.NONE;
+    private AnimatorStateInfo stateInfo;
+
+    private Animator brotherAnimator;
+    private AnimatorStateInfo brotherstateInfo;
+    private Vector3 brotherTarget = Vector3.zero;
+
     // Use this for initialization
     void Start()
     {
@@ -69,15 +90,21 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Animator = m_Texture.GetComponent<Animator>();
 
         youngerBrotherPosition = transform.FindChild("BrosPosition").gameObject;
+        brotherAnimator = youngerBrotherPosition.GetComponent<Animator>();
+
         m_InvincibleTime = m_InvincibleInterval;
         enemyIntervalDefault = enemyInterval;
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
 
         m_Rigidbody = GetComponent<Rigidbody>();
-        
+
+        m_Audio = GetComponent<AudioSource>();
+
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
+        isWithBrother = true;
+
     }
 
     // Update is called once per frame
@@ -87,18 +114,40 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             return;
         }
+        stateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+        brotherstateInfo = brotherAnimator.GetCurrentAnimatorStateInfo(0);
         switch (m_State)
         {
             case PlayerState.WALK: Move(); break;
             case PlayerState.CLIMB: Climb(); break;
             case PlayerState.CRUSH: Crush(); break;
         }
-        m_InvincibleTime += Time.deltaTime;
+        if (m_InvincibleTime < m_InvincibleInterval)
+        {
+            m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
+
+            if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithBrother") ||
+                stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithEnemy") ||
+                stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageSolo"))
+            {
+                float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                if (duration > 0.9f && m_InvincibleTime > 0)
+                {
+                    WalkAnimeControl();
+                }
+            }
+
+            m_InvincibleTime += Time.deltaTime;
+            if (m_InvincibleTime >= m_InvincibleInterval)
+            {
+                m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
 
         if (m_State == PlayerState.CRUSH) return;
 
         BrotherGet();
-        if (GameDatas.isSpecialAttack)
+        if (GameDatas.isSpecialAttack) //必殺技の効果時間
         {
             m_SpecialPoint -= 100.0f / m_SpecialTime * Time.deltaTime;
             if (m_SpecialPoint <= 0.0f)
@@ -107,6 +156,31 @@ public class OlderBrotherHamster : MonoBehaviour
                 GameDatas.isSpecialAttack = false;
             }
         }
+
+        maeBroState = brotherState.GetState();
+
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpSolo") ||
+           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother") ||
+           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother"))
+        {
+            float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            if (duration > 0.9f) //再生終わりまで行ったら歩きなどのアニメへ
+            {
+                WalkAnimeControl();
+            }
+        }
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerJumpPoseSolo") && m_Rigidbody.velocity.y < 0 ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerJumpPoseWithBrother") && m_Rigidbody.velocity.y < 0)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f)) //ジャンプ中地面についたら歩きへ
+            {
+                WalkAnimeControl();
+                isJump = false;
+            }
+        }
+
+        Sweat();
     }
 
     /// <summary>プレイヤーの移動</summary>
@@ -117,10 +191,18 @@ public class OlderBrotherHamster : MonoBehaviour
         Debug.DrawRay(transform.position, -Vector3.up, Color.red);
         if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f) && Input.GetButtonDown("XboxA") && enemyCount == 0)
         {
-            Debug.Log(hit.transform.name);
             newVelocity.y = m_Jump;
-            if (brotherState.GetState() != BrotherState.NORMAL
-                && brotherState.GetState() != BrotherState.THROW) newVelocity.y *= 1.5f;
+            isJump = true;
+            m_Audio.PlayOneShot(m_Clips[2]);
+            if (GameDatas.isBrotherFlying)
+            {
+                newVelocity.y *= 1.5f;
+                m_Animator.Play("PlayerJumpStartSolo");
+            }
+            else
+            {
+                m_Animator.Play("PlayerJumpStartWithBrother");
+            }
             m_Rigidbody.velocity = newVelocity;
         }
 
@@ -133,6 +215,18 @@ public class OlderBrotherHamster : MonoBehaviour
             move.z *= 2;
         }
         m_Rigidbody.MovePosition(transform.position + move);
+        float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
+        m_Animator.SetFloat("speed", f);
+        if (walkSoundPlayInterval > 0.4f && f>0.5f &&!isJump)
+        {
+            m_Audio.PlayOneShot(m_Clips[0]);
+            walkSoundPlayInterval = 0.0f;
+        }
+        if (f > 0.5f && !isJump)
+        {
+            walkSoundPlayInterval += Time.deltaTime;
+        }
+
     }
 
     /// <summary>画像をどっち向きにするか</summary>
@@ -166,43 +260,61 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             m_Rigidbody.MovePosition(transform.position + climbEndVector);
             m_State = PlayerState.WALK;
+            WalkAnimeControl();
         }
         if (Input.GetAxis("Vertical") < 0)
         {
             m_State = PlayerState.WALK;
+            if (GameDatas.isBrotherFlying) m_Animator.Play("PlayerJumpPoseSolo");
+            else m_Animator.Play("PlayerJumpPoseWithBrother");
         }
         m_Rigidbody.velocity = Vector3.zero;
     }
+
     /// <summary>敵をつぶす演出</summary>
     private void Crush()
     {
-        enemyInterval *= 0.95f;
-        int getenemycount = 0;
-        foreach (Transform chird in transform)
+        if (brotherstateInfo.fullPathHash == Animator.StringToHash("Base Layer.BrotherCrushStart"))
         {
-            if (chird.tag == "Enemy")
+            float duration = brotherAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            if (duration > 0.9f)
             {
-                getenemycount++;
-                Vector3 newScale = chird.transform.localScale;
-                newScale.y *= 0.95f;
-                chird.transform.localScale = newScale;
-                chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 3, 0);
+                enemyInterval *= 0.95f;
+                int getenemycount = 0;
+                foreach (Transform chird in transform)
+                {
+                    if (chird.tag == "Enemy")
+                    {
+                        getenemycount++;
+                        Vector3 newScale = chird.transform.localScale;
+                        newScale.y *= 0.95f;
+                        chird.transform.localScale = newScale;
+                        chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 3, 0);
+                    }
+                }
             }
         }
+
+        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 3, 0);
         if (enemyInterval < enemyIntervalDefault / 2.0f)
         {
+            brotherAnimator.Play("BrotherCrushEnd");
+            CrushSound();
             EnemyKill();
             enemyInterval = enemyIntervalDefault;
             m_State = PlayerState.WALK;
         }
     }
+
     /// <summary>スタンした敵と触れた時の処理</summary>
     /// <param name="enemy">敵のゲームオブジェクト</param>
     private void EnemyGet(GameObject enemy)
     {
+        if (enemyCount == 0 && !isWithBrother) m_Animator.Play("PlayerPickUpSolo");
+        else m_Animator.Play("PlayerPickUpWithBrother");
         enemyCount++;
         enemy.transform.parent = transform;
-        enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1) + 2.8f, 0);
+        enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1) + 3, 0);
         enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
         enemy.GetComponent<Collider>().enabled = false;
     }
@@ -210,31 +322,83 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>持っている弟の処理</summary>
     private void BrotherGet()
     {
-        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.8f, 0);
         if (brotherState.GetState() == BrotherState.NORMAL) //持っているなら
         {
-            if (Input.GetButtonDown("XboxB"))
+            if (isWithBrother)
             {
-                //EnemyKill();
-                m_State = PlayerState.CRUSH;
+                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 3, 0);
+                if (Input.GetButtonDown("XboxB"))
+                {
+                    //EnemyKill();
+                    m_State = PlayerState.CRUSH;
+                    brotherAnimator.Play("BrotherCrushStart");
+                }
+                if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
+                {
+                    SpecialAttack();
+                }
+                GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
+                GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
             }
-            if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
+            else
             {
-                SpecialAttack();
+                youngerBrother.GetComponent<MeshRenderer>().enabled = false;
+                youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
+                youngerBrother.GetComponent<Collider>().enabled = false;
+                GameDatas.isBrotherFlying = false;
+                youngerBrotherPosition.transform.localPosition += Vector3.up / 5.0f;
+
+                if (lVec)
+                {
+                    youngerBrotherPosition.transform.localPosition = new Vector3(1.0f, youngerBrotherPosition.transform.localPosition.y, 0);
+                    brotherTarget.x = 1.0f;
+                }
+                else
+                {
+                    youngerBrotherPosition.transform.localPosition = new Vector3(-1.0f, youngerBrotherPosition.transform.localPosition.y, 0);
+                    brotherTarget.x = -1.0f;
+                }
+
+                if (youngerBrotherPosition.transform.localPosition.y > brotherTarget.y)
+                {
+                    isWithBrother = true;
+                    brotherAnimator.Play("BrotherWait");
+                    WalkAnimeControl();
+                }
             }
             youngerBrother.GetComponent<MeshRenderer>().enabled = false;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
-            m_Animator.SetBool("isBrotherNormal", true);
             youngerBrother.GetComponent<Collider>().enabled = false;
+            GameDatas.isBrotherFlying = false;
+        }
+        else if (brotherState.GetState() == BrotherState.THROW &&
+            !GameDatas.isBrotherFlying && maeBroState == brotherState.GetState())
+        {
+            if (!isWithBrother)
+            {
+                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 3, 0);
+                isWithBrother = true;
+                brotherAnimator.Play("BrotherWait");
+                WalkAnimeControl();
+            }
+
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
+            if (Input.GetButtonDown("XboxL1"))
+            {
+                ThrowAnimeControl();
+            }
+            if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother") ||
+                brotherstateInfo.fullPathHash == Animator.StringToHash("Base Layer.BrotherFlyStartEnd"))
+            {
+                GameDatas.isBrotherFlying = true;
+                isWithBrother = false;
+            }
         }
-        else
+        else if (GameDatas.isBrotherFlying || GameDatas.isSpecialAttack)
         {
             youngerBrother.GetComponent<MeshRenderer>().enabled = true;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
-            if (enemyCount > 0) m_Animator.SetBool("isBrotherNormal", true);
-            else m_Animator.SetBool("isBrotherNormal", false);
             youngerBrother.GetComponent<Collider>().enabled = true;
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount;
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
@@ -281,7 +445,6 @@ public class OlderBrotherHamster : MonoBehaviour
         if (m_InvincibleTime >= m_InvincibleInterval)
         {
             m_InvincibleTime = 0.0f;
-            AddLife(-1);
 
             getenemys.Clear();
 
@@ -295,23 +458,18 @@ public class OlderBrotherHamster : MonoBehaviour
             for (int i = 0; i < getenemys.Count; i++)
             {
                 getenemys[i].SendMessage("ChangeState", 5, SendMessageOptions.DontRequireReceiver);
-                //Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
-                //rb.velocity = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
-                //NavMeshHit navHit = new NavMeshHit();
-                //NavMeshAgent e_Agent = getenemys[i].GetComponent<NavMeshAgent>();
-                //NavMesh.SamplePosition(e_Agent.transform.localPosition, out navHit, 3.0f, NavMesh.AllAreas);
-                //getenemys[i].transform.localPosition = navHit.position;
                 float randX = Random.Range(-1.0f, 1.0f);
                 float randZ = Random.Range(-1.0f, 1.0f);
-                getenemys[i].localPosition = new Vector3(randX, getenemys[i].localPosition.y, randZ);
                 getenemys[i].parent = null;
                 getenemys[i].GetComponent<Collider>().enabled = true;
                 Rigidbody rb = getenemys[i].GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(randX * 2, Random.Range(0.1f, 1.0f), randZ * 2);
+                rb.velocity = new Vector3(randX * 10, Random.Range(0.1f, 1.0f), randZ * 10);
             }
+            DamageAnimeControl();
             enemyCount = 0;
             m_Chain = 0;
             m_State = PlayerState.WALK;
+            AddLife(-1);
         }
 
     }
@@ -321,10 +479,17 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         m_Life += n;
         m_Life = Mathf.Clamp(m_Life, 0, m_MaxLife[m_MaxLifeIndex]);
-        if(m_Life == 0)
+        if (m_Life == 0)
         {
+            GameObject soul = Instantiate(mySoul);
+            soul.transform.position = transform.position;
+            soul.transform.parent = transform;
             GameDatas.isPlayerLive = false;
-            Debug.Log("死んだ");
+            m_Animator.Play("PlayerDeath");
+            m_Audio.PlayOneShot(m_Clips[3]);
+            youngerBrother.GetComponent<MeshRenderer>().enabled = true;
+            youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
+            youngerBrother.GetComponent<Collider>().enabled = true;
         }
         if (m_MaxLifeIndex == 2 && m_Life <= m_MaxLife[1]) m_MaxLifeIndex--;
         if (m_MaxLifeIndex == 1 && m_Life <= m_MaxLife[0]) m_MaxLifeIndex--;
@@ -357,30 +522,37 @@ public class OlderBrotherHamster : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        if (m_State != PlayerState.WALK) return;
+        if (m_State != PlayerState.WALK || !GameDatas.isPlayerLive ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowStart") ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother")) return;
         if (other.transform.tag == "FrontClimbStart" && Input.GetAxis("Vertical") > 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
             if (end == null) return; ClimbPreparation(end.position.y);
             climbEndVector = Vector3.forward;
+            m_Animator.Play("PlayerClimbZ");
         }
         if (other.transform.tag == "LeftClimbStart" && Input.GetAxis("Horizontal") > 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
             if (end == null) return; ClimbPreparation(end.position.y);
             climbEndVector = Vector3.right;
+            m_Animator.Play("PlayerClimbX");
         }
         if (other.transform.tag == "RightClimbStart" && Input.GetAxis("Horizontal") < 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
             if (end == null) return; ClimbPreparation(end.position.y);
             climbEndVector = Vector3.left;
+            m_Animator.Play("PlayerClimbX");
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnCollisionStay(Collision collision)
     {
-        if (m_State == PlayerState.CRUSH) return;
+        if (m_State == PlayerState.CRUSH || !GameDatas.isPlayerLive ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowStart") ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother")) return;
         if (collision.transform.tag == "Enemy")
         {
             EnemyBase.EnemyState enemyState = collision.gameObject.GetComponent<EnemyBase>().GetEnemyState();
@@ -395,9 +567,97 @@ public class OlderBrotherHamster : MonoBehaviour
                 EnemyGet(collision.gameObject);
             }
         }
+        if (collision.gameObject == youngerBrother && brotherState.GetState() == BrotherState.BACK)
+        {
+            brotherTarget = new Vector3(-1, enemyInterval * enemyCount + 3, 0);
+            youngerBrotherPosition.transform.localPosition = new Vector3(-1, 1, 0);
+            brotherAnimator.Play("BrotherClimb");
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (m_State == PlayerState.CRUSH || !GameDatas.isPlayerLive ||
+           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowStart") ||
+           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother")) return;
         if (collision.transform.tag == "EnemyBullet")
         {
             Damage();
         }
     }
+
+    private void WalkAnimeControl()
+    {
+        if (enemyCount == 0 && !isWithBrother)
+        {
+            if (m_Animator.GetFloat("speed") < 0.1) m_Animator.Play("PlayerWaitSolo");
+            else m_Animator.Play("PlayerRunSolo");
+        }
+        else
+        {
+            if (m_Animator.GetFloat("speed") < 0.1) m_Animator.Play("PlayerWaitWithEnemy");
+            else m_Animator.Play("PlayerRunWithEnemy");
+        }
+    }
+
+    private void DamageAnimeControl()
+    {
+        if (isWithBrother)
+        {
+            m_Animator.Play("PlayerDamageWithBrother");
+        }
+        else if (enemyCount == 0)
+        {
+            m_Animator.Play("PlayerDamageSolo");
+        }
+        else
+        {
+            m_Animator.Play("PlayerDamageWithEnemy");
+        }
+    }
+
+    private void ThrowAnimeControl()
+    {
+        if (enemyCount == 0 && m_State != PlayerState.CLIMB)
+        {
+            m_Audio.PlayOneShot(m_Clips[1]);
+            m_Animator.Play("PlayerThrowStart");
+        }
+        else
+        {
+            brotherAnimator.Play("BrotherFlyStart");
+        }
+    }
+
+    private void CrushSound()
+    {
+        if (enemyCount < 3)
+        {
+            m_Audio.PlayOneShot(m_Clips[4]);
+        }
+        else if (enemyCount < 5)
+        {
+            m_Audio.PlayOneShot(m_Clips[5]);
+        }
+        else if (enemyCount < 7)
+        {
+            m_Audio.PlayOneShot(m_Clips[6]);
+        }
+        else
+        {
+            m_Audio.PlayOneShot(m_Clips[7]);
+        }
+    }
+
+    private void Sweat()
+    {
+        sewatTime += Time.deltaTime;
+        if(enemyCount >= 4 && sewatTime > 0.3f)
+        {
+            GameObject sweat = Instantiate(mySweat);
+            sweat.transform.parent = transform;
+            sewatTime = 0.0f;
+        }
+    }
+
 }

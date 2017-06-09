@@ -522,7 +522,7 @@ MonoBehaviour:
   recoveryTime: 1
   score: 10
   m_Speed: 1
-  stayTime: 0
+  stayTime: 2
   m_PatrolPoints:
   - {fileID: 0}
   - {fileID: 0}
