@@ -9875,16 +9875,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013412438020, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: BrotherPosition
+      value: 
+      objectReference: {fileID: 934265893}
+    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 934265892}
+    - target: {fileID: 114000010270247420, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 934265892}
     - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: BrotherPosition
       value: 
       objectReference: {fileID: 934265893}
-    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_TargetPos
-      value: 
-      objectReference: {fileID: 1453729950}
     - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: Player
@@ -9895,31 +9905,6 @@ Prefab:
       propertyPath: m_TargetCreate
       value: 
       objectReference: {fileID: 1453729950}
-    - target: {fileID: 114000010270247420, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 934265892}
-    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 934265892}
-    - target: {fileID: 114000013412438020, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: BrotherPosition
-      value: 
-      objectReference: {fileID: 934265893}
-    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: _targetSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 195000012136483776, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_AutoTraverseOffMeshLink
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114000013334910906, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: m_BrosAnim

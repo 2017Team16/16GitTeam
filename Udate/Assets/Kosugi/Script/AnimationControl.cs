@@ -17,6 +17,8 @@ public class AnimationControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         m_Anim = m_BrosAnim.GetComponent<Animator>();
+        m_Anim.GetComponent<SpriteRenderer>().enabled = false;
+
         m_BrosManager = GetComponent<BrotherStateManager>();
 
         pos = new Vector3(0, 0.45f, 0);
@@ -29,10 +31,19 @@ public class AnimationControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_Anim.GetCurrentAnimatorStateInfo(0).fullPathHash != Animator.StringToHash("Base Layer.wait"))
-            m_BrosAnim.transform.position = transform.position + pos;
+        if(GameDatas.isPlayerLive)
+        {
+            if (m_Anim.GetCurrentAnimatorStateInfo(0).fullPathHash != Animator.StringToHash("Base Layer.wait"))
+                m_BrosAnim.transform.position = transform.position + pos;
+            else
+                m_BrosAnim.transform.position = transform.position;
+        }
         else
-            m_BrosAnim.transform.position = transform.position;
+        {
+            m_BrosAnim.transform.position = new Vector3(transform.position.x + 1.0f, 1.5f, transform.position.z + 0.5f);
+            m_Anim.SetTrigger("death");
+            m_Anim.GetComponent<SpriteRenderer>().enabled = true;
+        }
 
         if (Vector3.Dot(transform.forward, new Vector3(1, 0, 0)) >= 0)
         {
@@ -44,8 +55,5 @@ public class AnimationControl : MonoBehaviour {
             m_BrosAnim.transform.localScale = negativeScale;
             m_Anim.SetFloat("Speed", 1);
         }
-
-        if (!GameDatas.isPlayerLive)
-            m_Anim.SetTrigger("death");
     }
 }
