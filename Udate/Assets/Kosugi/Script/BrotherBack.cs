@@ -30,42 +30,75 @@ public class BrotherBack : MonoBehaviour
         if (m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
             m_Nav.destination = Player.transform.position;
+
+            
+
             //if (_isBack)
             //    m_BrotherStateManager.SetState(BrotherState.NORMAL);
+
+
         }
     }
 
     public void Move()
-    {
+    { 
         StartCoroutine(GoBack());
     }
 
     IEnumerator GoBack()
     {
+        //m_Nav.autoTraverseOffMeshLink = false; // OffMeshLinkによる移動を禁止
+
+        GetComponent<NavMeshAgent>().enabled = true;
+
         yield return new WaitForSeconds(0.1f);
 
+        transform.LookAt(Player.transform.position);
+        GetComponent<AnimationControl>().m_Anim.SetTrigger("back");
+
+        while (m_BrotherStateManager.GetState() == BrotherState.BACK)
+        {
+            // OffmeshLinkに乗るまで普通に移動
+            //yield return new WaitWhile(() => m_Nav.isOnOffMeshLink == false);
+
+            m_Nav.speed = 6;
+
+            while (m_Nav.isOnOffMeshLink == true)
+            {
+                m_Nav.speed = 2;
+
+                yield return null;
+            }
+
+            //    // OffMeshLinkに乗ったので、NavmeshAgentによる移動を止めて、
+            //    // OffMeshLinkの終わりまでNavmeshAgent.speedと同じ速度で移動
+            //    m_Nav.Stop();
+
+            //    while (Vector3.Distance(transform.position, new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.position.y, m_Nav.currentOffMeshLinkData.endPos.z)) > 0.1f)
+            //    {
+            //        transform.position =
+            //            Vector3.MoveTowards(
+            //                transform.position,
+            //                new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.position.y, m_Nav.currentOffMeshLinkData.endPos.z),
+            //                m_Nav.speed * Time.deltaTime);
+
+            //        yield return null;
+            //    }
+            //    //{
+            //    //    transform.position = Vector3.MoveTowards(
+            //    //                                transform.position,
+            //    //                                m_Nav.currentOffMeshLinkData.endPos, m_Nav.speed * Time.deltaTime);
+            //    //    return Vector3.Distance(transform.position, m_Nav.currentOffMeshLinkData.endPos) > 0.1f;
+            //    //});
+            //    transform.LookAt(new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.position.y, m_Nav.currentOffMeshLinkData.endPos.z));
+            //    // NavmeshAgentを到達した事にして、Navmeshを再開
+            //    m_Nav.CompleteOffMeshLink();
+            //    m_Nav.Resume();
+
+            //    yield break;
+            yield return null;
+        }
         yield return null;
-
-        //_isMove = true;
-        //while (!_isBack)//elapse_time < flightDuration)
-        //{
-        //    //方向
-        //    Vector3 _direction = Player.position - transform.position;
-        //    //単位化（距離要素を取り除く）
-        //    _direction = _direction.normalized;
-        //    transform.position = transform.position + (_direction * _speed * Time.deltaTime);
-        //    //プレイヤーの方を向く
-        //    transform.LookAt(Player);
-
-        //    yield return null;
-
-        //    //ダッシュ用
-        //    if (Input.GetKeyDown(KeyCode.B))
-        //    {
-
-        //    }
-        //}
-        //m_BrotherStateManager.SetState(BrotherState.NORMAL);
     }
 
     public void OnCollisionStay(Collision collision)

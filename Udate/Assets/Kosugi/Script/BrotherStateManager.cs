@@ -36,6 +36,8 @@ public class BrotherStateManager : MonoBehaviour
     {
         //現在の状態のみを実行
         Action(m_BrosState);
+
+        GetComponent<MeshRenderer>().enabled = false;
     }
     /// <summary>
     /// 指定した状態のみを有効にする
@@ -96,7 +98,6 @@ public class BrotherStateManager : MonoBehaviour
             //m_Moves[BrotherState.BACK].GetComponent<BrotherBack>()._isBack = false;
             //m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isMove = false;
 
-            m_Moves[BrotherState.BACK].GetComponent<NavMeshAgent>().enabled = true;
             m_Moves[BrotherState.BACK].GetComponent<BrotherBack>().Move();
         }
         //着地→通常
@@ -107,10 +108,10 @@ public class BrotherStateManager : MonoBehaviour
         }
 
         //ANY→通常への変更時
-        //if (m_BrosState == BrotherState.NORMAL)
-        //{
-        //    m_Moves[BrotherState.NORMAL].GetComponent<Brother>()._isFloor = false;
-        //}
+        if (m_BrosState == BrotherState.NORMAL)
+        {
+            GetComponent<AnimationControl>().m_Anim.SetTrigger("wait");
+        }
     }
     public BrotherState GetState()
     {

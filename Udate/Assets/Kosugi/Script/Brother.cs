@@ -34,6 +34,8 @@ public class Brother : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.C))
         {
             m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+            GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
+            GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
             Time.timeScale = 0;
         }
     }
@@ -41,6 +43,7 @@ public class Brother : MonoBehaviour {
     public void Special()
     {
         m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+        GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
         Time.timeScale = 0;
     }
 
