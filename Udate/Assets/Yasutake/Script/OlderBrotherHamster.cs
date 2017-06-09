@@ -342,7 +342,7 @@ public class OlderBrotherHamster : MonoBehaviour
             }
             else
             {
-                youngerBrother.GetComponent<MeshRenderer>().enabled = false;
+                //youngerBrother.GetComponent<MeshRenderer>().enabled = false;
                 youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
                 youngerBrother.GetComponent<Collider>().enabled = false;
                 GameDatas.isBrotherFlying = false;
@@ -366,7 +366,7 @@ public class OlderBrotherHamster : MonoBehaviour
                     WalkAnimeControl();
                 }
             }
-            youngerBrother.GetComponent<MeshRenderer>().enabled = false;
+            //youngerBrother.GetComponent<MeshRenderer>().enabled = false;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
             youngerBrother.GetComponent<Collider>().enabled = false;
             GameDatas.isBrotherFlying = false;
@@ -397,7 +397,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         else if (GameDatas.isBrotherFlying || GameDatas.isSpecialAttack)
         {
-            youngerBrother.GetComponent<MeshRenderer>().enabled = true;
+            //youngerBrother.GetComponent<MeshRenderer>().enabled = true;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
             youngerBrother.GetComponent<Collider>().enabled = true;
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount;
@@ -487,7 +487,7 @@ public class OlderBrotherHamster : MonoBehaviour
             GameDatas.isPlayerLive = false;
             m_Animator.Play("PlayerDeath");
             m_Audio.PlayOneShot(m_Clips[3]);
-            youngerBrother.GetComponent<MeshRenderer>().enabled = true;
+            //youngerBrother.GetComponent<MeshRenderer>().enabled = true;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
             youngerBrother.GetComponent<Collider>().enabled = true;
         }

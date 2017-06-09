@@ -5436,17 +5436,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010981518934, guid: eaddc3c15e2b90e498859c92524947dd,
+    - target: {fileID: 212000013024098060, guid: eaddc3c15e2b90e498859c92524947dd,
         type: 2}
-      propertyPath: m_Bros
-      value: 
-      objectReference: {fileID: 1542926194}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010402934404, guid: eaddc3c15e2b90e498859c92524947dd, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -44.197998
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114000010981518934, guid: eaddc3c15e2b90e498859c92524947dd, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaddc3c15e2b90e498859c92524947dd, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &790320287
@@ -9948,16 +9947,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013334910906, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: m_BrosAnim
+      value: 
+      objectReference: {fileID: 1133520040}
+    - target: {fileID: 114000013412438020, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: BrotherPosition
+      value: 
+      objectReference: {fileID: 1634179302}
+    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1634179301}
+    - target: {fileID: 114000010270247420, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1634179301}
     - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: BrotherPosition
       value: 
       objectReference: {fileID: 1634179302}
-    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_TargetPos
-      value: 
-      objectReference: {fileID: 1983472332}
     - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: Player
@@ -9968,31 +9982,6 @@ Prefab:
       propertyPath: m_TargetCreate
       value: 
       objectReference: {fileID: 1983472332}
-    - target: {fileID: 114000010270247420, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1634179301}
-    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1634179301}
-    - target: {fileID: 114000013412438020, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: BrotherPosition
-      value: 
-      objectReference: {fileID: 1634179302}
-    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: _targetSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000011616523500, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaaaddd43699f5b4daead6eb9196d726, type: 2}
   m_IsPrefabParent: 0
@@ -10001,19 +9990,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000013276460082, guid: eaaaddd43699f5b4daead6eb9196d726,
     type: 2}
   m_PrefabInternal: {fileID: 1542926193}
---- !u!114 &1542926206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1542926194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bd2dd2f5080f37429dd1b5e643cf6db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrosAnim: {fileID: 1133520040}
-  m_Anim: {fileID: 0}
 --- !u!1 &1560851083
 GameObject:
   m_ObjectHideFlags: 0

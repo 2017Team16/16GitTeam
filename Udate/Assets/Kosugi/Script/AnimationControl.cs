@@ -34,13 +34,6 @@ public class AnimationControl : MonoBehaviour {
         else
             m_BrosAnim.transform.position = transform.position;
 
-        if (m_BrosManager.GetState() != BrotherState.NORMAL)
-            m_Anim.GetComponent<SpriteRenderer>().enabled = true;
-        else
-            m_Anim.GetComponent<SpriteRenderer>().enabled = false;
-
-
-
         if (Vector3.Dot(transform.forward, new Vector3(1, 0, 0)) >= 0)
         {
             m_BrosAnim.transform.localScale = positiveScale;

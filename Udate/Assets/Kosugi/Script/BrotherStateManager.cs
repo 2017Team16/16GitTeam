@@ -105,6 +105,7 @@ public class BrotherStateManager : MonoBehaviour
             m_BrosState == BrotherState.NORMAL)
         {
             m_Moves[BrotherState.BACK].GetComponent<NavMeshAgent>().enabled = false;
+            GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = false;
         }
 
         //ANY→通常への変更時

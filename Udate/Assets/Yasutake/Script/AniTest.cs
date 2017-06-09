@@ -308,7 +308,7 @@ public class AniTest : MonoBehaviour
             }
             else
             {
-                youngerBrother.GetComponent<MeshRenderer>().enabled = false;
+                //youngerBrother.GetComponent<MeshRenderer>().enabled = false;
                 youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
                 youngerBrother.GetComponent<Collider>().enabled = false;
                 GameDatas.isBrotherFlying = false;
@@ -332,7 +332,7 @@ public class AniTest : MonoBehaviour
                     WalkAnimeControl();
                 }
             }
-            youngerBrother.GetComponent<MeshRenderer>().enabled = false;
+            //youngerBrother.GetComponent<MeshRenderer>().enabled = false;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = true;
             youngerBrother.GetComponent<Collider>().enabled = false;
             GameDatas.isBrotherFlying = false;
@@ -363,7 +363,7 @@ public class AniTest : MonoBehaviour
         }
         else if (GameDatas.isBrotherFlying)
         {
-            youngerBrother.GetComponent<MeshRenderer>().enabled = true;
+            //youngerBrother.GetComponent<MeshRenderer>().enabled = true;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
             youngerBrother.GetComponent<Collider>().enabled = true;
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount;
@@ -448,7 +448,7 @@ public class AniTest : MonoBehaviour
         {
             GameDatas.isPlayerLive = false;
             m_Animator.Play("PlayerDeath");
-            youngerBrother.GetComponent<MeshRenderer>().enabled = true;
+            //youngerBrother.GetComponent<MeshRenderer>().enabled = true;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
             youngerBrother.GetComponent<Collider>().enabled = true;
         }

@@ -150,10 +150,10 @@ public class BrotherThrow : MonoBehaviour
 
             //if (Input.GetKeyDown(KeyCode.Space))
 
-            if (Input.GetButtonDown("XboxL1"))
-            //if(GameDatas.isBrotherFlying)
+            //if (Input.GetButtonDown("XboxL1"))
+            if(GameDatas.isBrotherFlying)
             {
-                
+                GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = true;
                 GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
 
                 if (m_NoHitinfo.isHit)
@@ -253,7 +253,7 @@ public class BrotherThrow : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW)// && GameDatas.isBrotherFlying)
+        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)
         {
             _count = 2.0f;
             next = false;
