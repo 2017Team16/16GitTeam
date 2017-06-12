@@ -11,9 +11,15 @@ public class RankingSeting : MonoBehaviour {
     public string guitxt = "";
     [SerializeField, Header("ランキングリスト ")]
     public List<float> _Rank;
+    [SerializeField, Header("選ばれたStage ")]
+    private int StageNum;
 
     // Use this for initialization
     void Awake() {
+        StageNum = StageSelectController.getStageNum();
+
+        if (StageNum == 0) StageNum = 1;
+
 
         ReadFile();//テキストの読み込み
         string[] test = guitxt.Split(',');//,で区切る
@@ -51,7 +57,7 @@ public class RankingSeting : MonoBehaviour {
     {
         StreamReader reder;
         reder = new StreamReader(
-           Application.dataPath + "/Tunoka/Resources/" + "FileReadTest.txt",
+           Application.dataPath + "/Tunoka/Resources/" + "FileRead0" + StageNum .ToString()+ ".txt",
             System.Text.Encoding.GetEncoding("shift_jis"));
 
         guitxt = reder.ReadLine();
@@ -59,7 +65,7 @@ public class RankingSeting : MonoBehaviour {
     }
     public void WritingFile()
     {
-        StreamWriter sw = new StreamWriter(Application.dataPath + "/Tunoka/Resources/" + "FileReadTest.txt", false, System.Text.Encoding.GetEncoding("shift_jis")); //true=追記 false=上書き
+        StreamWriter sw = new StreamWriter(Application.dataPath + "/Tunoka/Resources/" + "FileRead01.txt", false, System.Text.Encoding.GetEncoding("shift_jis")); //true=追記 false=上書き
 
         for (int i = 0; i < _Rank.Count; i++)
         {

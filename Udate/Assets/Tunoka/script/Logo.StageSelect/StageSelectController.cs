@@ -13,18 +13,29 @@ public class StageSelectController : MonoBehaviour {
 
 
     private bool Neutral = true;
+
+
+    public static int StageNum = 0;
+
+    public static int getStageNum()
+    {
+        return StageNum;
+    }
+
+
     void Start () {
         SChang = transform.GetComponent<SceneChanger>();
-        _CursorNum = 0;
+        _CursorNum = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        
       if ( _CursorNum >= 0)
         {
             if (Input.GetButtonDown("XboxB"))
             {
-                SChang.FadeOut("MainPlay0" + _CursorNum.ToString());
+                SChang.FadeOut("MainPlay0" + (_CursorNum -1).ToString());
 
                 _audio.PlayOneShot(_clip02);
                 _CursorNum = -1;
@@ -60,14 +71,15 @@ public class StageSelectController : MonoBehaviour {
     void CursorAdjustment(int i)//カーソルの調整
     {
         _CursorNum += i;
-        if (_CursorNum < 0)
+        if (_CursorNum < 1)
         {
-            _CursorNum = 2;
+            _CursorNum = 3;
         }
-        else if (_CursorNum > 2)
+        else if (_CursorNum > 3)
         {
-            _CursorNum = 0;
+            _CursorNum = 1;
         }
+        StageNum = _CursorNum;
     }
     public int GetCursorNum()
     {

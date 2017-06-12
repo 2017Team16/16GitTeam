@@ -2753,7 +2753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685b84de7aa87944f857f9260abf414a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _NextSceneName: MainPlay01
+  _NextSceneName: MainStageSelect
   _BlackImage: {fileID: 1469058124}
   _fadeTime: 2
   _SaundObj:
