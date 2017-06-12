@@ -13,6 +13,9 @@ public class BrotherSpecial : MonoBehaviour
     [HideInInspector, Header("重力(変更禁止)")]
     private float _gravity = 9.8f;
 
+    [SerializeField, Header("投げる速度")]
+    private float _speed = 2.5f;
+
     [HideInInspector, Header("当たったかどうか")]
     public bool _hit = false;
     [HideInInspector, Header("フィールドにいる敵のリスト")]
@@ -20,6 +23,8 @@ public class BrotherSpecial : MonoBehaviour
 
     //プレイヤーへと戻っているか
     private bool _isPlayer;
+
+    private AudioSource m_Audio;
 
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
@@ -32,6 +37,8 @@ public class BrotherSpecial : MonoBehaviour
         m_Enemys = new List<GameObject>();
 
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
+
+        m_Audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -72,7 +79,7 @@ public class BrotherSpecial : MonoBehaviour
             float _targetDistance = Vector3.Distance(transform.position, m_Enemys[i].transform.position);
 
             // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity *3));
+            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
 
             // X軸とY軸での速度をそれぞれ計算
             float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
@@ -89,7 +96,7 @@ public class BrotherSpecial : MonoBehaviour
             float flightTimer = flightDuration;
             while (!_hit && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
             {
-                transform.Translate(0, (Vy - (_gravity*3 * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
+                transform.Translate(0, (Vy - (_gravity* _speed * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
 
                 elapse_time += Time.unscaledDeltaTime;
 
@@ -106,6 +113,7 @@ public class BrotherSpecial : MonoBehaviour
                     else
                     {
                         m_Enemys[i].gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
+                        m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
                     }
                     _hit = true;
                 }
@@ -139,11 +147,14 @@ public class BrotherSpecial : MonoBehaviour
             _hit = true;
             m_Enemys.Clear();
             m_BrotherStateManager.SetState(BrotherState.NORMAL);
+
+            m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
         {
             if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.GET)
             {
+                
                 _hit = true;
                 collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
             }
