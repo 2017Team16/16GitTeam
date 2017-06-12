@@ -42,7 +42,7 @@ public class StageSelectController : MonoBehaviour {
             }
             
 
-            if (Input.GetAxis("Vertical") > 0)
+            if (Input.GetAxis("Vertical") > 0 || Input.GetAxis("Horizontal") > 0)
             {
                 if (Neutral == true)
                 {
@@ -53,7 +53,7 @@ public class StageSelectController : MonoBehaviour {
                 }
                 return;
             }
-            if (Input.GetAxis("Vertical") < 0)
+            if (Input.GetAxis("Vertical") < 0 || Input.GetAxis("Horizontal") < 0)
             {
                 if (Neutral == true)
                 {

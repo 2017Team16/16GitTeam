@@ -18,11 +18,11 @@ public class TitleCursor : MonoBehaviour {
 
         if (_CursorNum == 0)
         {
-            transform.localPosition = new Vector3(-130, -30, 0);
+            transform.localPosition = new Vector3(-150, -30, 0);
         }
         else if (_CursorNum == 1)
         {
-            transform.localPosition = new Vector3(-130, -110, 0);
+            transform.localPosition = new Vector3(-150, -110, 0);
 
         }
     }

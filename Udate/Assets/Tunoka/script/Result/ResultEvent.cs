@@ -21,8 +21,9 @@ public class ResultEvent : MonoBehaviour
     [SerializeField, Header("今のイベント状態")]
     private int _EventNum = 0;
     [SerializeField, Header("加算オブジェ")]
-    private GameObject _AdditionObj;
-    private Text _AdditionText;
+    private Image _AdditionIme;
+    [SerializeField, Header("文字表示イラスト")]
+    private Sprite[] _AddScoreText;
     private float _Timer;
 
 
@@ -39,7 +40,9 @@ public class ResultEvent : MonoBehaviour
         _EventNum = 0;
         _Timer =0 ;
         _displayScore = _ScoreObj.GetComponent<Text>();
-        _AdditionText = _AdditionObj.GetComponent<Text>();
+
+        //
+        //
     }
 	
 	// Update is called once per frame
@@ -73,7 +76,9 @@ public class ResultEvent : MonoBehaviour
     }
     void Event1()//最初のアニメーション
     {
-        _AdditionText.text = "+連続コンボ　：　"+ _Chain;
+        //
+        _AdditionIme.sprite = _AddScoreText[0];
+        //
         if (_Timer >= 2)
         {
             _audio.PlayOneShot(_clip02);
@@ -91,8 +96,9 @@ public class ResultEvent : MonoBehaviour
     }
     void Event2()//_Chainの加算アニメーション
     {
-
-        _AdditionText.text = "+一回で潰した最大数　：　" + _Maxpush;
+        //
+        _AdditionIme.sprite = _AddScoreText[1];
+        //
         if (_Timer >= 2)
         {
             _audio.PlayOneShot(_clip03);

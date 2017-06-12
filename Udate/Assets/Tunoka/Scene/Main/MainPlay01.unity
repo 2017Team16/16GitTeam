@@ -8331,7 +8331,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fb053e24d92f6f14d8c2b442fa34499e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f14b5a6e924cf44087d81a5b8cbcec4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9502,12 +9502,13 @@ MonoBehaviour:
   - {fileID: 21300002, guid: 338c0bea4a4c38c419f5009d28e349f8, type: 3}
   - {fileID: 21300004, guid: 338c0bea4a4c38c419f5009d28e349f8, type: 3}
   - {fileID: 21300000, guid: fb053e24d92f6f14d8c2b442fa34499e, type: 3}
-  - {fileID: 21300000, guid: 7c26a4a755d300343b7ff4520d4e28a7, type: 3}
+  - {fileID: 21300000, guid: 3f14b5a6e924cf44087d81a5b8cbcec4, type: 3}
   - {fileID: 0}
   imagesStart: {fileID: 1706283499}
   imagesEnd: {fileID: 1496687454}
   imagesStartObj: {fileID: 1706283497}
   imagesEndObj: {fileID: 1496687451}
+  _timer: 0
 --- !u!1 &1716127552
 GameObject:
   m_ObjectHideFlags: 0
@@ -9781,17 +9782,17 @@ Prefab:
     - target: {fileID: 114000011214190016, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _GameOveraSene
-      value: TtesResult
+      value: MainResult
       objectReference: {fileID: 0}
     - target: {fileID: 114000011214190016, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _GameClearSene
-      value: TtesResult
+      value: MainResult
       objectReference: {fileID: 0}
     - target: {fileID: 114000010797048764, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _NextSceneName
-      value: TtesResult
+      value: MainResult
       objectReference: {fileID: 0}
     - target: {fileID: 114000010666472884, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}

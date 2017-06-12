@@ -9,11 +9,12 @@ public class SelectWaku : MonoBehaviour {
     public AudioClip _clip02;
 
     public SceneChanger _SceneChanger;
+
+    public GameObject[] SetPos;
     public float SelectNum = 0;
     // Use this for initialization
     void Start () {
         SelectNum = 0;
-        transform.localPosition = new Vector3(76, -160, 0);
     }
 	
 	// Update is called once per frame
@@ -33,7 +34,7 @@ public class SelectWaku : MonoBehaviour {
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
-            transform.localPosition = new Vector3(76, -160, 0);
+            transform.localPosition = SetPos[0].transform.localPosition;
             if (SelectNum != 0)
             {
                 _audio.PlayOneShot(_clip01);
@@ -43,7 +44,7 @@ public class SelectWaku : MonoBehaviour {
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
-            transform.localPosition = new Vector3(286, -160, 0);
+            transform.localPosition = SetPos[1].transform.localPosition;
             if (SelectNum != 1)
             {
                 _audio.PlayOneShot(_clip01);

@@ -7032,6 +7032,7 @@ MonoBehaviour:
   imagesEnd: {fileID: 1219539392}
   imagesStartObj: {fileID: 65610366}
   imagesEndObj: {fileID: 1219539390}
+  _timer: 0
 --- !u!1 &1716127552
 GameObject:
   m_ObjectHideFlags: 0
@@ -7173,17 +7174,17 @@ Prefab:
     - target: {fileID: 114000011214190016, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _GameOveraSene
-      value: TtesResult
+      value: MainResult
       objectReference: {fileID: 0}
     - target: {fileID: 114000011214190016, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _GameClearSene
-      value: TtesResult
+      value: MainResult
       objectReference: {fileID: 0}
     - target: {fileID: 114000010797048764, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: _NextSceneName
-      value: TtesResult
+      value: MainResult
       objectReference: {fileID: 0}
     - target: {fileID: 114000010666472884, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}

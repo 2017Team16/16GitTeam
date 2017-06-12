@@ -21,6 +21,7 @@ public class StartEND_Production : MonoBehaviour {
     private bool _Start_On = false;
     private bool _End_On = false;
 
+    [SerializeField]
     private float _timer = 0;
     private int _Count = 0;
     // Use this for initialization
@@ -51,7 +52,7 @@ public class StartEND_Production : MonoBehaviour {
     void Start_Production()
     {
         _timer++;
-        if (_timer >= 60 * 1)
+        if (_timer >= 30 * 1)
         {
             _timer = 0;
             _Count--;

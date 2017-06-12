@@ -16,16 +16,32 @@ public class TitleAni : MonoBehaviour {
     private TitleAnimController _TitleAnimController;
     public int _PatternNum = 1;
     public float _cTime;
+    //アニメ用変数たち
+    private Animator m_Animator;
+    private AnimatorStateInfo stateInfo;
+
+
     // Use this for initialization
     void Start () {
 
         _cTime = 0;
+        m_Animator = transform.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+       
         switch (_PatternNum)
         {
+            case 0:
+                stateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+                if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother")&&
+                    stateInfo.fullPathHash != Animator.StringToHash("Base Layer.PlayerWaitSolo"))
+                {
+                    m_Animator.Play("PlayerWaitSolo");
+                }
+                break;
             case 1: Move01(); break;
             case 2: Move02(); break;
             case 3: Move03(); break;
@@ -37,11 +53,13 @@ public class TitleAni : MonoBehaviour {
         _cTime += Time.deltaTime;
         if (_cTime >= 4 )
         {
+            m_Animator.Play("PlayerThrowStart");
             _audio.PlayOneShot(_clip01);
             _cTime = 0;
             ChangePattern(0);
             _otuto.ChangePattern(1);
         }
+        
     }
     void Move02()
     {
