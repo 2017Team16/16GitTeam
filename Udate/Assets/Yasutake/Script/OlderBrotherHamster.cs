@@ -211,8 +211,8 @@ public class OlderBrotherHamster : MonoBehaviour
         TextureLR();
         if (GameDatas.isSpecialAttack)
         {
-            move.x *= 2;
-            move.z *= 2;
+            move.x *= 2 * (enemyCount + 1);
+            move.z *= 2 * (enemyCount + 1);
         }
         m_Rigidbody.MovePosition(transform.position + move);
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
@@ -289,13 +289,13 @@ public class OlderBrotherHamster : MonoBehaviour
                         Vector3 newScale = chird.transform.localScale;
                         newScale.y *= 0.95f;
                         chird.transform.localScale = newScale;
-                        chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 3, 0);
+                        chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 1.8f, 0);
                     }
                 }
             }
         }
 
-        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 3, 0);
+        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
         if (enemyInterval < enemyIntervalDefault / 2.0f)
         {
             brotherAnimator.Play("BrotherCrushEnd");
@@ -314,9 +314,12 @@ public class OlderBrotherHamster : MonoBehaviour
         else m_Animator.Play("PlayerPickUpWithBrother");
         enemyCount++;
         enemy.transform.parent = transform;
-        enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1) + 3, 0);
+        enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1) + 1.8f, 0);
         enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
         enemy.GetComponent<Collider>().enabled = false;
+        
+        enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
+        
     }
 
     /// <summary>持っている弟の処理</summary>
@@ -326,7 +329,7 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             if (isWithBrother)
             {
-                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 3, 0);
+                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
                 if (Input.GetButtonDown("XboxB"))
                 {
                     //EnemyKill();
@@ -376,7 +379,7 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             if (!isWithBrother)
             {
-                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 3, 0);
+                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
                 isWithBrother = true;
                 brotherAnimator.Play("BrotherWait");
                 WalkAnimeControl();
@@ -569,7 +572,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         if (collision.gameObject == youngerBrother && brotherState.GetState() == BrotherState.BACK)
         {
-            brotherTarget = new Vector3(-1, enemyInterval * enemyCount + 3, 0);
+            brotherTarget = new Vector3(-1, enemyInterval * enemyCount + 2.5f, 0);
             youngerBrotherPosition.transform.localPosition = new Vector3(-1, 1, 0);
             brotherAnimator.Play("BrotherClimb");
         }

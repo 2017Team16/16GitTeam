@@ -24,6 +24,11 @@ public class PatrolEnemy : EnemyBase
         m_Player = GameObject.FindGameObjectWithTag("Player");
         SetNewPatrolPointToDestination();
 
+        audioSorce = GetComponent<AudioSource>();
+        m_Texture = transform.FindChild("EnemyTexture").gameObject;
+        m_Scale = m_Texture.transform.localScale;
+        reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
+        m_Animator = m_Texture.GetComponent<Animator>();
     }
 
     void Update()

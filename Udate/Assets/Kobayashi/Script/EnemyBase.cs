@@ -25,6 +25,16 @@ public class EnemyBase : MonoBehaviour
     public float sutanTime = 1.0f;
     public float recoveryTime = 1.0f;
     public float score = 10;
+
+    protected AudioSource audioSorce;
+    public AudioClip sutan;
+
+    protected GameObject m_Texture; //画像を貼っている子供（仮）
+    protected Vector3 m_Scale; //画像の向き、右（仮、子の向き）
+    protected Vector3 reverseScale; //画像の向き、左
+    protected Animator m_Animator;
+    protected bool lVec = false; //左を向くか
+    protected float maePosX = 0;
     
 
     // Use this for initialization
@@ -35,6 +45,11 @@ public class EnemyBase : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         m_Player = GameObject.FindGameObjectWithTag("Player");
         SetNewPatrolPointToDestination();
+        audioSorce = GetComponent<AudioSource>();
+        m_Texture = transform.FindChild("EnemyTexture").gameObject;
+        m_Scale = m_Texture.transform.localScale;
+        reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
+        m_Animator = m_Texture.GetComponent<Animator>();
 
     }
 
@@ -49,6 +64,7 @@ public class EnemyBase : MonoBehaviour
             SetNewPatrolPointToDestination();
         }
         StateUpdate();
+        TextureLR();
 
     }
 
@@ -110,18 +126,28 @@ public class EnemyBase : MonoBehaviour
         {
             case 0:
                 m_State = EnemyState.WALKING;
+                m_Animator.Play("Walking");
                 m_Agent.enabled = true;
                 m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 break;
-            case 1: m_State = EnemyState.CHARGING; break;
-            case 2: m_State = EnemyState.ATTACK; break;
+            case 1:
+                m_State = EnemyState.CHARGING;
+                m_Animator.Play("Charge");
+                break;
+            case 2:
+                m_State = EnemyState.ATTACK;
+                m_Animator.Play("Attack");
+                break;
             case 3:
                 m_State = EnemyState.SUTAN;
+                m_Animator.Play("Sutan");
+                audioSorce.PlayOneShot(sutan);
                 m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 transform.rotation = Quaternion.Euler(0, 0, 0); break;
             case 4: m_State = EnemyState.GET; break;
             case 5:
                 m_State = EnemyState.RECOVERY;
+                m_Animator.Play("Sutan");
                 m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                 break;
             case 6: m_State = EnemyState.WAIT; break;
@@ -151,5 +177,34 @@ public class EnemyBase : MonoBehaviour
     public float EnemyScore()
     {
         return score;
+    }
+
+    public void Get(int count)
+    {
+        if(count % 2 == 0)
+        {
+            m_Animator.Play("Get1");
+        }
+        else
+        {
+            m_Animator.Play("Get2");
+        }
+    }
+
+    protected virtual void TextureLR()
+    {
+
+        if (maePosX < transform.position.x)
+        {
+            m_Texture.transform.localScale = reverseScale;
+            lVec = true;
+        }
+        else if (maePosX > transform.position.x || !lVec)
+        {
+            m_Texture.transform.localScale = m_Scale;
+            lVec = false;
+        }
+
+        maePosX = transform.position.x;
     }
 }

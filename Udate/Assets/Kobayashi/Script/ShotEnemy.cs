@@ -17,6 +17,9 @@ public class ShotEnemy : EnemyBase
     private Transform m_PlayerLookPoint;
     private Transform m_EyePoint;
 
+    public AudioClip shot;
+
+
     private void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -25,6 +28,11 @@ public class ShotEnemy : EnemyBase
         SetNewPatrolPointToDestination();
         m_PlayerLookPoint = m_Player.transform.Find("LookPoint");
         m_EyePoint = transform.Find("EyePoint");
+        audioSorce = GetComponent<AudioSource>();
+        m_Texture = transform.FindChild("EnemyTexture").gameObject;
+        m_Scale = m_Texture.transform.localScale;
+        reverseScale = new Vector3(m_Scale.x * -1, m_Scale.y, m_Scale.z);
+        m_Animator = m_Texture.GetComponent<Animator>();
     }
 
 
@@ -32,10 +40,11 @@ public class ShotEnemy : EnemyBase
     {
         if (CanSeePlayer())
         {
-            print("みえてる");
+            //print("みえてる");
 
             if (m_Time >= bulletTime)
             {
+                m_Animator.Play("Shot");
                 Shot();
                 m_Time = 0;
             }
@@ -44,7 +53,7 @@ public class ShotEnemy : EnemyBase
         }
         else
         {
-            print("見えてない");
+            //print("見えてない");
         }
     }
 
@@ -110,6 +119,7 @@ public class ShotEnemy : EnemyBase
         force = vec * b_Speed;
         bullets.GetComponent<Rigidbody>().AddForce(force);
         //bullets.transform.position = muzzle.position;
-        bullets.transform.position = transform.position + new Vector3(vec.x,0,vec.z) * 1.5f;
+        bullets.transform.position = transform.position + new Vector3(vec.x,0.5f,vec.z) * 1.5f;
+        audioSorce.PlayOneShot(shot);
     }
 }
