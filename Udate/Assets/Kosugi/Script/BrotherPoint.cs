@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BrotherPoint : MonoBehaviour {
 
-    [SerializeField, TooltipAttribute("弟用の座標オブジェクト")]
+    [SerializeField, Header("弟用の座標オブジェクト")]
     private Transform BrotherPosition;
 
     // Use this for initialization

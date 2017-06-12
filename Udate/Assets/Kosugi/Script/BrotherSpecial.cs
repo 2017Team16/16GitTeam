@@ -5,17 +5,17 @@ using System.Linq;
 
 public class BrotherSpecial : MonoBehaviour
 {
-    [SerializeField, TooltipAttribute("プレイヤーオブジェクト")]
+    [SerializeField, Header("プレイヤーオブジェクト")]
     public GameObject Player;
 
-    [HideInInspector, TooltipAttribute("投げる角度")]
+    [HideInInspector, Header("投げる角度")]
     private float _firingAngle = 45.0f;
-    [HideInInspector, TooltipAttribute("重力(変更禁止)")]
+    [HideInInspector, Header("重力(変更禁止)")]
     private float _gravity = 9.8f;
 
-    [HideInInspector, TooltipAttribute("当たったかどうか")]
+    [HideInInspector, Header("当たったかどうか")]
     public bool _hit = false;
-    [HideInInspector, TooltipAttribute("フィールドにいる敵のリスト")]
+    [HideInInspector, Header("フィールドにいる敵のリスト")]
     private List<GameObject> m_Enemys;
 
     //プレイヤーへと戻っているか

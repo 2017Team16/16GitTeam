@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Brother : MonoBehaviour {
 
-    [SerializeField, TooltipAttribute("ポジション用オブジェクト")]
+    [SerializeField, Header("ポジション用オブジェクト")]
     private Transform BrotherPosition;
 
-    [HideInInspector, TooltipAttribute("床に当たっているか")]
+    [HideInInspector, Header("床に当たっているか")]
     public bool _isFloor;
 
     //弟管理クラス

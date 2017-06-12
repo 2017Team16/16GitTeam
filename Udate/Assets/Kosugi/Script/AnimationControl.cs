@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AnimationControl : MonoBehaviour {
 
-    [SerializeField, TooltipAttribute("弟アニメーション用オブジェクト")]
+    [SerializeField, Header("弟アニメーション用オブジェクト")]
     private GameObject m_BrosAnim;
     private Vector3 pos;
     

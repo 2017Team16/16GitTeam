@@ -12,33 +12,33 @@ struct RayHitInfo
 public class BrotherThrow : MonoBehaviour
 {
     /*--オブジェクト指定--*/
-    [SerializeField, TooltipAttribute("ポジション用オブジェクト")]
+    [SerializeField, Header("ポジション用オブジェクト")]
     private Transform BrotherPosition;
 
-    [SerializeField, TooltipAttribute("プレイヤーオブジェクト")]
+    [SerializeField, Header("プレイヤーオブジェクト")]
     public GameObject Player;
 
-    [SerializeField, TooltipAttribute("ターゲットプレハブ")]
+    [SerializeField, Header("ターゲットプレハブ")]
     private GameObject m_Target;
-    [SerializeField, TooltipAttribute("ターゲット生成用オブジェクト")]
+    [SerializeField, Header("ターゲット生成用オブジェクト")]
     public GameObject m_TargetCreate;
-    [SerializeField, TooltipAttribute("衝撃波プレハブ")]
+    [SerializeField, Header("衝撃波プレハブ")]
     private GameObject m_ShockWave;
     /*--------------------*/
 
-    [HideInInspector, TooltipAttribute("ターゲット")]
+    [HideInInspector, Header("ターゲット")]
     public GameObject Target;
 
-    [SerializeField, TooltipAttribute("ターゲット移動速度")]
+    [SerializeField, Header("ターゲット移動速度")]
     private float _targetSpeed = 0.1f;
 
-    [SerializeField, TooltipAttribute("投げる角度")]
+    [SerializeField, Header("投げる角度")]
     public float _firingAngle = 45.0f;
-    [HideInInspector, TooltipAttribute("重力(変更禁止)")]
+    [HideInInspector, Header("重力(変更禁止)")]
     private float _gravity = 9.8f;
-    [HideInInspector, TooltipAttribute("エネミーに当たったかどうか")]
+    [HideInInspector, Header("エネミーに当たったかどうか")]
     public bool _enemyHit = false;
-    [HideInInspector, TooltipAttribute("距離減衰用変数")]
+    [HideInInspector, Header("距離減衰用変数")]
     public float _count = 2.0f;
 
     //衝撃波用
@@ -66,18 +66,20 @@ public class BrotherThrow : MonoBehaviour
     private bool next = false;
     private bool noFirst = false;
 
+    private AudioSource m_Audio;
+
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
 
     void Awake()
     {
-
+        m_Audio = GetComponent<AudioSource>();
+        m_BrotherStateManager = GetComponent<BrotherStateManager>();
     }
 
     void Start()
     {
-        //m_EnemyList = new List<GameObject>();
-        m_BrotherStateManager = GetComponent<BrotherStateManager>();
+
     }
 
     void Update()
@@ -110,9 +112,10 @@ public class BrotherThrow : MonoBehaviour
                 GetComponent<AnimationControl>().m_Anim.transform.localScale = nScale;
             }
 
-            float dx = Input.GetAxis("BrosHorizontal");
-            float dz = Input.GetAxis("BrosVertical");
-            m_TargetCreate.transform.Translate(dx * _targetSpeed, 0.0f, dz * _targetSpeed);
+            float dx = Input.GetAxis("BrosHorizontal")* _targetSpeed;
+            float dz = Input.GetAxis("BrosVertical")* _targetSpeed;
+            m_TargetCreate.GetComponent<Rigidbody>().velocity = new Vector3(dx, 0, dz);
+            //m_TargetCreate.transform.Translate(dx * _targetSpeed, 0.0f, dz * _targetSpeed);
 
             Vector3 rayPos = m_TargetCreate.transform.position;
             Ray ray = new Ray(rayPos, -m_TargetCreate.transform.up);
@@ -266,6 +269,8 @@ public class BrotherThrow : MonoBehaviour
                 EndPos = transform.position;
                 StartCoroutine(ShockWave());
                 //m_BrotherStateManager.SetState(BrotherState.BACK);
+
+                m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[2]);
             }
             else
             {
@@ -293,6 +298,8 @@ public class BrotherThrow : MonoBehaviour
                     transform.forward = Vector3.Reflect(up, floorBottom);
 
                 Target.transform.position = new Vector3(reflectPos.x, Target.transform.position.y, reflectPos.z);
+
+                m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
             }
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)
@@ -307,6 +314,8 @@ public class BrotherThrow : MonoBehaviour
                 collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
                 if (!noFirst)
                     noFirst = true;
+
+                m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
             }
         }
         //壁の跳ね返り
@@ -332,6 +341,8 @@ public class BrotherThrow : MonoBehaviour
                 transform.forward = Vector3.Reflect(front, -wallFront);
             else
                 transform.forward = Vector3.Reflect(front, wallFront);
+
+            m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
         }
     }
 }

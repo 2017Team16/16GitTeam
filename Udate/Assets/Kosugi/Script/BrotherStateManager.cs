@@ -5,13 +5,16 @@ using System.Collections.Generic;
 public class BrotherStateManager : MonoBehaviour
 {
 
-    [SerializeField, TooltipAttribute("最初の状態")]
+    [SerializeField, Header("最初の状態")]
     private BrotherState m_StartState = BrotherState.NORMAL;
-    [SerializeField, TooltipAttribute("１つ前の状態")]
+    [SerializeField, Header("１つ前の状態")]
     private BrotherState m_BeforeBrosState;
-    [SerializeField, TooltipAttribute("現在の状態")]
+    [SerializeField, Header("現在の状態")]
     private BrotherState m_BrosState;
-    
+
+    [SerializeField, Header("SE")]
+    public AudioClip[] m_SE;
+
     //各状態中の処理はこの配列へ格納
     private Dictionary<BrotherState, MonoBehaviour> m_Moves;
 
@@ -38,6 +41,9 @@ public class BrotherStateManager : MonoBehaviour
         Action(m_BrosState);
 
         GetComponent<MeshRenderer>().enabled = false;
+
+        if (!GameDatas.isPlayerLive)
+            SetState(BrotherState.DEATH);
     }
     /// <summary>
     /// 指定した状態のみを有効にする
@@ -112,6 +118,12 @@ public class BrotherStateManager : MonoBehaviour
         {
             GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<AnimationControl>().m_Anim.SetTrigger("wait");
+        }
+
+        if(m_BeforeBrosState==BrotherState.BACK&&
+            m_BrosState==BrotherState.DEATH)
+        {
+            GetComponent<NavMeshAgent>().Stop();
         }
     }
     public BrotherState GetState()

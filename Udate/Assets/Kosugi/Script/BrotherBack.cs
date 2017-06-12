@@ -3,25 +3,29 @@ using System.Collections;
 
 public class BrotherBack : MonoBehaviour
 {
-    [SerializeField, TooltipAttribute("プレイヤーオブジェクト")]
+    [SerializeField, Header("プレイヤーオブジェクト")]
     private GameObject Player;
 
-    //移動速度
-    public float _speed = 5;
+    [SerializeField, Header("戻る速度")]
+    private float _speed = 5;
 
     //public bool _isBack = false;
     //public bool _isMove = false;
 
     NavMeshAgent m_Nav;
 
+    private AudioSource m_Audio;
+
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
 
-    void Start()
+    void Awake()
     {
         m_Nav = GetComponent<NavMeshAgent>();
 
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
+
+        m_Audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -56,16 +60,31 @@ public class BrotherBack : MonoBehaviour
         transform.LookAt(Player.transform.position);
         GetComponent<AnimationControl>().m_Anim.SetTrigger("back");
 
+        float walkTime = 0;
         while (m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
+            walkTime += Time.deltaTime;
+
             // OffmeshLinkに乗るまで普通に移動
             //yield return new WaitWhile(() => m_Nav.isOnOffMeshLink == false);
 
             m_Nav.speed = 6;
 
+            if(walkTime>0.5f)
+            {
+                m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[0]);
+                walkTime = 0;
+            }
+
             while (m_Nav.isOnOffMeshLink == true)
             {
                 m_Nav.speed = 2;
+
+                if (walkTime > 0.5f)
+                {
+                    m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[0]);
+                    walkTime = 0;
+                }
 
                 yield return null;
             }
