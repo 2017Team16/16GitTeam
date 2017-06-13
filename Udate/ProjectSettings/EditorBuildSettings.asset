@@ -7,11 +7,8 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainLogo.unity
-<<<<<<< 5c7659799fb1b42034349da2369d03bbdf4081f6
-  - enabled: 0
-    path: Assets/Tunoka/Scene/TtesTitle.unity
-=======
->>>>>>> リソースなど
+  - enabled: 1
+    path: Assets/Tunoka/Scene/Main/MainTitle.unity
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainStageSelect.unity
   - enabled: 1
@@ -20,14 +17,5 @@ EditorBuildSettings:
     path: Assets/Tunoka/Scene/Main/MainPlay01.unity
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainPlay02.unity
-<<<<<<< 5c7659799fb1b42034349da2369d03bbdf4081f6
-  - enabled: 0
-    path: Assets/Tunoka/Scene/TtesResult.unity
-  - enabled: 1
-    path: Assets/Yasutake/Scene/0602.unity
-=======
-  - enabled: 1
-    path: Assets/Tunoka/Scene/Main/MainTitle.unity
->>>>>>> リソースなど
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainResult.unity

@@ -113,6 +113,7 @@ public class ShotEnemy : EnemyBase
     public void Shot()
     {
         Vector3 vec = m_Player.transform.position - transform.position;
+        maePosX = vec.x;
         vec.Normalize();
         bullets = GameObject.Instantiate(m_Bullet) as GameObject;
         Vector3 force;
@@ -121,5 +122,19 @@ public class ShotEnemy : EnemyBase
         //bullets.transform.position = muzzle.position;
         bullets.transform.position = transform.position + new Vector3(vec.x,0.5f,vec.z) * 1.5f;
         audioSorce.PlayOneShot(shot);
+    }
+
+    protected override void TextureLR()
+    {
+        if (maePosX < 0)
+        {
+            m_Texture.transform.localScale = reverseScale;
+            lVec = true;
+        }
+        else if (maePosX > 0 || !lVec)
+        {
+            m_Texture.transform.localScale = m_Scale;
+            lVec = false;
+        }
     }
 }
