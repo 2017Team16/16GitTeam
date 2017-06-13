@@ -17,7 +17,7 @@ public class AnimationControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         m_Anim = m_BrosAnim.GetComponent<Animator>();
-        m_Anim.GetComponent<SpriteRenderer>().enabled = false;
+        m_BrosAnim.GetComponent<SpriteRenderer>().enabled = false;
 
         m_BrosManager = GetComponent<BrotherStateManager>();
 
@@ -31,7 +31,7 @@ public class AnimationControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(GameDatas.isPlayerLive)
+        if (GameDatas.isPlayerLive)
         {
             if (m_Anim.GetCurrentAnimatorStateInfo(0).fullPathHash != Animator.StringToHash("Base Layer.wait"))
                 m_BrosAnim.transform.position = transform.position + pos;

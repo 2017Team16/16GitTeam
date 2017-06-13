@@ -30,7 +30,7 @@ public class BrotherThrow : MonoBehaviour
     public GameObject Target;
 
     [SerializeField, Header("ターゲット移動速度")]
-    private float _targetSpeed = 0.1f;
+    private float _targetSpeed = 5.0f;
 
     [SerializeField, Header("投げる角度")]
     public float _firingAngle = 45.0f;
@@ -102,7 +102,7 @@ public class BrotherThrow : MonoBehaviour
         nScale.x *= -1;
         while (true)
         {
-            print(Player.transform.localScale.x);
+            //print(Player.transform.localScale.x);
             if (Player.transform.Find("Ani").localScale.x >= 0)
             {
                 GetComponent<AnimationControl>().m_Anim.transform.localScale = pScale;
@@ -134,7 +134,7 @@ public class BrotherThrow : MonoBehaviour
 
             if (m_Hitinfo.isHit)
             {
-                if (hit.transform.gameObject.transform.position.y >= transform.position.y)
+                if (hit.transform.gameObject.transform.position.y > transform.position.y)
                 {
                     hit.transform.gameObject.layer = 9;
                 }
@@ -191,16 +191,18 @@ public class BrotherThrow : MonoBehaviour
 
         StartPos = transform.position;
 
+        Vector3 targetPos = Target.transform.position;
+
         // プログラム開始までの待機時間
         //yield return new WaitForSeconds(1.5f);
 
         //再バウンド先
         if (noFirst)
         {
-            Target.transform.position += new Vector3(
-                (Target.transform.position.x - Player.transform.position.x) / _count,
+            targetPos += new Vector3(
+                (targetPos.x - Player.transform.position.x) / _count,
                 0,
-                (Target.transform.position.z - Player.transform.position.z) / _count);
+                (targetPos.z - Player.transform.position.z) / _count);
         }
 
         // 投げるオブジェクトの開始位置
@@ -208,7 +210,7 @@ public class BrotherThrow : MonoBehaviour
         transform.position = transform.position + new Vector3(0, 0.0f, 0);
 
         // 投げるオブジェクトからターゲットまでの距離を計算
-        _targetDistance = Vector3.Distance(transform.position, Target.transform.position);
+        _targetDistance = Vector3.Distance(transform.position, targetPos);
 
         // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
         float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
@@ -221,7 +223,7 @@ public class BrotherThrow : MonoBehaviour
         float flightDuration = _targetDistance / Vx;
 
         // ターゲットまで投げる時のオブジェクトの回転度合い
-        transform.rotation = Quaternion.LookRotation(Target.transform.position - transform.position);
+        transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
 
         // 放物線の計算
         float elapse_time = 0;
@@ -297,7 +299,7 @@ public class BrotherThrow : MonoBehaviour
                 else
                     transform.forward = Vector3.Reflect(up, floorBottom);
 
-                Target.transform.position = new Vector3(reflectPos.x, Target.transform.position.y, reflectPos.z);
+                //Target.transform.position = new Vector3(reflectPos.x, Target.transform.position.y, reflectPos.z);
 
                 m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
             }
