@@ -36,6 +36,7 @@ public class PatrolEnemy : EnemyBase
         if (m_Player == null) return;
         m_Time += Time.deltaTime;
         StateUpdate();
+        TextureLR();
     }
 
     protected override void WalkingState()
