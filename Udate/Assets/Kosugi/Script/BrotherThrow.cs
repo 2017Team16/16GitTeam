@@ -41,6 +41,9 @@ public class BrotherThrow : MonoBehaviour
     [HideInInspector, Header("距離減衰用変数")]
     public float _count = 2.0f;
 
+    [SerializeField, Header("投げる速度")]
+    private float _speed = 1.0f;
+
     //衝撃波用
     private float _scale = 0.0f;
 
@@ -213,7 +216,7 @@ public class BrotherThrow : MonoBehaviour
         _targetDistance = Vector3.Distance(transform.position, targetPos);
 
         // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-        float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / _gravity);
+        float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
 
         // X軸とY軸での速度をそれぞれ計算
         float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
@@ -229,7 +232,7 @@ public class BrotherThrow : MonoBehaviour
         float elapse_time = 0;
         while (m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
-            transform.Translate(0, (Vy - (_gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
+            transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
             elapse_time += Time.deltaTime;
             Debug.DrawRay(transform.position, new Vector3(front.x, transform.position.y, front.z) * 10, Color.black, 0.1f, true);
             if (next)
