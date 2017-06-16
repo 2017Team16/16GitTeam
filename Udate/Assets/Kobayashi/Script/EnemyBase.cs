@@ -101,7 +101,6 @@ public class EnemyBase : MonoBehaviour
     private void SutanState()
     {
         GetComponent<Renderer>().material.color = Color.black;
-        m_Agent.enabled = false;
         if (m_Time >= sutanTime)
         {
             ChangeState(0);
@@ -141,6 +140,7 @@ public class EnemyBase : MonoBehaviour
             case 3:
                 m_State = EnemyState.SUTAN;
                 m_Animator.Play("Sutan");
+                m_Agent.enabled = false;
                 audioSorce.PlayOneShot(sutan);
                 m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 transform.rotation = Quaternion.Euler(0, 0, 0); break;

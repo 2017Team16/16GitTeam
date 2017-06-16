@@ -8,7 +8,8 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         WALK,
         CLIMB,
-        CRUSH
+        CRUSH,
+        GETTING
     }
     [Header("体力")]
     public int m_Life = 6;
@@ -80,6 +81,10 @@ public class OlderBrotherHamster : MonoBehaviour
     private AnimatorStateInfo brotherstateInfo;
     private Vector3 brotherTarget = Vector3.zero;
 
+    //パーティクル関係
+    private GameObject m_CrushParticle;
+    private GameObject m_ChirdJumpParent;
+
     // Use this for initialization
     void Start()
     {
@@ -100,6 +105,9 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
 
         m_Audio = GetComponent<AudioSource>();
+
+        m_CrushParticle = transform.FindChild("CrushEffectParent").gameObject;
+        m_ChirdJumpParent = transform.FindChild("GettingEffectParent").gameObject;
 
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
@@ -122,7 +130,7 @@ public class OlderBrotherHamster : MonoBehaviour
             case PlayerState.CLIMB: Climb(); break;
             case PlayerState.CRUSH: Crush(); break;
         }
-        if (m_InvincibleTime < m_InvincibleInterval)
+        if (m_InvincibleTime < m_InvincibleInterval) //ダメージを受けて無敵の時の処理
         {
             m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
 
@@ -143,7 +151,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
-
+        
         if (m_State == PlayerState.CRUSH) return;
 
         BrotherGet();
@@ -206,13 +214,13 @@ public class OlderBrotherHamster : MonoBehaviour
             m_Rigidbody.velocity = newVelocity;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal") / (enemyCount + 1), 0,
-            Input.GetAxis("Vertical") / (enemyCount + 1)) * m_Speed * Time.deltaTime;
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal") / (enemyCount * 0.2f + 1), 0,
+            Input.GetAxis("Vertical") / (enemyCount * 0.2f + 1)) * m_Speed * Time.deltaTime;
         TextureLR();
         if (GameDatas.isSpecialAttack)
         {
-            move.x *= 2 * (enemyCount + 1);
-            move.z *= 2 * (enemyCount + 1);
+            move.x *= 1.5f * (enemyCount * 0.2f + 1);
+            move.z *= 1.5f * (enemyCount * 0.2f + 1);
         }
         m_Rigidbody.MovePosition(transform.position + move);
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
@@ -252,7 +260,7 @@ public class OlderBrotherHamster : MonoBehaviour
         float speed;
         speed = (GameDatas.isSpecialAttack) ? climbSpeed * 2 : climbSpeed;
 
-        float elapsedTime = (Time.time - climbStartTime) * speed / (enemyCount + 1);
+        float elapsedTime = (Time.time - climbStartTime) * speed / (enemyCount * 0.2f + 1);
         float nowPoint = elapsedTime / climbDistance;
         transform.position = Vector3.Lerp(climbStartPoint, climbEndPoint, nowPoint);
 
@@ -271,55 +279,15 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Rigidbody.velocity = Vector3.zero;
     }
 
-    /// <summary>敵をつぶす演出</summary>
-    private void Crush()
+    /// <summary>壁のぼりの準備</summary>
+    /// <param name="y">登る高さ</param>
+    private void ClimbPreparation(float y)
     {
-        if (brotherstateInfo.fullPathHash == Animator.StringToHash("Base Layer.BrotherCrushStart"))
-        {
-            float duration = brotherAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            if (duration > 0.9f)
-            {
-                enemyInterval *= 0.95f;
-                int getenemycount = 0;
-                foreach (Transform chird in transform)
-                {
-                    if (chird.tag == "Enemy")
-                    {
-                        getenemycount++;
-                        Vector3 newScale = chird.transform.localScale;
-                        newScale.y *= 0.95f;
-                        chird.transform.localScale = newScale;
-                        chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 1.8f, 0);
-                    }
-                }
-            }
-        }
-
-        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
-        if (enemyInterval < enemyIntervalDefault / 2.0f)
-        {
-            brotherAnimator.Play("BrotherCrushEnd");
-            CrushSound();
-            EnemyKill();
-            enemyInterval = enemyIntervalDefault;
-            m_State = PlayerState.WALK;
-        }
-    }
-
-    /// <summary>スタンした敵と触れた時の処理</summary>
-    /// <param name="enemy">敵のゲームオブジェクト</param>
-    private void EnemyGet(GameObject enemy)
-    {
-        if (enemyCount == 0 && !isWithBrother) m_Animator.Play("PlayerPickUpSolo");
-        else m_Animator.Play("PlayerPickUpWithBrother");
-        enemyCount++;
-        enemy.transform.parent = transform;
-        enemy.transform.localPosition = new Vector3(0, enemyInterval * (enemyCount - 1) + 1.8f, 0);
-        enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
-        enemy.GetComponent<Collider>().enabled = false;
-        
-        enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
-        
+        climbStartPoint = transform.position;
+        climbEndPoint = new Vector3(transform.position.x, y, transform.position.z);
+        m_State = PlayerState.CLIMB;
+        climbStartTime = Time.time;
+        climbDistance = Vector3.Distance(climbStartPoint, climbEndPoint);
     }
 
     /// <summary>持っている弟の処理</summary>
@@ -408,6 +376,101 @@ public class OlderBrotherHamster : MonoBehaviour
         }
     }
 
+    /// <summary>必殺技</summary>
+    private void SpecialAttack()
+    {
+        GameDatas.isSpecialAttack = true;
+        youngerBrother.SendMessage("Special", SendMessageOptions.DontRequireReceiver);
+    }
+
+    /// <summary>敵をつぶす演出</summary>
+    private void Crush()
+    {
+        if (brotherstateInfo.fullPathHash == Animator.StringToHash("Base Layer.BrotherCrushStart"))
+        {
+            float duration = brotherAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            if (duration > 0.9f)
+            {
+                enemyInterval *= 0.95f;
+                int getenemycount = enemyCount;
+                foreach (Transform chird in transform)
+                {
+                    if (chird.tag == "Enemy")
+                    {
+                        getenemycount--;
+                        Vector3 newScale = chird.transform.localScale;
+                        newScale.y *= 0.95f;
+                        chird.transform.localScale = newScale;
+                        chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount - 1) + 1.8f, 0);
+                    }
+                }
+            }
+        }
+
+        youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
+        if (enemyInterval < enemyIntervalDefault / 2.0f)
+        {
+            brotherAnimator.Play("BrotherCrushEnd");
+            CrushSound();
+            EnemyKill();
+            enemyInterval = enemyIntervalDefault;
+            m_State = PlayerState.WALK;
+        }
+    }
+
+    /*
+    /// <summary>敵を持つときの処理</summary>
+    private void Getting()
+    {
+
+    }
+
+    /// <summary>敵を持つときの準備</summary>
+    /// <param name="enemy">敵のゲームオブジェクト</param>
+    private void EnemyGetPreparation(GameObject enemy)
+    {
+        getenemys.Clear();
+
+        foreach (Transform chird in transform)
+        {
+            if (chird.tag == "Enemy")
+            {
+                getenemys.Add(chird);
+            }
+        }
+        for (int i = 0; i < getenemys.Count; i++)
+        {
+            getenemys[i].parent = m_ChirdJumpParent.transform;
+        }
+
+        
+    }
+    */
+    /// <summary>スタンした敵と触れた時の処理</summary>
+    /// <param name="enemy">敵のゲームオブジェクト</param>
+    private void EnemyGet(GameObject enemy)
+    {
+        if (enemyCount == 0 && !isWithBrother) m_Animator.Play("PlayerPickUpSolo");
+        else m_Animator.Play("PlayerPickUpWithBrother");
+        enemyCount++;
+        int getenemycount = enemyCount;
+        foreach (Transform chird in transform)
+        {
+            if (chird.tag == "Enemy")
+            {
+                getenemycount--;
+                chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount) + 1.8f, 0);
+            }
+        }
+        enemy.transform.parent = transform;
+        enemy.transform.localPosition = new Vector3(0, 1.8f, 0);
+        enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
+        enemy.GetComponent<Collider>().enabled = false;
+        
+        enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
+        
+    }
+
     /// <summary>敵をつぶす</summary>
     private void EnemyKill()
     {
@@ -433,13 +496,6 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         gameScore.Pointscore(score, m_Chain, enemyCount);
         enemyCount = 0;
-    }
-
-    /// <summary>必殺技</summary>
-    private void SpecialAttack()
-    {
-        GameDatas.isSpecialAttack = true;
-        youngerBrother.SendMessage("Special", SendMessageOptions.DontRequireReceiver);
     }
 
     /// <summary>敵に当たったときの処理</summary>
@@ -476,6 +532,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
 
     }
+
     /// <summary>体力の増減</summary>
     /// <param name="n">足す数値</param>
     public void AddLife(int n)
@@ -512,15 +569,96 @@ public class OlderBrotherHamster : MonoBehaviour
         return m_SpecialPoint / 100.0f;
     }
 
-    /// <summary>壁のぼりの準備</summary>
-    /// <param name="y">登る高さ</param>
-    private void ClimbPreparation(float y)
+    /// <summary>歩きだすときに、どのアニメを再生するか</summary>
+    private void WalkAnimeControl()
     {
-        climbStartPoint = transform.position;
-        climbEndPoint = new Vector3(transform.position.x, y, transform.position.z);
-        m_State = PlayerState.CLIMB;
-        climbStartTime = Time.time;
-        climbDistance = Vector3.Distance(climbStartPoint, climbEndPoint);
+        if (enemyCount == 0 && !isWithBrother)
+        {
+            if (m_Animator.GetFloat("speed") < 0.1) m_Animator.Play("PlayerWaitSolo");
+            else m_Animator.Play("PlayerRunSolo");
+        }
+        else
+        {
+            if (m_Animator.GetFloat("speed") < 0.1) m_Animator.Play("PlayerWaitWithEnemy");
+            else m_Animator.Play("PlayerRunWithEnemy");
+        }
+    }
+
+    /// <summary>ダメージを受けた時に、どのアニメを再生するか</summary>
+    private void DamageAnimeControl()
+    {
+        if (isWithBrother)
+        {
+            m_Animator.Play("PlayerDamageWithBrother");
+        }
+        else if (enemyCount == 0)
+        {
+            m_Animator.Play("PlayerDamageSolo");
+        }
+        else
+        {
+            m_Animator.Play("PlayerDamageWithEnemy");
+        }
+    }
+
+    /// <summary>投げるときに、どのアニメを再生するか</summary>
+    private void ThrowAnimeControl()
+    {
+        if (enemyCount == 0 && m_State != PlayerState.CLIMB)
+        {
+            m_Audio.PlayOneShot(m_Clips[1]);
+            m_Animator.Play("PlayerThrowStart");
+        }
+        else
+        {
+            brotherAnimator.Play("BrotherFlyStart");
+        }
+    }
+
+    /// <summary>敵をつぶすときに、どの音を鳴らすか</summary>
+    private void CrushSound()
+    {
+        //if (enemyCount == 0) return;
+        int sound = 4;
+        int pSN = 1;
+        if (enemyCount < 3)
+        {
+            sound = 4;
+            pSN = 1;
+        }
+        else
+        if (enemyCount < 5)
+        {
+            sound = 5;
+            pSN = 2;
+        }
+        else if (enemyCount < 7)
+        {
+            sound = 6;
+            pSN = 3;
+        }
+        else
+        {
+            sound = 7;
+            pSN = 3;
+        }
+        m_Audio.PlayOneShot(m_Clips[sound]);
+        foreach (Transform chird in m_CrushParticle.transform)
+        {
+            chird.SendMessage("Crush", pSN, SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    /// <summary>たくさん敵を持った時のプレイヤーの汗</summary>
+    private void Sweat()
+    {
+        sewatTime += Time.deltaTime;
+        if (enemyCount >= 4 && sewatTime > 0.3f)
+        {
+            GameObject sweat = Instantiate(mySweat);
+            sweat.transform.parent = transform;
+            sewatTime = 0.0f;
+        }
     }
 
     public void OnTriggerStay(Collider other)
@@ -586,80 +724,6 @@ public class OlderBrotherHamster : MonoBehaviour
         if (collision.transform.tag == "EnemyBullet")
         {
             Damage();
-        }
-    }
-
-    private void WalkAnimeControl()
-    {
-        if (enemyCount == 0 && !isWithBrother)
-        {
-            if (m_Animator.GetFloat("speed") < 0.1) m_Animator.Play("PlayerWaitSolo");
-            else m_Animator.Play("PlayerRunSolo");
-        }
-        else
-        {
-            if (m_Animator.GetFloat("speed") < 0.1) m_Animator.Play("PlayerWaitWithEnemy");
-            else m_Animator.Play("PlayerRunWithEnemy");
-        }
-    }
-
-    private void DamageAnimeControl()
-    {
-        if (isWithBrother)
-        {
-            m_Animator.Play("PlayerDamageWithBrother");
-        }
-        else if (enemyCount == 0)
-        {
-            m_Animator.Play("PlayerDamageSolo");
-        }
-        else
-        {
-            m_Animator.Play("PlayerDamageWithEnemy");
-        }
-    }
-
-    private void ThrowAnimeControl()
-    {
-        if (enemyCount == 0 && m_State != PlayerState.CLIMB)
-        {
-            m_Audio.PlayOneShot(m_Clips[1]);
-            m_Animator.Play("PlayerThrowStart");
-        }
-        else
-        {
-            brotherAnimator.Play("BrotherFlyStart");
-        }
-    }
-
-    private void CrushSound()
-    {
-        if (enemyCount < 3)
-        {
-            m_Audio.PlayOneShot(m_Clips[4]);
-        }
-        else if (enemyCount < 5)
-        {
-            m_Audio.PlayOneShot(m_Clips[5]);
-        }
-        else if (enemyCount < 7)
-        {
-            m_Audio.PlayOneShot(m_Clips[6]);
-        }
-        else
-        {
-            m_Audio.PlayOneShot(m_Clips[7]);
-        }
-    }
-
-    private void Sweat()
-    {
-        sewatTime += Time.deltaTime;
-        if(enemyCount >= 4 && sewatTime > 0.3f)
-        {
-            GameObject sweat = Instantiate(mySweat);
-            sweat.transform.parent = transform;
-            sewatTime = 0.0f;
         }
     }
 
