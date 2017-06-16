@@ -83,7 +83,7 @@ public class BrotherStateManager : MonoBehaviour
         if (m_BeforeBrosState == BrotherState.NORMAL &&
              m_BrosState == BrotherState.SPECIAL)
         {
-            m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().EnemySet();
+            m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().SpecialSet();
         }
         //必殺技→通常
         if (m_BeforeBrosState == BrotherState.SPECIAL &&

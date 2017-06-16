@@ -1,0 +1,7 @@
+・Canvas直下にKosugiフォルダ内のSpecialEffectプレハブを追加
+・SpecialEffect
+　→Box
+ 　 →StarR  <- ここにSPstarスクリプトがついているのでシーン内の'Brotherオブジェクト'をアタッチ
+・BrotherオブジェクトのBrotherSpecialスクリプトの[必殺技用～]のところに上記の'Boxオブジェクト'をアタッチ
+
+これでおｋなはずです。動かなかったりバグったりしていたら言ってください。

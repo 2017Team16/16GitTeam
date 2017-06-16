@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BrotherSpecial : MonoBehaviour
 {
     [SerializeField, Header("プレイヤーオブジェクト")]
     public GameObject Player;
+    [SerializeField, Header("必殺技用Canvas内オブジェクト")]
+    private GameObject Box;
 
     [HideInInspector, Header("投げる角度")]
     private float _firingAngle = 45.0f;
@@ -47,8 +50,16 @@ public class BrotherSpecial : MonoBehaviour
 
     }
 
-    public void EnemySet()
+    public void SpecialSet()
     {
+        Box.SetActive(true);
+        //EnemySet();
+    }
+
+    void EnemySet()
+    {
+        GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
+
         Transform[] enemysTrans = GameObject.FindGameObjectsWithTag("Enemy").Select(e=>e.transform).ToArray();
         Transform[] enemys = enemysTrans.OrderBy(e => e.transform.position.y).ToArray();
         for (int i = 0; i < enemys.Length; i++)
@@ -57,8 +68,8 @@ public class BrotherSpecial : MonoBehaviour
                 m_Enemys.Add(enemys[i].gameObject);
             //m_Enemys[i].GetComponent<NavMeshAgent>().speed = 0.1f;
         }
+
         m_Enemys.Add(Player);
-        print(m_Enemys.Count);
         StartCoroutine(SpecialMove());
     }
 
@@ -69,7 +80,6 @@ public class BrotherSpecial : MonoBehaviour
     {
         for (int i = 0; i < m_Enemys.Count; i++)
         {
-            print(m_Enemys[i].name);
             _hit = false;
 
             // 投げるオブジェクトの開始位置
@@ -90,7 +100,7 @@ public class BrotherSpecial : MonoBehaviour
 
             // ターゲットまで投げる時のオブジェクトの回転度合い
             transform.rotation = Quaternion.LookRotation(m_Enemys[i].transform.position - transform.position);
-
+            
             // 放物線の計算
             float elapse_time = 0;
             float flightTimer = flightDuration;

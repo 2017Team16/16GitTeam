@@ -44,7 +44,6 @@ public class Brother : MonoBehaviour {
     {
         GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = true;
         m_BrotherStateManager.SetState(BrotherState.SPECIAL);
-        GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
         GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         Time.timeScale = 0;
     }
