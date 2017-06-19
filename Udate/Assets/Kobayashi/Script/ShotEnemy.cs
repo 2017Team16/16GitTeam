@@ -19,6 +19,8 @@ public class ShotEnemy : EnemyBase
 
     public AudioClip shot;
 
+    private float pVec = 0.0f;
+
 
     private void Start()
     {
@@ -113,7 +115,7 @@ public class ShotEnemy : EnemyBase
     public void Shot()
     {
         Vector3 vec = m_Player.transform.position - transform.position;
-        maePosX = vec.x;
+        pVec = vec.x;
         vec.Normalize();
         bullets = GameObject.Instantiate(m_Bullet) as GameObject;
         Vector3 force;
@@ -126,15 +128,17 @@ public class ShotEnemy : EnemyBase
 
     protected override void TextureLR()
     {
-        if (maePosX < 0)
+        if (pVec < 0 || maePosX < transform.position.x)
         {
             m_Texture.transform.localScale = reverseScale;
             lVec = true;
         }
-        else if (maePosX > 0 || !lVec)
+        else if (pVec > 0 || maePosX > transform.position.x || !lVec)
         {
             m_Texture.transform.localScale = m_Scale;
             lVec = false;
         }
+
+        maePosX = transform.position.x;
     }
 }

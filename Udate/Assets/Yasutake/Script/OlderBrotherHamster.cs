@@ -84,6 +84,8 @@ public class OlderBrotherHamster : MonoBehaviour
     //パーティクル関係
     private GameObject m_CrushParticle;
     private GameObject m_ChirdJumpParent;
+    private GameObject m_GettingEnemy;
+    private GameObject m_GettingEnemyParent;
 
     // Use this for initialization
     void Start()
@@ -108,6 +110,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
         m_CrushParticle = transform.FindChild("CrushEffectParent").gameObject;
         m_ChirdJumpParent = transform.FindChild("GettingEffectParent").gameObject;
+        m_GettingEnemyParent = transform.FindChild("GettingEnemy").gameObject;
 
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
@@ -129,6 +132,7 @@ public class OlderBrotherHamster : MonoBehaviour
             case PlayerState.WALK: Move(); break;
             case PlayerState.CLIMB: Climb(); break;
             case PlayerState.CRUSH: Crush(); break;
+            case PlayerState.GETTING: Getting(); break;
         }
         if (m_InvincibleTime < m_InvincibleInterval) //ダメージを受けて無敵の時の処理
         {
@@ -152,7 +156,7 @@ public class OlderBrotherHamster : MonoBehaviour
             }
         }
         
-        if (m_State == PlayerState.CRUSH) return;
+        if (m_State == PlayerState.CRUSH || m_State == PlayerState.GETTING) return;
 
         BrotherGet();
         if (GameDatas.isSpecialAttack) //必殺技の効果時間
@@ -167,9 +171,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
         maeBroState = brotherState.GetState();
 
-        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpSolo") ||
-           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother") ||
-           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother"))
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother"))
         {
             float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (duration > 0.9f) //再生終わりまで行ったら歩きなどのアニメへ
@@ -418,16 +420,24 @@ public class OlderBrotherHamster : MonoBehaviour
         }
     }
 
-    /*
+    
     /// <summary>敵を持つときの処理</summary>
     private void Getting()
     {
-
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpSolo") ||
+           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother") )
+        {
+            float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            if (duration > 0.9f) //再生終わりまで行ったら歩きなどのアニメへ
+            {
+                EnemyGetEnd();
+            }
+        }
     }
 
     /// <summary>敵を持つときの準備</summary>
     /// <param name="enemy">敵のゲームオブジェクト</param>
-    private void EnemyGetPreparation(GameObject enemy)
+    private void EnemyGetPreparation()
     {
         getenemys.Clear();
 
@@ -442,16 +452,32 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             getenemys[i].parent = m_ChirdJumpParent.transform;
         }
+        youngerBrotherPosition.transform.parent = m_ChirdJumpParent.transform;
+        m_GettingEnemy.transform.parent = m_GettingEnemyParent.transform;
 
-        
-    }
-    */
-    /// <summary>スタンした敵と触れた時の処理</summary>
-    /// <param name="enemy">敵のゲームオブジェクト</param>
-    private void EnemyGet(GameObject enemy)
-    {
+        m_GettingEnemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
+        m_GettingEnemy.GetComponent<Collider>().enabled = false;
+
+
+
+        m_ChirdJumpParent.GetComponent<Animator>().Play("PlayerGettingGetEnemys");
+
+        if (lVec) m_GettingEnemyParent.GetComponent<Animator>().Play("PlayerGettingEnemy2");
+        else m_GettingEnemyParent.GetComponent<Animator>().Play("PlayerGettingEnemy");
+
         if (enemyCount == 0 && !isWithBrother) m_Animator.Play("PlayerPickUpSolo");
         else m_Animator.Play("PlayerPickUpWithBrother");
+
+        m_State = PlayerState.GETTING;
+    }
+
+    /// <summary>敵を持つときの演出の終了</summary>
+    private void EnemyGetEnd()
+    {
+        for (int i = 0; i < getenemys.Count; i++)
+        {
+            getenemys[i].parent = transform;
+        }
         enemyCount++;
         int getenemycount = enemyCount;
         foreach (Transform chird in transform)
@@ -462,14 +488,40 @@ public class OlderBrotherHamster : MonoBehaviour
                 chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount) + 1.8f, 0);
             }
         }
-        enemy.transform.parent = transform;
-        enemy.transform.localPosition = new Vector3(0, 1.8f, 0);
-        enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
-        enemy.GetComponent<Collider>().enabled = false;
-        
-        enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
-        
+        youngerBrotherPosition.transform.parent = transform;
+        m_GettingEnemy.transform.parent = transform;
+        m_GettingEnemy.transform.localPosition = new Vector3(0, 1.8f, 0);
+        m_GettingEnemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
+
+
+        m_State = PlayerState.WALK;
+        WalkAnimeControl();
     }
+    
+    ///// <summary>スタンした敵と触れた時の処理</summary>
+    ///// <param name="enemy">敵のゲームオブジェクト</param>
+    //private void EnemyGet(GameObject enemy)
+    //{
+    //    if (enemyCount == 0 && !isWithBrother) m_Animator.Play("PlayerPickUpSolo");
+    //    else m_Animator.Play("PlayerPickUpWithBrother");
+    //    enemyCount++;
+    //    int getenemycount = enemyCount;
+    //    foreach (Transform chird in transform)
+    //    {
+    //        if (chird.tag == "Enemy")
+    //        {
+    //            getenemycount--;
+    //            chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount) + 1.8f, 0);
+    //        }
+    //    }
+    //    enemy.transform.parent = transform;
+    //    enemy.transform.localPosition = new Vector3(0, 1.8f, 0);
+    //    enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
+    //    enemy.GetComponent<Collider>().enabled = false;
+        
+    //    enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
+        
+    //}
 
     /// <summary>敵をつぶす</summary>
     private void EnemyKill()
@@ -691,7 +743,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
     public void OnCollisionStay(Collision collision)
     {
-        if (m_State == PlayerState.CRUSH || !GameDatas.isPlayerLive ||
+        if (m_State == PlayerState.CRUSH || m_State == PlayerState.GETTING || !GameDatas.isPlayerLive ||
             stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowStart") ||
             stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother")) return;
         if (collision.transform.tag == "Enemy")
@@ -705,7 +757,9 @@ public class OlderBrotherHamster : MonoBehaviour
             }
             if (enemyState == EnemyBase.EnemyState.SUTAN)
             {
-                EnemyGet(collision.gameObject);
+                m_GettingEnemy = collision.gameObject;
+                //EnemyGet(collision.gameObject);
+                EnemyGetPreparation();
             }
         }
         if (collision.gameObject == youngerBrother && brotherState.GetState() == BrotherState.BACK)
@@ -718,7 +772,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (m_State == PlayerState.CRUSH || !GameDatas.isPlayerLive ||
+        if (m_State == PlayerState.CRUSH || m_State == PlayerState.GETTING || !GameDatas.isPlayerLive ||
            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowStart") ||
            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother")) return;
         if (collision.transform.tag == "EnemyBullet")
