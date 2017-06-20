@@ -34,6 +34,5 @@ public class DeathStar : MonoBehaviour {
             _Center.gameObject.SetActive(true);
             _Center.transform.eulerAngles += new Vector3(/*Mathf.Sin(Time.time) * 0.5f*/0, _speed, 0);
         }
-
     }
 }

@@ -10,6 +10,8 @@ public class BrotherSpecial : MonoBehaviour
     public GameObject Player;
     [SerializeField, Header("必殺技用Canvas内オブジェクト")]
     private GameObject Box;
+    [SerializeField, Header("パーティクルオブジェクト")]
+    private GameObject m_Particle;
 
     [HideInInspector, Header("投げる角度")]
     private float _firingAngle = 45.0f;
@@ -28,6 +30,8 @@ public class BrotherSpecial : MonoBehaviour
     private bool _isPlayer;
 
     private AudioSource m_Audio;
+
+    public bool flag;
 
     //弟管理クラス
     private BrotherStateManager m_BrotherStateManager;
@@ -58,6 +62,7 @@ public class BrotherSpecial : MonoBehaviour
 
     void EnemySet()
     {
+        GameDatas.isBrotherSpecialMove = true;
         GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
 
         Transform[] enemysTrans = GameObject.FindGameObjectsWithTag("Enemy").Select(e=>e.transform).ToArray();
@@ -106,18 +111,24 @@ public class BrotherSpecial : MonoBehaviour
             float flightTimer = flightDuration;
             while (!_hit && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
             {
-                transform.Translate(0, (Vy - (_gravity* _speed * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
+                if (!flag||GameDatas.isBrotherSpecialMove)
+                {
+                    transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
+                    elapse_time += Time.unscaledDeltaTime;
+                }
 
-                elapse_time += Time.unscaledDeltaTime;
+                m_Particle.GetComponent<ParticleSystem>().Play();
 
                 if (elapse_time >= flightDuration)
                 {
                     if (m_Enemys[i] == Player && i == m_Enemys.Count - 1)
                     {
                         Time.timeScale = 1;
+
+                        m_Particle.GetComponent<ParticleSystem>().Stop();
+                        GameDatas.isBrotherSpecialMove = false;
                         //_hit = true;
                         //m_Enemys.Clear();
-
                         //m_BrotherStateManager.SetState(BrotherState.NORMAL);
                     }
                     else
