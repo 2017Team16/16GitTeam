@@ -72,7 +72,7 @@ public class StartEND_Production : MonoBehaviour {
             imagesStart.sprite = numberSprites[5];
             if (_timer > 20)
             {
-                PauseObj.SetActive(true);
+                //PauseObj.SetActive(true);
                 _Start_On = false;
             }
         }

@@ -68,7 +68,7 @@ public class BrotherBack : MonoBehaviour
             // OffmeshLinkに乗るまで普通に移動
             //yield return new WaitWhile(() => m_Nav.isOnOffMeshLink == false);
 
-            m_Nav.speed = 6;
+            m_Nav.speed = _speed;
 
             if(walkTime>0.5f)
             {
@@ -76,18 +76,7 @@ public class BrotherBack : MonoBehaviour
                 walkTime = 0;
             }
 
-            while (m_Nav.isOnOffMeshLink == true)
-            {
-                m_Nav.speed = 2;
-
-                if (walkTime > 0.5f)
-                {
-                    m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[0]);
-                    walkTime = 0;
-                }
-
-                yield return null;
-            }
+            
 
             //    // OffMeshLinkに乗ったので、NavmeshAgentによる移動を止めて、
             //    // OffMeshLinkの終わりまでNavmeshAgent.speedと同じ速度で移動

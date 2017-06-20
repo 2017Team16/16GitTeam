@@ -347,13 +347,12 @@ public class OlderBrotherHamster : MonoBehaviour
         else if (brotherState.GetState() == BrotherState.THROW &&
             !GameDatas.isBrotherFlying && maeBroState == brotherState.GetState())
         {
-            //if (!isWithBrother)
-            //{
-            //isWithBrother = true;
-            //brotherAnimator.Play("BrotherWait");
-            //WalkAnimeControl();
-            //Debug.Log("aaaa");
-            //}
+            if (!isWithBrother)
+            {
+                isWithBrother = true;
+                brotherAnimator.Play("BrotherWait");
+                WalkAnimeControl();
+            }
 
             youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
 
