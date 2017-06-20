@@ -347,13 +347,15 @@ public class OlderBrotherHamster : MonoBehaviour
         else if (brotherState.GetState() == BrotherState.THROW &&
             !GameDatas.isBrotherFlying && maeBroState == brotherState.GetState())
         {
-            if (!isWithBrother)
-            {
-                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
-                isWithBrother = true;
-                brotherAnimator.Play("BrotherWait");
-                WalkAnimeControl();
-            }
+            //if (!isWithBrother)
+            //{
+            //isWithBrother = true;
+            //brotherAnimator.Play("BrotherWait");
+            //WalkAnimeControl();
+            //Debug.Log("aaaa");
+            //}
+
+            youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
 
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
@@ -670,7 +672,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>敵をつぶすときに、どの音を鳴らすか</summary>
     private void CrushSound()
     {
-        //if (enemyCount == 0) return;
+        if (enemyCount == 0) return;
         int sound = 4;
         int pSN = 1;
         if (enemyCount < 3)
