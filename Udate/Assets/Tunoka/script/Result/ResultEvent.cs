@@ -14,16 +14,15 @@ public class ResultEvent : MonoBehaviour
     private float _Score;
     private float _Chain;
     private float _Maxpush;
-    [SerializeField, Header("画面表示用のオブジェクト")]
+
+    [SerializeField, Header("最終スコア表示用")]
     private GameObject _ScoreObj;
-    private Text _displayScore;
+    private Text _displayScore;//表示する用の中身
+    [SerializeField, Header("エフェクト")]
     public GameObject _EffectObg;
     [SerializeField, Header("今のイベント状態")]
     private int _EventNum = 0;
-    [SerializeField, Header("加算オブジェ")]
-    private Image _AdditionIme;
-    [SerializeField, Header("文字表示イラスト")]
-    private Sprite[] _AddScoreText;
+
     private float _Timer;
 
 
@@ -60,58 +59,19 @@ public class ResultEvent : MonoBehaviour
     void Event0()//最初のアニメーション
     {
 
-        if (_Timer >= 2)
-        {
-            _audio.PlayOneShot(_clip01);
-            _Timer = 0;
-            _EventNum += 1;
-            _Score += _Chain * 50;
-            print(_Score);
-            _ScoreObj.GetComponent<Animator>().Play("ResultScoreAnimation", 0, 0);
-            GameObject wreckClone = (GameObject)Instantiate
-              (_EffectObg,
-               new Vector3(_ScoreObj.transform.position.x, _ScoreObj.transform.position.y, _ScoreObj.transform.position.z - 10),
-               Quaternion.identity);
-        }
+      
     }
     void Event1()//最初のアニメーション
     {
-        //
-        _AdditionIme.sprite = _AddScoreText[0];
-        //
-        if (_Timer >= 2)
-        {
-            _audio.PlayOneShot(_clip02);
-            _Timer = 0;
-            _EventNum += 1;
-            _Score += _Maxpush * 100;
-            print(_Score);
-            _ScoreObj.GetComponent<Animator>().Play("ResultScoreAnimation",0,0);
-            //Effectを出す
-            GameObject wreckClone = (GameObject)Instantiate
-               (_EffectObg,
-               new Vector3(_ScoreObj.transform.position.x, _ScoreObj.transform.position.y, _ScoreObj.transform.position.z - 10),
-                Quaternion.identity);
-        }
+      
     }
     void Event2()//_Chainの加算アニメーション
     {
-        //
-        _AdditionIme.sprite = _AddScoreText[1];
-        //
-        if (_Timer >= 2)
-        {
-            _audio.PlayOneShot(_clip03);
-            _Timer = 0;
-            _EventNum += 1;
-        }
+       
     }
     void Event3()//_MaxPushの加算アニメーション
     {
-        iTween.MoveTo(_ScoreObj, iTween.Hash("position" , test, "time", 3));
-        iTween.ScaleTo(_ScoreObj, iTween.Hash("x", 1, "y", 1, "time", 3));
-        _SelectWaku.SetActive(true);
-        gameObject.SetActive(false);
+ 
     }
 
 }

@@ -17,6 +17,8 @@ public class StartEND_Production : MonoBehaviour {
     GameObject imagesStartObj;
     [SerializeField]
     GameObject imagesEndObj;
+    [SerializeField]
+    GameObject PauseObj;
 
     private bool _Start_On = false;
     private bool _End_On = false;
@@ -70,6 +72,7 @@ public class StartEND_Production : MonoBehaviour {
             imagesStart.sprite = numberSprites[5];
             if (_timer > 20)
             {
+                PauseObj.SetActive(true);
                 _Start_On = false;
             }
         }

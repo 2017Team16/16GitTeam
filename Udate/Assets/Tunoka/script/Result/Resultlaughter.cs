@@ -5,7 +5,6 @@ using System;
 
 public class Resultlaughter : MonoBehaviour {
 
-    public float _rouletteTime;
 
     [SerializeField]
     Image[] images = new Image[4];
@@ -37,6 +36,20 @@ public class Resultlaughter : MonoBehaviour {
         num = num / 10;
         str = num % 10;
         images[3].sprite = numberSprites[str];
-    
+
+        for (int i = images.Length - 1; i > 0; i--)
+        {
+            print(images[i].sprite.name);
+            if (images[i].sprite.name == "result-score-nb_0")
+            {
+                images[i].sprite = numberSprites[10];
+            }
+            else
+            {
+                return;
+            }
+        }
+
     }
+
 }
