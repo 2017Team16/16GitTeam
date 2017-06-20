@@ -616,6 +616,18 @@ public class OlderBrotherHamster : MonoBehaviour
         AddLife(2);
     }
 
+    /// <summary>必殺技用ゲージの増加</summary>
+    public void AddSpecialPoint()
+    {
+
+    }
+
+    /// <summary>デフォルトの速さで歩く</summary>
+    public void DefaultSpeedWalk()
+    {
+
+    }
+
     /// <summary>必殺ゲージ用float型を返す</summary>
     public float GetSpacialPoint()
     {
