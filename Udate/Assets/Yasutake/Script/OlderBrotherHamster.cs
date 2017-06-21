@@ -20,6 +20,9 @@ public class OlderBrotherHamster : MonoBehaviour
     private float m_InvincibleTime = 0; //無敵時間をはかる変数
     [Header("速さ")]
     public float m_Speed = 1;
+    private bool isDefault = false;
+    [Header("アイテムによるデフォルトのスピードになる効果時間")]
+    public float m_DefaultTime = 10.0f;
     [Header("ジャンプ力")]
     public float m_Jump = 3.0f; //デフォルト
     private GameObject m_Texture; //画像を貼っている子供（仮）
@@ -42,6 +45,8 @@ public class OlderBrotherHamster : MonoBehaviour
     private float m_SpecialPoint = 0.0f;
     [Header("必殺の継続時間")]
     public float m_SpecialTime = 5.0f;
+    [Header("アイテムによる必殺ゲージ増加量")]
+    public float m_SpecialItem = 50.0f;
 
     private Rigidbody m_Rigidbody;
     private PlayerState m_State = PlayerState.WALK;
@@ -216,15 +221,25 @@ public class OlderBrotherHamster : MonoBehaviour
             m_Rigidbody.velocity = newVelocity;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal") / (enemyCount * 0.2f + 1), 0,
-            Input.GetAxis("Vertical") / (enemyCount * 0.2f + 1)) * m_Speed * Time.deltaTime;
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = input / (enemyCount * 0.2f + 1);
+        if (enemyCount > 3) move = input / (enemyCount + 1);
         TextureLR();
+        if (isDefault)
+        {
+            move = input;
+            m_DefaultTime -= Time.deltaTime;
+            if(m_DefaultTime < 0)
+            {
+                isDefault = false;
+                m_DefaultTime = 10.0f;
+            }
+        }
         if (GameDatas.isSpecialAttack)
         {
-            move.x *= 1.5f * (enemyCount * 0.2f + 1);
-            move.z *= 1.5f * (enemyCount * 0.2f + 1);
+            move = 1.5f * input;
         }
-        m_Rigidbody.MovePosition(transform.position + move);
+        m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         m_Animator.SetFloat("speed", f);
         if (walkSoundPlayInterval > 0.4f && f>0.5f &&!isJump)
@@ -299,8 +314,10 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             if (isWithBrother)
             {
-                youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
-                if (Input.GetButtonDown("XboxB"))
+                //                                                                                   敵の間隔　　　　数　　　弟の位置調整　兄の高さ分
+                if(enemyCount != 0) youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 0.3f + 2.5f, 0);
+                else youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
+                if (Input.GetButtonDown("XboxB") && m_State == PlayerState.WALK)
                 {
                     //EnemyKill();
                     m_State = PlayerState.CRUSH;
@@ -354,7 +371,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 WalkAnimeControl();
             }
 
-            youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
+            if (enemyCount != 0) youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 0.3f + 2.5f, 0);
+            else youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
 
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
@@ -420,11 +438,29 @@ public class OlderBrotherHamster : MonoBehaviour
             m_State = PlayerState.WALK;
         }
     }
-
     
     /// <summary>敵を持つときの処理</summary>
     private void Getting()
     {
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = input / (enemyCount * 0.2f + 1);
+        if (enemyCount > 3) move = input / (enemyCount + 1);
+        if (isDefault)
+        {
+            move = input;
+            m_DefaultTime -= Time.deltaTime;
+            if (m_DefaultTime < 0)
+            {
+                isDefault = false;
+                m_DefaultTime = 10.0f;
+            }
+        }
+        if (GameDatas.isSpecialAttack)
+        {
+            move = 1.5f * input;
+        }
+        m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
+
         if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpSolo") ||
            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother") )
         {
@@ -619,13 +655,14 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>必殺技用ゲージの増加</summary>
     public void AddSpecialPoint()
     {
-
+        m_SpecialPoint += m_SpecialItem;
+        if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
     }
 
     /// <summary>デフォルトの速さで歩く</summary>
     public void DefaultSpeedWalk()
     {
-
+        isDefault = true;
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>
