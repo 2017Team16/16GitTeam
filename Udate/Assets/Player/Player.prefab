@@ -754,11 +754,13 @@ MonoBehaviour:
   m_Life: 6
   m_InvincibleInterval: 3
   m_Speed: 10
+  m_DefaultTime: 10
   m_Jump: 15
   enemyInterval: 0.5
   youngerBrother: {fileID: 0}
-  m_SpecialPoint: 0
+  m_SpecialPoint: 100
   m_SpecialTime: 5
+  m_SpecialItem: 50
   climbSpeed: 10
   gameScore: {fileID: 0}
   mySoul: {fileID: 1000011725084526, guid: 277f0a4c2ba1c4546b08ce1d82f560cc, type: 2}
@@ -772,6 +774,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cb457f0ef168e514f892239f40a8a704, type: 3}
   - {fileID: 8300000, guid: e64cbd577cb0a48479ab2728c6635f23, type: 3}
   - {fileID: 8300000, guid: 6a56171cbc6da7843b19d8c51ab039b1, type: 3}
+  - {fileID: 8300000, guid: c8169bff95d27fb42b9311b756ed091c, type: 3}
 --- !u!114 &114000012848069970
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -300,6 +300,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <param name="y">登る高さ</param>
     private void ClimbPreparation(float y)
     {
+        TextureLR();
         climbStartPoint = transform.position;
         climbEndPoint = new Vector3(transform.position.x, y, transform.position.z);
         m_State = PlayerState.CLIMB;
@@ -491,6 +492,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         youngerBrotherPosition.transform.parent = m_ChirdJumpParent.transform;
         m_GettingEnemy.transform.parent = m_GettingEnemyParent.transform;
+        m_GettingEnemy.transform.localPosition = m_GettingEnemyParent.transform.localPosition;
 
         m_GettingEnemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
         m_GettingEnemy.GetComponent<Collider>().enabled = false;
@@ -713,6 +715,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         else
         {
+            m_Audio.PlayOneShot(m_Clips[8]);
             brotherAnimator.Play("BrotherFlyStart");
         }
     }
@@ -771,21 +774,24 @@ public class OlderBrotherHamster : MonoBehaviour
         if (other.transform.tag == "FrontClimbStart" && Input.GetAxis("Vertical") > 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
-            if (end == null) return; ClimbPreparation(end.position.y);
+            if (end == null) return;
+            ClimbPreparation(end.position.y);
             climbEndVector = Vector3.forward;
             m_Animator.Play("PlayerClimbZ");
         }
         if (other.transform.tag == "LeftClimbStart" && Input.GetAxis("Horizontal") > 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
-            if (end == null) return; ClimbPreparation(end.position.y);
+            if (end == null) return;
+            ClimbPreparation(end.position.y);
             climbEndVector = Vector3.right;
             m_Animator.Play("PlayerClimbX");
         }
         if (other.transform.tag == "RightClimbStart" && Input.GetAxis("Horizontal") < 0.0f)
         {
             Transform end = other.transform.FindChild("ClimbEnd");
-            if (end == null) return; ClimbPreparation(end.position.y);
+            if (end == null) return;
+            ClimbPreparation(end.position.y);
             climbEndVector = Vector3.left;
             m_Animator.Play("PlayerClimbX");
         }
