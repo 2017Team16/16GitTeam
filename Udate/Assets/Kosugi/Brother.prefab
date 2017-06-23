@@ -206,12 +206,11 @@ MonoBehaviour:
   m_TargetCreate: {fileID: 0}
   m_ShockWave: {fileID: 1000010277938884, guid: c2ce5760f60e9ef4b967df039b0b8680,
     type: 2}
-  Target: {fileID: 0}
+  particle: {fileID: 0}
   _targetSpeed: 5
-  _firingAngle: 45
-  _enemyHit: 0
-  _count: 2
   _speed: 1
+  Target: {fileID: 0}
+  _count: 2
 --- !u!114 &114000012918803872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,6 +229,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b39bebf305706f34c8ad98ff04e6a98f, type: 3}
   - {fileID: 8300000, guid: 265dbe0dd6e16ed4898f768c73cdbdeb, type: 3}
   - {fileID: 8300000, guid: ca021ca39c8e9c64ca0699ca85c85b68, type: 3}
+  - {fileID: 8300000, guid: d6d4641b88efa2e45b086b3900b15ede, type: 3}
 --- !u!114 &114000012978412528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,7 +243,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Box: {fileID: 0}
-  m_Particle: {fileID: 0}
   _speed: 2.5
   _hit: 0
 --- !u!114 &114000013334910906
@@ -257,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd2dd2f5080f37429dd1b5e643cf6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BrosAnim: {fileID: 0}
+  m_BrosAnimation: {fileID: 0}
   m_Anim: {fileID: 0}
 --- !u!114 &114000013412438020
 MonoBehaviour:
@@ -271,7 +270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BrotherPosition: {fileID: 0}
-  _isFloor: 0
 --- !u!135 &135000013496690842
 SphereCollider:
   m_ObjectHideFlags: 1
