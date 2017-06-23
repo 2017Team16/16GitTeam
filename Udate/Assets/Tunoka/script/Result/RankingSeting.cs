@@ -65,7 +65,7 @@ public class RankingSeting : MonoBehaviour {
     }
     public void WritingFile()
     {
-        StreamWriter sw = new StreamWriter(Application.dataPath + "/Tunoka/Resources/" + "FileRead01.txt", false, System.Text.Encoding.GetEncoding("shift_jis")); //true=追記 false=上書き
+        StreamWriter sw = new StreamWriter(Application.dataPath + "/Tunoka/Resources/" + "FileRead0.txt" + StageNum.ToString() + ".txt", false, System.Text.Encoding.GetEncoding("shift_jis")); //true=追記 false=上書き
 
         for (int i = 0; i < _Rank.Count; i++)
         {

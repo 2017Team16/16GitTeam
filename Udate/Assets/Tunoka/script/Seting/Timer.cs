@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour {
     private float _gameTime;
 
     [SerializeField, Header("画面表示用のオブジェクト")]
-    private Text _displayTime;
+    private clock _displayTime;
 
     [SerializeField, Header("ゲーム終了演出")]
     private StartEND_Production _StartEND_Production;
@@ -47,7 +47,9 @@ public class Timer : MonoBehaviour {
 
         if (_displayTime != null)//画面表示用のTextが存在したらそれに表示させる
         {
-            _displayTime.text = "Time : " + (_ENDTime - (int)_gameTime).ToString();
+
+            _displayTime.SetTimer(1 -(_gameTime / _ENDTime));
+            //_displayTime.text = "Time : " + (_ENDTime - (int)_gameTime).ToString();
         }
 
         if (_ENDTime - _gameTime <= 3)
@@ -62,5 +64,14 @@ public class Timer : MonoBehaviour {
                 _StartEND_Production.End_Production(_Check);
             }
         }
+    }
+    public void HeelTime(int i)
+    {
+        if (_gameTime <= i)
+        {
+            _gameTime = 0;
+            return;
+        }
+        _gameTime -= i;
     }
 }

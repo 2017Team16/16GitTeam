@@ -87,8 +87,6 @@ public class TitleController : MonoBehaviour {
             case 3: print("ゲーム終了"); Application.Quit(); break;
         }
         _CursorNum = -1;//カーソル操作を終了させる
-        
-
     }
     public int GetCursorNum()
     {

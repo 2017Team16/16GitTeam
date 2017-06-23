@@ -34,7 +34,6 @@ public class StartEND_Production : MonoBehaviour {
         _timer = 0;
         imagesStartObj.SetActive(true);
         imagesEndObj.SetActive(false);
-        Time.timeScale = 0;
     }
 	
 	// Update is called once per frame
@@ -53,6 +52,7 @@ public class StartEND_Production : MonoBehaviour {
     }
     void Start_Production()
     {
+        Time.timeScale = 0;
         _timer++;
         if (_timer >= 30 * 1)
         {
@@ -72,7 +72,7 @@ public class StartEND_Production : MonoBehaviour {
             imagesStart.sprite = numberSprites[5];
             if (_timer > 20)
             {
-                //PauseObj.SetActive(true);
+                PauseObj.SetActive(true);
                 _Start_On = false;
             }
         }

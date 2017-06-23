@@ -3,26 +3,122 @@ using System.Collections;
 
 public class Pause : MonoBehaviour {
 
+    [SerializeField]
     private bool _pauseTr;
     [SerializeField]
     private GameObject _MoveObj;
+
+    [SerializeField, Header("scene管理")]
+    private SceneChanger SChang;
+    public int _ListNum;
+    private bool Neutral = true;
+
     // Use this for initialization
     void Start () {
         _pauseTr = false;
+        Neutral = false;
         _MoveObj.SetActive(false);
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+
+        if (Input.GetButtonDown("XboxStart"))
+        {
+            _pauseTr = true;
+        }
+
+        if (GameDatas.isSpecialAttack == true)
+        {
+            SpecialPause();
+            return;
+        }
         if (_pauseTr == true)
         {
+            PausCon();
             _MoveObj.SetActive(true);
+            
             Time.timeScale = 0;
         }
         else
         {
+            _ListNum = 0;
             _MoveObj.SetActive(false);
             Time.timeScale = 1;
         }
+    }
+    void SpecialPause()
+    {
+        if (_pauseTr == true)
+        {
+            _MoveObj.SetActive(true);
+            PausCon();
+            //弟を止める
+            GameDatas.isBrotherSpecialMove = false;
+            //
+        }
+        else
+        {
+            _ListNum = 0;
+            _MoveObj.SetActive(false);
+            //弟を動かす
+            GameDatas.isBrotherSpecialMove = true;
+            //
+        }
+    }
+    void PausCon()
+    {
+        if (_ListNum >= 0)
+        {
+            if (Input.GetButtonDown("XboxB"))
+            {
+                _pauseTr = false;
+                SceneChangeButton();
+            }
+            if (Input.GetAxisRaw("Vertical") < 0 || Input.GetAxisRaw("Horizontal") > 0)
+            {
+                if (Neutral == true)
+                {
+                    CursorAdjustment(+1);
+                    Neutral = false;
+                }
+                return;
+            }
+            if (Input.GetAxisRaw("Vertical") > 0 || Input.GetAxisRaw("Horizontal") < 0)
+            {
+                if (Neutral == true)
+                {
+                    CursorAdjustment(-1);
+                    Neutral = false;
+                }
+                return;
+            }
+
+            Neutral = true;
+        }
+    }
+    void CursorAdjustment(int i)//カーソルの調整
+    {
+        _ListNum += i;
+        if (_ListNum < 0)
+        {
+            _ListNum = 1;
+        }
+        else if (_ListNum > 1)
+        {
+            _ListNum = 0;
+        }
+    }
+    public void SceneChangeButton()
+    {
+        switch (_ListNum)
+        {
+            case 0:
+                _pauseTr = false; break;
+            case 1:
+                SChang.FadeOut("MainTitle"); break;
+        }
+        _ListNum = 100;//カーソル操作を終了させる
     }
 }

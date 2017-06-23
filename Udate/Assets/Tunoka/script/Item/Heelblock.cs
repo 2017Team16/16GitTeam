@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Heelblock : MonoBehaviour {
 
-    [SerializeField, Header("SE用弟")]
+    [SerializeField, Header("SE用")]
     public AudioSource _audio;
     public AudioClip _clip01;
 

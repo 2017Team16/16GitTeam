@@ -10,14 +10,18 @@ public class Resultlaughter : MonoBehaviour {
     Image[] images = new Image[4];
     [SerializeField]
     Sprite[] numberSprites = new Sprite[10];
+    private string _Normal;
 
     // Use this for initialization
     void Start () {
+        _Normal = "";
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (_Normal == transform.GetComponent<Text>().text) return;
+        _Normal = transform.GetComponent<Text>().text;
         SetNumbers(int.Parse(transform.GetComponent<Text>().text));
     }
     void SetNumbers(int num)

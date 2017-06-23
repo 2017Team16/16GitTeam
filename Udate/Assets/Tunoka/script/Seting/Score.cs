@@ -17,8 +17,13 @@ public class Score : MonoBehaviour {
     [SerializeField, Header("確認用倒した数(いじらない)")]
     private float _checkKill;
     public static float _killNum;
+    [SerializeField, Header("確認用体力(いじらない)")]
+    private float _checkLife;
+    public static float _LifeNum;
     [SerializeField, Header("画面表示用のオブジェクト")]
     private Text _displayScore;
+
+    private OlderBrotherHamster _OlderBrotherHamster;
 
     //スコアを取得
     public static float getScore()
@@ -38,6 +43,11 @@ public class Score : MonoBehaviour {
     {
         return _killNum;
     }
+    //スコアを取得
+    public static float getLife()
+    {
+        return _LifeNum;
+    }
     // Use this for initialization
     void Start ()
     {
@@ -45,6 +55,9 @@ public class Score : MonoBehaviour {
         _MaxPush =0;
         _Maxchain = 0;
         _killNum = 0;
+        _OlderBrotherHamster =  GameObject.Find("Player").GetComponent<OlderBrotherHamster>();
+
+        _LifeNum = _OlderBrotherHamster.m_Life;
     }
 	
 	// Update is called once per frame
@@ -54,14 +67,9 @@ public class Score : MonoBehaviour {
         _checkMaxpush = getMaxPush();//確認用に最大の高さを入れる
         _checkChain = getChain();//確認用に連続つぶし数入れる
         _checkKill = getKill();//キル数を入れる
+        _checkLife = getLife();//Life数を入れる
 
-        //デバック用=======================================================================
-        if (Input.GetKey(KeyCode.P))
-        {
-            print("デバック用のポインup(Pキー)が押されたよ");
-            Pointscore(10);
-        }
-        //=================================================================================
+        _LifeNum = _OlderBrotherHamster.m_Life;//ライフを更新する
 
         if (_displayScore != null)//画面表示用のTextが存在したらそれに表示させる
         {
