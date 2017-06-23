@@ -1240,11 +1240,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000012918803872, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_SE.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011196446594, guid: eaaaddd43699f5b4daead6eb9196d726, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.5000002
@@ -1292,6 +1287,11 @@ Prefab:
       propertyPath: m_TargetCreate
       value: 
       objectReference: {fileID: 256193741}
+    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 1054863422}
     - target: {fileID: 114000010270247420, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: Player
@@ -1307,11 +1307,6 @@ Prefab:
       propertyPath: Box
       value: 
       objectReference: {fileID: 634567043}
-    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_Particle
-      value: 
-      objectReference: {fileID: 1049919181}
     - target: {fileID: 114000013412438020, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: BrotherPosition
@@ -1319,24 +1314,9 @@ Prefab:
       objectReference: {fileID: 1273428617}
     - target: {fileID: 114000013334910906, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
-      propertyPath: m_BrosAnim
+      propertyPath: m_BrosAnimation
       value: 
       objectReference: {fileID: 993000441}
-    - target: {fileID: 114000012918803872, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_SE.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: ca021ca39c8e9c64ca0699ca85c85b68, type: 3}
-    - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: particle
-      value: 
-      objectReference: {fileID: 1054863422}
-    - target: {fileID: 114000012918803872, guid: eaaaddd43699f5b4daead6eb9196d726,
-        type: 2}
-      propertyPath: m_SE.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: d6d4641b88efa2e45b086b3900b15ede, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaaaddd43699f5b4daead6eb9196d726, type: 2}
   m_IsPrefabParent: 0
