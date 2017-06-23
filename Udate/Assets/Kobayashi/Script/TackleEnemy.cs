@@ -9,7 +9,7 @@ public class TackleEnemy : EnemyBase
     public float searchRange = 5.0f;
     public AudioClip dash;
 
-
+    /// <summary>移動中 </summary>
     protected override void WalkingState()
     {
         GetComponent<Renderer>().material.color = Color.blue;
@@ -25,7 +25,7 @@ public class TackleEnemy : EnemyBase
 
         }
     }
-
+    /// <summary>チャージ中 </summary>
     protected override void ChargingState()
     {
         GetComponent<Renderer>().material.color = Color.red;
@@ -35,7 +35,7 @@ public class TackleEnemy : EnemyBase
             audioSorce.PlayOneShot(dash);
         }
     }
-
+    /// <summary>攻撃中 </summary>
     protected override void AttackState()
     {
        m_Agent.Move(vec * m_Speed * Time.deltaTime);
@@ -44,6 +44,7 @@ public class TackleEnemy : EnemyBase
             ChangeState(0);
         }
     }
+    /// <summary>ポイントをセット </summary>
     protected override void SetNewPatrolPointToDestination()
     {
         m_Agent.destination = new Vector3(Random.Range(-7, 7), 0, Random.Range(-7, 7));

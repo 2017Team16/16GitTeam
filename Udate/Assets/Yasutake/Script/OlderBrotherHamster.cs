@@ -75,6 +75,8 @@ public class OlderBrotherHamster : MonoBehaviour
     public AudioClip[] m_Clips;
     private float walkSoundPlayInterval = 0.0f;
     private bool isJump = false;
+    private int soundNum = 0;
+    private int soundCount = 0;
 
     //アニメ用変数たち
     private Animator m_Animator;
@@ -160,8 +162,14 @@ public class OlderBrotherHamster : MonoBehaviour
                 m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
-        
+
         if (m_State == PlayerState.CRUSH || m_State == PlayerState.GETTING) return;
+
+        if(soundCount > 0)
+        {
+            m_Audio.PlayOneShot(m_Clips[soundNum]);
+            soundCount--;
+        }
 
         BrotherGet();
         if (GameDatas.isSpecialAttack) //必殺技の効果時間
@@ -204,7 +212,8 @@ public class OlderBrotherHamster : MonoBehaviour
         Vector3 newVelocity = m_Rigidbody.velocity;
         RaycastHit hit;
         Debug.DrawRay(transform.position, -Vector3.up, Color.red);
-        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f) && Input.GetButtonDown("XboxA") && enemyCount == 0)
+        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f) 
+            && Input.GetButtonDown("XboxA") && enemyCount == 0 && Time.timeScale != 0)
         {
             newVelocity.y = m_Jump;
             isJump = true;
@@ -229,7 +238,7 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             move = input;
             m_DefaultTime -= Time.deltaTime;
-            if(m_DefaultTime < 0)
+            if (m_DefaultTime < 0)
             {
                 isDefault = false;
                 m_DefaultTime = 10.0f;
@@ -242,7 +251,7 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         m_Animator.SetFloat("speed", f);
-        if (walkSoundPlayInterval > 0.4f && f>0.5f &&!isJump)
+        if (walkSoundPlayInterval > 0.4f && f > 0.5f && !isJump)
         {
             m_Audio.PlayOneShot(m_Clips[0]);
             walkSoundPlayInterval = 0.0f;
@@ -316,17 +325,20 @@ public class OlderBrotherHamster : MonoBehaviour
             if (isWithBrother)
             {
                 //                                                                                   敵の間隔　　　　数　　　弟の位置調整　兄の高さ分
-                if(enemyCount != 0) youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 0.3f + 2.5f, 0);
+                if (enemyCount != 0) youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 0.3f + 2.5f, 0);
                 else youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
-                if (Input.GetButtonDown("XboxB") && m_State == PlayerState.WALK)
+                if (Time.timeScale != 0)
                 {
-                    //EnemyKill();
-                    m_State = PlayerState.CRUSH;
-                    brotherAnimator.Play("BrotherCrushStart");
-                }
-                if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
-                {
-                    SpecialAttack();
+                    if (Input.GetButtonDown("XboxB") && m_State == PlayerState.WALK)
+                    {
+                        //EnemyKill();
+                        m_State = PlayerState.CRUSH;
+                        brotherAnimator.Play("BrotherCrushStart");
+                    }
+                    if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
+                    {
+                        SpecialAttack();
+                    }
                 }
                 GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
                 GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
@@ -377,7 +389,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
             GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
             GetComponent<CapsuleCollider>().center = new Vector3(0, GetComponent<CapsuleCollider>().height / 2, 0);
-            if (Input.GetButtonDown("XboxL1"))
+            if (Input.GetButtonDown("XboxL1") && Time.timeScale != 0)
             {
                 ThrowAnimeControl();
             }
@@ -439,7 +451,7 @@ public class OlderBrotherHamster : MonoBehaviour
             m_State = PlayerState.WALK;
         }
     }
-    
+
     /// <summary>敵を持つときの処理</summary>
     private void Getting()
     {
@@ -463,7 +475,7 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
 
         if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpSolo") ||
-           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother") )
+           stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother"))
         {
             float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (duration > 0.9f) //再生終わりまで行ったら歩きなどのアニメへ
@@ -536,7 +548,7 @@ public class OlderBrotherHamster : MonoBehaviour
         m_State = PlayerState.WALK;
         WalkAnimeControl();
     }
-    
+
     ///// <summary>スタンした敵と触れた時の処理</summary>
     ///// <param name="enemy">敵のゲームオブジェクト</param>
     //private void EnemyGet(GameObject enemy)
@@ -557,9 +569,9 @@ public class OlderBrotherHamster : MonoBehaviour
     //    enemy.transform.localPosition = new Vector3(0, 1.8f, 0);
     //    enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
     //    enemy.GetComponent<Collider>().enabled = false;
-        
+
     //    enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
-        
+
     //}
 
     /// <summary>敵をつぶす</summary>
@@ -747,7 +759,9 @@ public class OlderBrotherHamster : MonoBehaviour
             sound = 7;
             pSN = 3;
         }
-        m_Audio.PlayOneShot(m_Clips[sound]);
+        soundNum = sound;
+        soundCount = enemyCount;
+        //m_Audio.PlayOneShot(m_Clips[sound]);
         foreach (Transform chird in m_CrushParticle.transform)
         {
             chird.SendMessage("Crush", pSN, SendMessageOptions.DontRequireReceiver);

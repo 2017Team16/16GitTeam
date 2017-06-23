@@ -38,7 +38,7 @@ public class PatrolEnemy : EnemyBase
         StateUpdate();
         TextureLR();
     }
-
+    /// <summary>移動中 </summary>
     protected override void WalkingState()
     {
         GetComponent<Renderer>().material.color = Color.yellow;
@@ -49,7 +49,7 @@ public class PatrolEnemy : EnemyBase
             m_Agent.Stop();
         }
     }
-
+    /// <summary>待機中 </summary>
     protected override void ChargingState()
     {
         if(m_Time >= stayTime)
@@ -59,20 +59,16 @@ public class PatrolEnemy : EnemyBase
             m_Agent.Resume();
         }
     }
-
     protected override void AttackState()
     {
     }
+    /// <summary>ポイントをセット</summary>
     protected override void SetNewPatrolPointToDestination()
     {
-        //m_Agent.destination = new Vector3(Random.Range(-4, 4), 0, Random.Range(-5, 5));
-
         m_CurrentPatrolPointIndex
      = (m_CurrentPatrolPointIndex + 1) % m_PatrolPoints.Length;
 
         m_Agent.destination = m_PatrolPoints[m_CurrentPatrolPointIndex].position;
-
-
     }
 
     bool HasArrived()

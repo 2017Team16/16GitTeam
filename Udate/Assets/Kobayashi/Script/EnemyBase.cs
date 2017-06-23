@@ -137,7 +137,7 @@ public class EnemyBase : MonoBehaviour
                 m_State = EnemyState.ATTACK;
                 m_Animator.Play("Attack");
                 break;
-            case 3:
+            case 3: 
                 m_State = EnemyState.SUTAN;
                 m_Animator.Play("Sutan");
                 m_Agent.enabled = false;
@@ -153,7 +153,7 @@ public class EnemyBase : MonoBehaviour
             case 6: m_State = EnemyState.WAIT; break;
         }
     }
-
+    /// <summary>衝突判定 </summary>
     public void OnCollisionEnter(Collision collision)
     {
         if (m_State == EnemyState.RECOVERY && collision.gameObject.tag == "Floor")
@@ -161,10 +161,12 @@ public class EnemyBase : MonoBehaviour
             ChangeState(3);
         }
     }
+    /// <summary>ポイントをセット </summary>
     protected virtual void SetNewPatrolPointToDestination()
     {
 
     }
+    /// <summary>ポイントについたか </summary>
     private bool HasArrived()
     {
         return (Vector3.Distance(m_Agent.destination, transform.position) < 2.0f);
@@ -174,11 +176,11 @@ public class EnemyBase : MonoBehaviour
     {
         return m_State;
     }
+    /// <summary>スコア </summary>
     public float EnemyScore()
     {
         return score;
     }
-
     public void Get(int count)
     {
         if(count % 2 == 0)
@@ -190,10 +192,9 @@ public class EnemyBase : MonoBehaviour
             m_Animator.Play("Get2");
         }
     }
-
+    /// <summary>向いている方向 </summary>
     protected virtual void TextureLR()
     {
-
         if (maePosX < transform.position.x)
         {
             m_Texture.transform.localScale = reverseScale;

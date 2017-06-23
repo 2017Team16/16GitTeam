@@ -6,9 +6,9 @@ public class ChaseEnemy : EnemyBase
 
     public float m_Speed = 0f;
 
+    /// <summary>移動中 </summary>
     protected override void WalkingState()
     {
-        GetComponent<Renderer>().material.color = Color.yellow;
         SetNewPatrolPointToDestination();
         if (m_Agent.isOnOffMeshLink == true)
         {
@@ -16,6 +16,7 @@ public class ChaseEnemy : EnemyBase
             ChangeState(1);
         }
     }
+    /// <summary>壁のぼり </summary>
     protected override void ChargingState()
     {
         transform.localPosition = Vector3.MoveTowards(
@@ -28,13 +29,13 @@ public class ChaseEnemy : EnemyBase
             ChangeState(0);
         }
     }
-
     protected override void AttackState()
     {
     }
     protected override void WaitState()
     {
     }
+    /// <summary>ポイントをセット </summary>
     protected override void SetNewPatrolPointToDestination()
     {
         m_Agent.destination = m_Player.transform.position;

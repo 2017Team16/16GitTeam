@@ -37,25 +37,17 @@ public class ShotEnemy : EnemyBase
         m_Animator = m_Texture.GetComponent<Animator>();
     }
 
-
+    /// <summary>プレイヤーを捜索 </summary>
     protected override void WalkingState()
     {
         if (CanSeePlayer())
         {
-            //print("みえてる");
-
             if (m_Time >= bulletTime)
             {
                 m_Animator.Play("Shot");
                 Shot();
                 m_Time = 0;
             }
-
-            //transform.LookAt(m_PlayerLookPoint);
-        }
-        else
-        {
-            //print("見えてない");
         }
     }
 
@@ -70,6 +62,8 @@ public class ShotEnemy : EnemyBase
     protected override void SetNewPatrolPointToDestination()
     {
     }
+
+    /// <summary>プレイヤーの見える距離 </summary>
     private bool IsPlayerInViewingDistance()
     {
         float distanceToPlayer
@@ -77,6 +71,7 @@ public class ShotEnemy : EnemyBase
 
         return (distanceToPlayer <= m_ViewingDistance);
     }
+    /// <summary>プレイヤーの見える角度 </summary>
     private bool IsPlayerInViewingAngle()
     {
         Vector3 directionToPlayer = m_PlayerLookPoint.position - m_EyePoint.position;
@@ -85,6 +80,7 @@ public class ShotEnemy : EnemyBase
 
         return (Mathf.Abs(angleToPlayer) <= m_ViewingAngle);
     }
+    /// <summary>プレイヤーにレイは当たってるのか </summary>
     private bool CanHitRayToPlayer()
     {
         Vector3 directionToPlayer = m_PlayerLookPoint.position - m_EyePoint.position;
@@ -95,6 +91,7 @@ public class ShotEnemy : EnemyBase
 
         return (hit && hitInfo.collider.tag == "Player");
     }
+    /// <summary>プレイヤーは見えているか </summary>
     private bool CanSeePlayer()
     {
         if (!IsPlayerInViewingDistance())
@@ -112,6 +109,7 @@ public class ShotEnemy : EnemyBase
 
         return true;
     }
+    /// <summary>球の処理 </summary>
     public void Shot()
     {
         Vector3 vec = m_Player.transform.position - transform.position;
@@ -121,11 +119,10 @@ public class ShotEnemy : EnemyBase
         Vector3 force;
         force = vec * b_Speed;
         bullets.GetComponent<Rigidbody>().AddForce(force);
-        //bullets.transform.position = muzzle.position;
         bullets.transform.position = transform.position + new Vector3(vec.x,0.5f,vec.z) * 1.5f;
         audioSorce.PlayOneShot(shot);
     }
-
+    /// <summary>向いてる方向 </summary>
     protected override void TextureLR()
     {
         if (pVec < 0 || maePosX < transform.position.x)
