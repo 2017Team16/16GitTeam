@@ -3,7 +3,8 @@ using System.Collections;
 
 public class BrotherShockWave : MonoBehaviour {
 
-    //親(弟)が持っている弟管理クラス
+    /*------内部設定変数------*/
+    [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;
 
     // Use this for initialization

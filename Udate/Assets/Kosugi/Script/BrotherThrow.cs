@@ -9,69 +9,73 @@ struct RayHitInfo
     //当たったか？
     public bool isHit;
 };
+
 public class BrotherThrow : MonoBehaviour
 {
-    /*--オブジェクト指定--*/
-    [SerializeField, Header("ポジション用オブジェクト")]
+    /*--外部設定オブジェクト--*/
+    [SerializeField, Header("兄の上指定用オブジェクト")]
     private Transform BrotherPosition;
 
     [SerializeField, Header("プレイヤーオブジェクト")]
-    public GameObject Player;
+    private GameObject Player;
 
     [SerializeField, Header("ターゲットプレハブ")]
     private GameObject m_Target;
     [SerializeField, Header("ターゲット生成用オブジェクト")]
-    public GameObject m_TargetCreate;
+    private GameObject m_TargetCreate;
+
     [SerializeField, Header("衝撃波プレハブ")]
     private GameObject m_ShockWave;
-    /*--------------------*/
+    [SerializeField, Header("衝撃波パーティクルオブジェクト")]
+    private GameObject particle;
 
-    [HideInInspector, Header("ターゲット")]
-    public GameObject Target;
 
+    /*------外部設定変数------*/
     [SerializeField, Header("ターゲット移動速度")]
     private float _targetSpeed = 5.0f;
-
-    [SerializeField, Header("投げる角度")]
-    public float _firingAngle = 45.0f;
-    [HideInInspector, Header("重力(変更禁止)")]
-    private float _gravity = 9.8f;
-    [HideInInspector, Header("エネミーに当たったかどうか")]
-    public bool _enemyHit = false;
-    [HideInInspector, Header("距離減衰用変数")]
-    public float _count = 2.0f;
 
     [SerializeField, Header("投げる速度")]
     private float _speed = 1.0f;
 
-    //衝撃波用
-    private float _scale = 0.0f;
 
-    //投げ開始地点Y座標
-    private Vector3 StartPos;
-    //投げ着地地点Y座標
-    private Vector3 EndPos;
+    /*------内部設定変数------*/
+    [HideInInspector, Header("ターゲット")]
+    public GameObject Target;
 
-    //投げる距離保存用
-    private float _targetDistance;
-    //当たった敵保存用
-    //private List<GameObject> m_EnemyList;
+    [Header("投げる角度")]
+    private float _flyingAngle = 45.0f;
+    [Header("重力")]
+    private float _gravity = 9.8f;
+    [HideInInspector, Header("距離減衰用変数")]
+    public float _count = 2.0f;
 
-    //弟の前ベクトル
-    Vector3 front = Vector3.zero;
-    //弟の上ベクトル
-    Vector3 up = Vector3.zero;
-    //壁の前向きベクトル
-    Vector3 wallFront = Vector3.zero;
-    //床の下向きベクトル
-    Vector3 floorBottom = Vector3.zero;
-
-    private bool next = false;
+    [Header("二回目以降のバウンドか判定用")]
+    private bool second = false;
+    [Header("最初のバウンドか判定用")]
     private bool noFirst = false;
 
+    [Header("投げ開始地点の座標")]
+    private Vector3 StartPos;
+    [Header("投げ終了地点の座標")]
+    private Vector3 EndPos;
+
+    [Header("衝撃波のスケール")]
+    private float _scale = 0.0f;
+
+    [Header("弟の前ベクトル")]
+    private Vector3 front = Vector3.zero;
+    [Header("弟の上ベクトル")]
+    private Vector3 up = Vector3.zero;
+    [Header("壁の前ベクトル")]
+    private Vector3 wallFront = Vector3.zero;
+    [Header("床の下ベクトル")]
+    private Vector3 floorBottom = Vector3.zero;
+
+    [Header("サウンド")]
     private AudioSource m_Audio;
 
-    //弟管理クラス
+
+    [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;
 
     void Awake()
@@ -97,6 +101,7 @@ public class BrotherThrow : MonoBehaviour
         StartCoroutine(TargetMove());
     }
     
+    //ターゲット
     IEnumerator TargetMove()
     {
         Target = Instantiate(m_Target);
@@ -105,7 +110,6 @@ public class BrotherThrow : MonoBehaviour
         nScale.x *= -1;
         while (true)
         {
-            //print(Player.transform.localScale.x);
             if (Player.transform.Find("Ani").localScale.x >= 0)
             {
                 GetComponent<AnimationControl>().m_Anim.transform.localScale = pScale;
@@ -118,7 +122,6 @@ public class BrotherThrow : MonoBehaviour
             float dx = Input.GetAxis("BrosHorizontal")* _targetSpeed;
             float dz = Input.GetAxis("BrosVertical")* _targetSpeed;
             m_TargetCreate.GetComponent<Rigidbody>().velocity = new Vector3(dx, 0, dz);
-            //m_TargetCreate.transform.Translate(dx * _targetSpeed, 0.0f, dz * _targetSpeed);
 
             Vector3 rayPos = m_TargetCreate.transform.position;
             Ray ray = new Ray(rayPos, -m_TargetCreate.transform.up);
@@ -152,12 +155,15 @@ public class BrotherThrow : MonoBehaviour
                 noHit.transform.gameObject.layer = 8;
             }
 
-            yield return null;
+            if ((transform.position.y - Target.transform.position.y) / 3>1)
+            {
+                Target.transform.FindChild("cursor").transform.localScale
+                    = new Vector3((transform.position.y - Target.transform.position.y) / 3, (transform.position.y - Target.transform.position.y) / 3, 1);
+            }
+            else
+                Target.transform.FindChild("cursor").transform.localScale= new Vector3(1, 1, 1);
 
-            //if (Input.GetKeyDown(KeyCode.Space))
-
-            //if (Input.GetButtonDown("XboxL1"))
-            if(GameDatas.isBrotherFlying)
+            if (GameDatas.isBrotherFlying)
             {
                 GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = true;
                 GetComponent<AnimationControl>().m_Anim.SetTrigger("fly");
@@ -181,16 +187,15 @@ public class BrotherThrow : MonoBehaviour
                 yield break;
             }
             transform.position = BrotherPosition.position;
+
+            yield return null;
         }
     }
 
-    /// <summary>
-    /// 投げ
-    /// </summary>
-    /// <returns></returns>
+    //投げ
     IEnumerator SimulateProjectile()
     {
-        next = false;
+        second = false;
 
         StartPos = transform.position;
 
@@ -213,14 +218,14 @@ public class BrotherThrow : MonoBehaviour
         transform.position = transform.position + new Vector3(0, 0.0f, 0);
 
         // 投げるオブジェクトからターゲットまでの距離を計算
-        _targetDistance = Vector3.Distance(transform.position, targetPos);
+        float _targetDistance = Vector3.Distance(transform.position, targetPos);
 
         // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-        float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
+        float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _flyingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
 
         // X軸とY軸での速度をそれぞれ計算
-        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
-        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_firingAngle * Mathf.Deg2Rad);
+        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_flyingAngle * Mathf.Deg2Rad);
+        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_flyingAngle * Mathf.Deg2Rad);
 
         // 滞空時間を計算
         float flightDuration = _targetDistance / Vx;
@@ -235,7 +240,7 @@ public class BrotherThrow : MonoBehaviour
             transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
             elapse_time += Time.deltaTime;
             Debug.DrawRay(transform.position, new Vector3(front.x, transform.position.y, front.z) * 10, Color.black, 0.1f, true);
-            if (next)
+            if (second)
                 yield return SimulateProjectile();
 
             yield return null;
@@ -246,25 +251,38 @@ public class BrotherThrow : MonoBehaviour
     IEnumerator ShockWave()
     {
         GameObject shockwave = (GameObject)Instantiate(m_ShockWave, EndPos, Quaternion.identity);
-        if (StartPos.y - EndPos.y > 1.0f)
+        if (StartPos.y - EndPos.y > 2.1f)
         {
+            m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[3]);
+
+            particle.GetComponent<ParticleSystem>().startLifetime = 0.05f * (StartPos.y - EndPos.y);
+            particle.transform.position = new Vector3(EndPos.x, 0, EndPos.z);
+            particle.GetComponent<ParticleSystem>().Play();
             while (_scale < StartPos.y - EndPos.y)
             {
-                _scale += 1.0f;
+                _scale += 0.5f;
                 shockwave.transform.localScale = new Vector3(_scale, shockwave.transform.localScale.y, _scale);
                 yield return null;
             }
         }
+        else
+        {
+            m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[2]);
+        }
+        particle.GetComponent<ParticleSystem>().Stop();
         Destroy(shockwave);
         _scale = 0.0f;
+
+        //speed175...scale9:lifetime0.25=1:0.028
     }
 
     public void OnCollisionEnter(Collision collision)
     {
+        //床判定(判定甘いので要調整)
         if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)
         {
             _count = 2.0f;
-            next = false;
+            second = false;
             noFirst = false;
 
             if (transform.position.y >= collision.transform.position.y)
@@ -275,7 +293,7 @@ public class BrotherThrow : MonoBehaviour
                 StartCoroutine(ShockWave());
                 //m_BrotherStateManager.SetState(BrotherState.BACK);
 
-                m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[2]);
+                
             }
             else
             {
@@ -307,6 +325,8 @@ public class BrotherThrow : MonoBehaviour
                 m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
             }
         }
+
+        //敵判定(バウンド)
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
             if (collision.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.SUTAN
@@ -314,7 +334,7 @@ public class BrotherThrow : MonoBehaviour
             {
                 if (noFirst)
                     _count *= 2.0f;
-                next = true;
+                second = true;
 
                 collision.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
                 if (!noFirst)
@@ -323,7 +343,8 @@ public class BrotherThrow : MonoBehaviour
                 m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
             }
         }
-        //壁の跳ね返り
+
+        //壁判定(跳ね返り)
         if (collision.gameObject.tag == "Wall" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
             //Wallレイヤーのオブジェクトに対してRayを当てもろもろの値を取得

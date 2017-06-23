@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Box: {fileID: 0}
+  m_Particle: {fileID: 0}
   _speed: 2.5
   _hit: 0
 --- !u!114 &114000013334910906

@@ -4,19 +4,20 @@ using System.Collections.Generic;
 
 public class BrotherStateManager : MonoBehaviour
 {
-
+    /*------内部設定変数(外部からは弄らないこと)------*/
     [SerializeField, Header("最初の状態")]
     private BrotherState m_StartState = BrotherState.NORMAL;
     [SerializeField, Header("１つ前の状態")]
     private BrotherState m_BeforeBrosState;
     [SerializeField, Header("現在の状態")]
     private BrotherState m_BrosState;
-
-    [SerializeField, Header("SE")]
-    public AudioClip[] m_SE;
-
     //各状態中の処理はこの配列へ格納
     private Dictionary<BrotherState, MonoBehaviour> m_Moves;
+
+
+    /*------外部設定変数------*/
+    [Header("SE")]
+    public AudioClip[] m_SE;
 
     // Use this for initialization
     void Start()
@@ -96,13 +97,7 @@ public class BrotherStateManager : MonoBehaviour
         if (m_BeforeBrosState == BrotherState.THROW &&
              m_BrosState == BrotherState.BACK)
         {
-            m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._enemyHit = false;
             Destroy(m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().Target);
-
-            //m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().IsTriggerOff();
-
-            //m_Moves[BrotherState.BACK].GetComponent<BrotherBack>()._isBack = false;
-            //m_Moves[BrotherState.WAIT].GetComponent<BrotherWait>()._isMove = false;
 
             m_Moves[BrotherState.BACK].GetComponent<BrotherBack>().Move();
         }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SPstar : MonoBehaviour {
 
+    /*--外部設定オブジェクト--*/
     [SerializeField, Header("弟オブジェクト")]
     private GameObject m_Brother;
 

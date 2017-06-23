@@ -3,13 +3,19 @@ using System.Collections;
 
 public class DeathStar : MonoBehaviour {
 
-    private GameObject _Center;
+    /*--外部設定オブジェクト--*/
+    [SerializeField, Header("弟オブジェクト")]
+    private GameObject m_Brother;
 
+
+    /*------外部設定変数------*/
     [SerializeField, Header("星の回転スピード")]
     private float _speed = 5;
 
-    [SerializeField, Header("弟オブジェクト")]
-    private GameObject m_Brother;
+
+    /*------内部設定変数------*/
+    [Header("中心設定用")]
+    private GameObject _Center;
 
     [SerializeField, Header("デバッグ用")]
     private bool debug;
@@ -27,12 +33,11 @@ public class DeathStar : MonoBehaviour {
     {
         if (m_Brother == null) return;
         transform.position = transform.root.position;
-        //transform.eulerAngles = new Vector3(0, 0, 0);
 
         if (m_Brother.GetComponent<BrotherStateManager>().GetState() == BrotherState.DEATH||debug)
         {
             _Center.gameObject.SetActive(true);
-            _Center.transform.eulerAngles += new Vector3(/*Mathf.Sin(Time.time) * 0.5f*/0, _speed, 0);
+            _Center.transform.eulerAngles += new Vector3(0, _speed, 0);
         }
     }
 }
