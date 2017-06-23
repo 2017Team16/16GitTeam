@@ -97,7 +97,7 @@ public class BrotherThrow : MonoBehaviour
 
     public void ThrowStart()
     {
-        m_TargetCreate.transform.position = new Vector3(0.0f, m_TargetCreate.transform.position.y, 0.0f);
+        m_TargetCreate.transform.position = new Vector3(Player.transform.position.x, m_TargetCreate.transform.position.y, Player.transform.position.z);
         StartCoroutine(TargetMove());
     }
     
