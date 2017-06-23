@@ -50,6 +50,7 @@ public class ResultEvent : MonoBehaviour
     void Start ()
     {
         StageNum = StageSelectController.getStageNum();
+        print(StageNum);
         if (StageNum == 0) StageNum = 1;
 
         _Score = Score.getScore() ;

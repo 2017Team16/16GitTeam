@@ -35,7 +35,6 @@ public class TitleController : MonoBehaviour {
             {
                 SceneChangeButton();
                 _audio.PlayOneShot(_clip02);
-                _CursorNum = -1;
             }
 
 
@@ -86,7 +85,10 @@ public class TitleController : MonoBehaviour {
             case 2: print("操作説明だよ"); break;
             case 3: print("ゲーム終了"); Application.Quit(); break;
         }
-        _CursorNum = -1;//カーソル操作を終了させる
+        if (_CursorNum != 2)
+        {
+            _CursorNum = -1;//カーソル操作を終了させる
+        }
     }
     public int GetCursorNum()
     {

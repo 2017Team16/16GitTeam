@@ -9,13 +9,13 @@ public class StageSelectController : MonoBehaviour {
 
     private SceneChanger SChang;
     [SerializeField, Header("Cursor番号")]
-    public int _CursorNum = 0;
+    public int _CursorNum = 1;
 
 
     private bool Neutral = true;
 
 
-    public static int StageNum = 0;
+    public static int StageNum = 1;
 
     public static int getStageNum()
     {
@@ -25,12 +25,13 @@ public class StageSelectController : MonoBehaviour {
 
     void Start () {
         SChang = transform.GetComponent<SceneChanger>();
+        StageNum = 1;
         _CursorNum = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+        print(StageNum);
       if ( _CursorNum >= 0)
         {
             if (Input.GetButtonDown("XboxB"))
