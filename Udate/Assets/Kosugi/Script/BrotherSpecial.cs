@@ -12,8 +12,8 @@ public class BrotherSpecial : MonoBehaviour
 
     [SerializeField, Header("必殺技用Canvas内オブジェクト")]
     private GameObject Box;
-    [SerializeField, Header("パーティクルオブジェクト")]
-    private GameObject m_Particle;
+    //[SerializeField, Header("パーティクルオブジェクト")]
+    //private GameObject m_Particle;
 
 
     /*------外部設定変数------*/
@@ -128,7 +128,7 @@ public class BrotherSpecial : MonoBehaviour
                 else
                     GetComponent<AnimationControl>().m_Anim.speed = 0;
 
-                m_Particle.GetComponent<ParticleSystem>().Play();
+                //m_Particle.GetComponent<ParticleSystem>().Play();
 
                 if (elapse_time >= flightDuration)
                 {
@@ -136,7 +136,7 @@ public class BrotherSpecial : MonoBehaviour
                     {
                         Time.timeScale = 1;
 
-                        m_Particle.GetComponent<ParticleSystem>().Stop();
+                        //m_Particle.GetComponent<ParticleSystem>().Stop();
                         GameDatas.isBrotherSpecialMove = false;
                         //_hit = true;
                         //m_Enemys.Clear();
