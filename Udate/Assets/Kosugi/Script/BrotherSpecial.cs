@@ -6,41 +6,46 @@ using UnityEngine.UI;
 
 public class BrotherSpecial : MonoBehaviour
 {
+    /*--外部設定オブジェクト--*/
     [SerializeField, Header("プレイヤーオブジェクト")]
-    public GameObject Player;
+    private GameObject Player;
+
     [SerializeField, Header("必殺技用Canvas内オブジェクト")]
     private GameObject Box;
     [SerializeField, Header("パーティクルオブジェクト")]
     private GameObject m_Particle;
 
-    [HideInInspector, Header("投げる角度")]
-    private float _firingAngle = 45.0f;
-    [HideInInspector, Header("重力(変更禁止)")]
-    private float _gravity = 9.8f;
 
+    /*------外部設定変数------*/
     [SerializeField, Header("投げる速度")]
     private float _speed = 2.5f;
 
-    [HideInInspector, Header("当たったかどうか")]
-    public bool _hit = false;
-    [HideInInspector, Header("フィールドにいる敵のリスト")]
+
+    /*------内部設定変数------*/
+    [Header("投げる角度")]
+    private float _flyingAngle = 45.0f;
+    [Header("重力")]
+    private float _gravity = 9.8f;
+
+    [Header("フィールドにいる敵のリスト")]
     private List<GameObject> m_Enemys;
 
-    //プレイヤーへと戻っているか
-    private bool _isPlayer;
+    [HideInInspector, Header("当たったかどうか")]
+    public bool _hit = false;
 
+    [Header("サウンド")]
     private AudioSource m_Audio;
 
-    public bool flag;
 
-    //弟管理クラス
+    //デバッグ用
+    private bool debug;
+
+    [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;
 
     // Use this for initialization
     void Start()
     {
-        _firingAngle = GetComponent<BrotherThrow>()._firingAngle;
-
         m_Enemys = new List<GameObject>();
 
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
@@ -51,7 +56,10 @@ public class BrotherSpecial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (debug)
+            GameDatas.isBrotherSpecialMove = false;
+        else
+            GameDatas.isBrotherSpecialMove = true;
     }
 
     public void SpecialSet()
@@ -94,11 +102,11 @@ public class BrotherSpecial : MonoBehaviour
             float _targetDistance = Vector3.Distance(transform.position, m_Enemys[i].transform.position);
 
             // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
+            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _flyingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
 
             // X軸とY軸での速度をそれぞれ計算
-            float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
-            float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_firingAngle * Mathf.Deg2Rad);
+            float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_flyingAngle * Mathf.Deg2Rad);
+            float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_flyingAngle * Mathf.Deg2Rad);
 
             // 滞空時間を計算
             float flightDuration = _targetDistance / Vx;
@@ -111,11 +119,14 @@ public class BrotherSpecial : MonoBehaviour
             float flightTimer = flightDuration;
             while (!_hit && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
             {
-                if (!flag||GameDatas.isBrotherSpecialMove)
+                if (GameDatas.isBrotherSpecialMove)
                 {
                     transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.unscaledDeltaTime, Vx * Time.unscaledDeltaTime);
                     elapse_time += Time.unscaledDeltaTime;
+                    GetComponent<AnimationControl>().m_Anim.speed = 1;
                 }
+                else
+                    GetComponent<AnimationControl>().m_Anim.speed = 0;
 
                 m_Particle.GetComponent<ParticleSystem>().Play();
 
