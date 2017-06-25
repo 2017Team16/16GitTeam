@@ -101,7 +101,7 @@ public class EnemyBase : MonoBehaviour
     private void SutanState()
     {
         GetComponent<Renderer>().material.color = Color.black;
-        if (m_Time >= sutanTime)
+        if (m_Time >= sutanTime && !GameDatas.isSpecialAttack)
         {
             ChangeState(0);
         }
