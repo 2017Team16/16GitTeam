@@ -82,7 +82,7 @@ public class TitleController : MonoBehaviour {
         switch (_CursorNum)
         {
             case 1: SChang.FadeOut(); break;
-            case 2: print("操作説明だよ"); break;
+            case 2: SChang.FadeOut("MainTutorial"); break;
             case 3: print("ゲーム終了"); Application.Quit(); break;
         }
         if (_CursorNum != 2)

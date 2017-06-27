@@ -5,10 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainLogo.unity
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainTitle.unity
+  - enabled: 1
+    path: Assets/Yasutake/Scene/MainTutorial.unity
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainStageSelect.unity
   - enabled: 1
