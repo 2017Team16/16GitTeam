@@ -14,6 +14,8 @@ public class RankingSeting : MonoBehaviour {
     [SerializeField, Header("選ばれたStage ")]
     private int StageNum;
 
+    public testScri test;
+
     // Use this for initialization
     void Awake() {
         StageNum = StageSelectController.getStageNum();
@@ -57,15 +59,15 @@ public class RankingSeting : MonoBehaviour {
     {
         StreamReader reder;
         reder = new StreamReader(
-           Application.dataPath + "/Tunoka/Resources/" + "FileRead0" + StageNum .ToString()+ ".txt",
-            System.Text.Encoding.GetEncoding("shift_jis"));
+           Application.streamingAssetsPath + "//FileRead0" + StageNum.ToString() + ".txt",
+            System.Text.Encoding.GetEncoding("utf-8"));
 
         guitxt = reder.ReadLine();
         reder.Close();
     }
     public void WritingFile()
     {
-        StreamWriter sw = new StreamWriter(Application.dataPath + "/Tunoka/Resources/" + "FileRead0.txt" + StageNum.ToString() + ".txt", false, System.Text.Encoding.GetEncoding("shift_jis")); //true=追記 false=上書き
+        StreamWriter sw = new StreamWriter(Application.dataPath + "/streamingAssets" + "/FileRead0" + StageNum.ToString() + ".txt", false, System.Text.Encoding.GetEncoding("utf-8")); //true=追記 false=上書き
 
         for (int i = 0; i < _Rank.Count; i++)
         {

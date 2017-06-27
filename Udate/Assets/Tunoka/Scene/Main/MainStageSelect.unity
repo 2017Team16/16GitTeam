@@ -859,10 +859,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 104.8
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 680, y: 400}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 680, y: 381.2}
+  m_ScreenMatchMode: 2
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -980,7 +980,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 53fe9f58359c64e46ba643df3864375e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 483aca572f076ba4bb6904a8f5d7a9bd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

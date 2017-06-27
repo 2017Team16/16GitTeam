@@ -73,7 +73,7 @@ public class Score : MonoBehaviour {
 
         if (_displayScore != null)//画面表示用のTextが存在したらそれに表示させる
         {
-            _displayScore.text = "Score : " + _checkScore.ToString();
+            _displayScore.text = _checkScore.ToString();
         }
     }
     public void Pointscore(float score)//スコアを変更させる
