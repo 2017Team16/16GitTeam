@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Box: {fileID: 0}
+  m_Particle: {fileID: 0}
   _speed: 2.5
   _hit: 0
 --- !u!114 &114000013334910906
@@ -295,7 +296,7 @@ NavMeshAgent:
   avoidancePriority: 60
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 0
+  m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1

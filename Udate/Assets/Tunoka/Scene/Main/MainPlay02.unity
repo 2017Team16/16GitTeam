@@ -1318,7 +1318,7 @@ Prefab:
         type: 2}
       propertyPath: m_Particle
       value: 
-      objectReference: {fileID: 1273209406}
+      objectReference: {fileID: 761919332}
     - target: {fileID: 114000013334910906, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: m_BrosAnimation
@@ -4602,6 +4602,58 @@ Transform:
   m_PrefabParentObject: {fileID: 4000011973565356, guid: 7b7655c3484ac7344bac57db047b6ae8,
     type: 2}
   m_PrefabInternal: {fileID: 751583649}
+--- !u!1001 &761919331
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 9.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012629915556, guid: 22d9601ee26061749a086fe674eaaa0e,
+        type: 2}
+      propertyPath: m_BrosAnimation
+      value: 
+      objectReference: {fileID: 24717684}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &761919332 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010401832068, guid: 22d9601ee26061749a086fe674eaaa0e,
+    type: 2}
+  m_PrefabInternal: {fileID: 761919331}
 --- !u!1 &763679988
 GameObject:
   m_ObjectHideFlags: 0

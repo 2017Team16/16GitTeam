@@ -1151,7 +1151,7 @@ Prefab:
         type: 2}
       propertyPath: m_Particle
       value: 
-      objectReference: {fileID: 518366432}
+      objectReference: {fileID: 1895386266}
     - target: {fileID: 114000013334910906, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: m_BrosAnimation
@@ -11413,6 +11413,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1893528396}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1895386265
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 9.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011439062894, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012629915556, guid: 22d9601ee26061749a086fe674eaaa0e,
+        type: 2}
+      propertyPath: m_BrosAnimation
+      value: 
+      objectReference: {fileID: 993000441}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 22d9601ee26061749a086fe674eaaa0e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1895386266 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010401832068, guid: 22d9601ee26061749a086fe674eaaa0e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1895386265}
 --- !u!1 &1900786960
 GameObject:
   m_ObjectHideFlags: 0
