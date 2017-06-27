@@ -127,16 +127,15 @@ public class TutorialPlayer : MonoBehaviour {
 
 
         a = 0;
-        sorry.color = new Color(0, 0, 0, a);
+        sorry.color = new Color(1, 1, 1, a);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (a < 0) a = 0;
-        sorry.color = new Color(0, 0, 0, a);
+        sorry.color = new Color(1, 1, 1, a);
         a -= Time.deltaTime;
-        Debug.Log(a);
 
         if (!GameDatas.isPlayerLive)
         {
@@ -343,6 +342,11 @@ public class TutorialPlayer : MonoBehaviour {
                 }
                 if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
                 {
+                    if (!IsSpecial())
+                    {
+                        a = 1;
+                        return;
+                    }
                     SpecialAttack();
                 }
                 GetComponent<CapsuleCollider>().height = 2 + enemyInterval * enemyCount + 1; //兄の分＋敵の分＋弟の分のあたり判定
@@ -819,6 +823,12 @@ public class TutorialPlayer : MonoBehaviour {
     private bool IsDamage()
     {
         if (tManager.GetTutorialNumber() >= 17) return true;
+        else return false;
+    }
+
+    private bool IsSpecial()
+    {
+        if (tManager.GetTutorialNumber() >= 9) return true;
         else return false;
     }
 

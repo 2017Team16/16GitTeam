@@ -209,6 +209,10 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>プレイヤーの移動</summary>
     private void Move()
     {
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerClimbX"))
+        {
+            WalkAnimeControl();
+        }
         Vector3 newVelocity = m_Rigidbody.velocity;
         RaycastHit hit;
         Debug.DrawRay(transform.position, -Vector3.up, Color.red);
