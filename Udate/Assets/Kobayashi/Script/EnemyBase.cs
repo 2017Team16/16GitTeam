@@ -24,7 +24,7 @@ public class EnemyBase : MonoBehaviour
     protected float m_Time = 0;
     public float sutanTime = 1.0f;
     public float recoveryTime = 1.0f;
-    public float score = 10;
+    public int score = 10;
 
     protected AudioSource audioSorce;
     public AudioClip sutan;
@@ -177,7 +177,7 @@ public class EnemyBase : MonoBehaviour
         return m_State;
     }
     /// <summary>スコア </summary>
-    public float EnemyScore()
+    public int EnemyScore()
     {
         return score;
     }

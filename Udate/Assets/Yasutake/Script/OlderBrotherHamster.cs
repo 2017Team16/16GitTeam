@@ -94,6 +94,8 @@ public class OlderBrotherHamster : MonoBehaviour
     private GameObject m_GettingEnemy;
     private GameObject m_GettingEnemyParent;
 
+    private CrushScore m_CrushScore;
+
     // Use this for initialization
     void Start()
     {
@@ -118,9 +120,12 @@ public class OlderBrotherHamster : MonoBehaviour
         m_CrushParticle = transform.FindChild("CrushEffectParent").gameObject;
         m_ChirdJumpParent = transform.FindChild("GettingEffectParent").gameObject;
         m_GettingEnemyParent = transform.FindChild("GettingEnemy").gameObject;
+        
+        m_CrushScore = transform.FindChild("CrushScore").GetComponent<CrushScore>();
 
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
+        GameDatas.isBrotherFlying = false;
         isWithBrother = true;
 
     }
@@ -143,7 +148,15 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         if (m_InvincibleTime < m_InvincibleInterval) //ダメージを受けて無敵の時の処理
         {
-            m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
+            if((int)(m_InvincibleTime *10) % 2 == 0)
+            {
+                m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            }
+            else
+            {
+                m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            //m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
 
             if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithBrother") ||
                 stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithEnemy") ||
@@ -581,7 +594,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>敵をつぶす</summary>
     private void EnemyKill()
     {
-        float score = 0;
+        int score = 0;
 
         foreach (Transform chird in transform)
         {
@@ -601,7 +614,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 Destroy(chird.gameObject);
             }
         }
-        gameScore.Pointscore(score, m_Chain, enemyCount);
+        m_CrushScore.SetNumbers(score * 10);
+        gameScore.Pointscore(score*10, m_Chain, enemyCount);
         enemyCount = 0;
     }
 
@@ -636,6 +650,7 @@ public class OlderBrotherHamster : MonoBehaviour
             m_Chain = 0;
             m_State = PlayerState.WALK;
             AddLife(-1);
+            if (m_Life != 0) m_Audio.PlayOneShot(m_Clips[9]);
         }
 
     }

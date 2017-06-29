@@ -9,6 +9,8 @@ public class LoGoController : MonoBehaviour {
 
         SChang = transform.GetComponent<SceneChanger>();
         Invoke("FadeIn", 4);
+
+        Cursor.visible = false;
     }
     void FadeIn() { 
         SChang.FadeOut(); 

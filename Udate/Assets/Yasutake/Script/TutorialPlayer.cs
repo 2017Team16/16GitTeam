@@ -95,6 +95,9 @@ public class TutorialPlayer : MonoBehaviour {
     public TutorialManager tManager;
     private float a;
     public Image sorry;
+    public Text mainscore;
+    private int sumscore = 0;
+    private CrushScore m_CrushScore;
 
     // Use this for initialization
     void Start()
@@ -121,8 +124,11 @@ public class TutorialPlayer : MonoBehaviour {
         m_ChirdJumpParent = transform.FindChild("GettingEffectParent").gameObject;
         m_GettingEnemyParent = transform.FindChild("GettingEnemy").gameObject;
 
+        m_CrushScore = transform.FindChild("CrushScore").GetComponent<CrushScore>();
+
         GameDatas.isPlayerLive = true;
         GameDatas.isSpecialAttack = false;
+        GameDatas.isBrotherFlying = false;
         isWithBrother = true;
 
 
@@ -133,6 +139,11 @@ public class TutorialPlayer : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (tManager.GetTutorialNumber() == 28)
+        {
+            WalkAnimeControl();
+            return;
+        }
         if (a < 0) a = 0;
         sorry.color = new Color(1, 1, 1, a);
         a -= Time.deltaTime;
@@ -152,7 +163,15 @@ public class TutorialPlayer : MonoBehaviour {
         }
         if (m_InvincibleTime < m_InvincibleInterval) //ダメージを受けて無敵の時の処理
         {
-            m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
+            if ((int)(m_InvincibleTime * 10) % 2 == 0)
+            {
+                m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            }
+            else
+            {
+                m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            //m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
 
             if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithBrother") ||
                 stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithEnemy") ||
@@ -331,6 +350,10 @@ public class TutorialPlayer : MonoBehaviour {
                 else youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
                 if (Input.GetButtonDown("XboxB") && m_State == PlayerState.WALK)
                 {
+                    if(Time.timeScale == 0)
+                    {
+                        return;
+                    }
                     if (!IsCrush())
                     {
                         a = 1;
@@ -342,6 +365,10 @@ public class TutorialPlayer : MonoBehaviour {
                 }
                 if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
                 {
+                    if (Time.timeScale == 0)
+                    {
+                        return;
+                    }
                     if (!IsSpecial())
                     {
                         a = 1;
@@ -405,6 +432,10 @@ public class TutorialPlayer : MonoBehaviour {
             //}
             if (Input.GetButtonDown("XboxL1"))
             {
+                if (Time.timeScale == 0)
+                {
+                    return;
+                }
                 if (!IsThrow())
                 {
                     a = 1;
@@ -596,7 +627,7 @@ public class TutorialPlayer : MonoBehaviour {
     /// <summary>敵をつぶす</summary>
     private void EnemyKill()
     {
-        float score = 0;
+        int score = 0;
 
         foreach (Transform chird in transform)
         {
@@ -616,7 +647,10 @@ public class TutorialPlayer : MonoBehaviour {
                 Destroy(chird.gameObject);
             }
         }
-        gameScore.Pointscore(score, m_Chain, enemyCount);
+        sumscore += score * 10;
+        mainscore.text = sumscore.ToString();
+        m_CrushScore.SetNumbers(score * 10);
+        //gameScore.Pointscore(score, m_Chain, enemyCount);
         enemyCount = 0;
     }
 
@@ -651,6 +685,7 @@ public class TutorialPlayer : MonoBehaviour {
             m_Chain = 0;
             m_State = PlayerState.WALK;
             AddLife(-1);
+            if(m_Life!=0) m_Audio.PlayOneShot(m_Clips[9]);
         }
 
     }
@@ -664,8 +699,8 @@ public class TutorialPlayer : MonoBehaviour {
     /// <param name="n">足す数値</param>
     public void AddLife(int n)
     {
-        //m_Life += n;
-        //m_Life = Mathf.Clamp(m_Life, 0, m_MaxLife[m_MaxLifeIndex]);
+        m_Life += n;
+        m_Life = Mathf.Clamp(m_Life, 1, m_MaxLife[m_MaxLifeIndex]);
         //if (m_Life == 0)
         //{
         //    GameObject soul = Instantiate(mySoul);
@@ -804,31 +839,34 @@ public class TutorialPlayer : MonoBehaviour {
 
     private bool IsClimb()
     {
-        if (tManager.GetTutorialNumber() >= 12) return true;
+        if (tManager.GetTutorialNumber() >= 17) return true;
         else return false;
     }
 
     private bool IsCrush()
     {
-        if (tManager.GetTutorialNumber() >= 15 && tManager.GetTutorialNumber() <= 19) return false;
+        if (tManager.GetTutorialNumber() >= 19 && tManager.GetTutorialNumber() <= 21 ||
+            tManager.GetTutorialNumber() < 12) return false;
+        else if (tManager.GetTutorialNumber() == 22 && enemyCount < 4) return false;
         else return true;
     }
 
     private bool IsThrow()
     {
-        if (tManager.GetTutorialNumber() <= 2 || tManager.GetTutorialNumber() == 16 || tManager.GetTutorialNumber() == 17) return false;
+        if (tManager.GetTutorialNumber() <= 2 || tManager.GetTutorialNumber() == 8 ||
+            tManager.GetTutorialNumber() == 9 || tManager.GetTutorialNumber() == 10) return false;
         else return true;
     }
 
     private bool IsDamage()
     {
-        if (tManager.GetTutorialNumber() >= 17) return true;
-        else return false;
+        if (tManager.GetTutorialNumber() == 5) return false;
+        else return true;
     }
 
     private bool IsSpecial()
     {
-        if (tManager.GetTutorialNumber() >= 9) return true;
+        if (tManager.GetTutorialNumber() >= 10) return true;
         else return false;
     }
 

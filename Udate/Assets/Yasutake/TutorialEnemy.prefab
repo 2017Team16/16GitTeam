@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1b9f8e1249f8246a6755d84ffff208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sutanTime: 3
+  sutanTime: 1000
   recoveryTime: 2
   score: 10
   sutan: {fileID: 8300000, guid: c680e7e456b0df74cae7b8f178da8f02, type: 3}
