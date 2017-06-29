@@ -24,11 +24,11 @@ public class Item_SkillUp : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        _ime.eulerAngles += new Vector3(0f, _speed, 0f);
-        if (_ime.eulerAngles.y >= 90 && _ime.eulerAngles.y <= 270)
-        {
-            _ime.eulerAngles = new Vector3(0f, 270, 180f);
-        }
+        //_ime.eulerAngles += new Vector3(0f, _speed, 0f);
+        //if (_ime.eulerAngles.y >= 90 && _ime.eulerAngles.y <= 270)
+        //{
+        //    _ime.eulerAngles = new Vector3(0f, 270, 180f);
+        //}
 
     }
     void OnTriggerEnter(Collider collider)
