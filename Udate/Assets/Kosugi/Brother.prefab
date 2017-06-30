@@ -207,7 +207,7 @@ MonoBehaviour:
   m_ShockWave: {fileID: 1000010277938884, guid: c2ce5760f60e9ef4b967df039b0b8680,
     type: 2}
   particle: {fileID: 0}
-  _targetSpeed: 5
+  _targetSpeed: 10
   _speed: 1
   Target: {fileID: 0}
   _count: 2
@@ -230,6 +230,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 265dbe0dd6e16ed4898f768c73cdbdeb, type: 3}
   - {fileID: 8300000, guid: ca021ca39c8e9c64ca0699ca85c85b68, type: 3}
   - {fileID: 8300000, guid: d6d4641b88efa2e45b086b3900b15ede, type: 3}
+  - {fileID: 8300000, guid: 4d9abbc7674738b4fa63145ab3ff8993, type: 3}
 --- !u!114 &114000012978412528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrosAnimation: {fileID: 0}
   m_Anim: {fileID: 0}
+  isClimb: 0
 --- !u!114 &114000013412438020
 MonoBehaviour:
   m_ObjectHideFlags: 1

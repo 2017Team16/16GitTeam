@@ -120,6 +120,11 @@ public class BrotherStateManager : MonoBehaviour
         {
             GetComponent<NavMeshAgent>().Stop();
         }
+
+        if(m_BeforeBrosState==BrotherState.BACK)
+        {
+            GetComponent<AnimationControl>().isClimb = false;
+        }
     }
     public BrotherState GetState()
     {

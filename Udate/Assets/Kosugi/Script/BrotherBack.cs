@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BrotherBack : MonoBehaviour
 {
+    /*--外部設定オブジェクト--*/
     [SerializeField, Header("プレイヤーオブジェクト")]
     private GameObject Player;
 
@@ -34,13 +35,6 @@ public class BrotherBack : MonoBehaviour
         if (m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
             m_Nav.destination = Player.transform.position;
-
-            
-
-            //if (_isBack)
-            //    m_BrotherStateManager.SetState(BrotherState.NORMAL);
-
-
         }
     }
 
@@ -51,8 +45,6 @@ public class BrotherBack : MonoBehaviour
 
     IEnumerator GoBack()
     {
-        //m_Nav.autoTraverseOffMeshLink = false; // OffMeshLinkによる移動を禁止
-
         GetComponent<NavMeshAgent>().enabled = true;
 
         yield return new WaitForSeconds(0.1f);
@@ -60,50 +52,76 @@ public class BrotherBack : MonoBehaviour
         transform.LookAt(Player.transform.position);
         GetComponent<AnimationControl>().m_Anim.SetTrigger("back");
 
+        m_Nav.speed = _speed;
+
         float walkTime = 0;
         while (m_BrotherStateManager.GetState() == BrotherState.BACK)
         {
             walkTime += Time.deltaTime;
 
-            // OffmeshLinkに乗るまで普通に移動
-            //yield return new WaitWhile(() => m_Nav.isOnOffMeshLink == false);
-
-            m_Nav.speed = _speed;
-
-            if(walkTime>0.5f)
+            if (m_Nav.isOnOffMeshLink)
             {
-                m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[0]);
-                walkTime = 0;
+                m_Nav.Stop();
+
+                if (m_Nav.currentOffMeshLinkData.endPos.y > transform.localPosition.y) {
+                    if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z-transform.position.z)>1.0f)
+                        GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
+                    else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                        GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
+
+                    transform.localPosition = Vector3.MoveTowards(
+                                                transform.localPosition,
+                                                new Vector3(transform.localPosition.x, m_Nav.currentOffMeshLinkData.endPos.y, transform.localPosition.z),
+                                                (m_Nav.speed*2) * Time.deltaTime);
+                }
+                else
+                {
+                    GetComponent<AnimationControl>().isClimb = true;
+                    
+                    if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
+                        GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
+                    else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                    {
+                        GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
+                        if(m_Nav.currentOffMeshLinkData.endPos.x< transform.position.x)
+                        {
+                            GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
+                        = new Vector3(-GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
+                        }
+                        else
+                        {
+                            GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
+                        = new Vector3(GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
+                        }
+                    }
+
+                        transform.localPosition = Vector3.MoveTowards(
+                                                new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.localPosition.y, m_Nav.currentOffMeshLinkData.endPos.z),
+                                                m_Nav.currentOffMeshLinkData.endPos,
+                                                (m_Nav.speed*2) * Time.deltaTime);
+                }
+
+                if (Vector3.Distance(transform.localPosition, m_Nav.currentOffMeshLinkData.endPos) < 0.1f)
+                {
+                    GetComponent<AnimationControl>().isClimb = false;
+
+                    GetComponent<AnimationControl>().m_Anim.SetBool("climb", false);
+                    GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", false);
+                    m_Nav.CompleteOffMeshLink();
+                    m_Nav.Resume();
+                }
+
+                yield return null;
             }
-
-            
-
-            //    // OffMeshLinkに乗ったので、NavmeshAgentによる移動を止めて、
-            //    // OffMeshLinkの終わりまでNavmeshAgent.speedと同じ速度で移動
-            //    m_Nav.Stop();
-
-            //    while (Vector3.Distance(transform.position, new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.position.y, m_Nav.currentOffMeshLinkData.endPos.z)) > 0.1f)
-            //    {
-            //        transform.position =
-            //            Vector3.MoveTowards(
-            //                transform.position,
-            //                new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.position.y, m_Nav.currentOffMeshLinkData.endPos.z),
-            //                m_Nav.speed * Time.deltaTime);
-
-            //        yield return null;
-            //    }
-            //    //{
-            //    //    transform.position = Vector3.MoveTowards(
-            //    //                                transform.position,
-            //    //                                m_Nav.currentOffMeshLinkData.endPos, m_Nav.speed * Time.deltaTime);
-            //    //    return Vector3.Distance(transform.position, m_Nav.currentOffMeshLinkData.endPos) > 0.1f;
-            //    //});
-            //    transform.LookAt(new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.position.y, m_Nav.currentOffMeshLinkData.endPos.z));
-            //    // NavmeshAgentを到達した事にして、Navmeshを再開
-            //    m_Nav.CompleteOffMeshLink();
-            //    m_Nav.Resume();
-
-            //    yield break;
+            else
+            {
+                if (walkTime > 0.5f)
+                {
+                    m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[0]);
+                    walkTime = 0;
+                }
+                yield return null;
+            }
             yield return null;
         }
         yield return null;

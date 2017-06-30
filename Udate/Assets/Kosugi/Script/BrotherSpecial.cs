@@ -65,6 +65,7 @@ public class BrotherSpecial : MonoBehaviour
     public void SpecialSet()
     {
         Box.SetActive(true);
+        m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[4]);
         //EnemySet();
     }
 
@@ -91,6 +92,8 @@ public class BrotherSpecial : MonoBehaviour
     /// <returns></returns>
     IEnumerator SpecialMove()
     {
+        GetComponent<AnimationControl>().m_Anim.SetBool("rotate", true);
+
         for (int i = 0; i < m_Enemys.Count; i++)
         {
             _hit = false;
@@ -138,6 +141,8 @@ public class BrotherSpecial : MonoBehaviour
 
                         m_Particle.GetComponent<ParticleSystem>().Stop();
                         GameDatas.isBrotherSpecialMove = false;
+
+                        GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
                         //_hit = true;
                         //m_Enemys.Clear();
                         //m_BrotherStateManager.SetState(BrotherState.NORMAL);

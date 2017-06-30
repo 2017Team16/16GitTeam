@@ -195,6 +195,8 @@ public class BrotherThrow : MonoBehaviour
     //投げ
     IEnumerator SimulateProjectile()
     {
+        GetComponent<AnimationControl>().m_Anim.SetBool("rotate", true);
+
         second = false;
 
         StartPos = transform.position;
@@ -288,7 +290,8 @@ public class BrotherThrow : MonoBehaviour
             if (transform.position.y >= collision.transform.position.y)
             {
                 m_BrotherStateManager.SetState(BrotherState.BACK);
-                GetComponent<AnimationControl>().m_Anim.SetTrigger("land");
+                //GetComponent<AnimationControl>().m_Anim.SetTrigger("land");
+                GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
                 EndPos = transform.position;
                 StartCoroutine(ShockWave());
                 //m_BrotherStateManager.SetState(BrotherState.BACK);

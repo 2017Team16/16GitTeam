@@ -4,8 +4,8 @@ using System.Collections;
 public class AnimationControl : MonoBehaviour {
 
     /*--外部設定オブジェクト--*/
-    [SerializeField, Header("弟アニメーションオブジェクト")]
-    private GameObject m_BrosAnimation;
+    [Header("弟アニメーションオブジェクト")]
+    public GameObject m_BrosAnimation;
     [Header("弟固定ポジション")]
     private Vector3 pos;
 
@@ -13,6 +13,8 @@ public class AnimationControl : MonoBehaviour {
     /*------内部設定変数------*/
     [HideInInspector, Header("アニメーター")]
     public Animator m_Anim;
+
+    public bool isClimb = false;
 
     [Header("反転用")]
     private Vector3 positiveScale, negativeScale;
@@ -52,15 +54,18 @@ public class AnimationControl : MonoBehaviour {
             m_Anim.GetComponent<SpriteRenderer>().enabled = true;
         }
 
-        if (Vector3.Dot(transform.forward, new Vector3(1, 0, 0)) >= 0)
+        if (!isClimb)
         {
-            m_BrosAnimation.transform.localScale = positiveScale;
-            m_Anim.SetFloat("Speed", -1);
-        }
-        else
-        {
-            m_BrosAnimation.transform.localScale = negativeScale;
-            m_Anim.SetFloat("Speed", 1);
+            if (Vector3.Dot(transform.forward, new Vector3(1, 0, 0)) >= 0)
+            {
+                m_BrosAnimation.transform.localScale = positiveScale;
+                m_Anim.SetFloat("Speed", -1);
+            }
+            else
+            {
+                m_BrosAnimation.transform.localScale = negativeScale;
+                m_Anim.SetFloat("Speed", 1);
+            }
         }
     }
 }
