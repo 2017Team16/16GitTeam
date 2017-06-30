@@ -42,6 +42,7 @@ GameObject:
   - 65: {fileID: 65000010664441968}
   - 23: {fileID: 23000013852299048}
   - 114: {fileID: 114000014211544422}
+  - 114: {fileID: 114000010048802042}
   m_Layer: 0
   m_Name: Item-SkillUp
   m_TagString: Untagged
@@ -189,6 +190,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010048802042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011842629376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53708cf54cca1d74ab19132e22b3a44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenTime: 1
+  _tweenCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _particle: {fileID: 1000011073339536, guid: 2e3d82e25015a3142ae497f631ecd034, type: 2}
 --- !u!114 &114000014211544422
 MonoBehaviour:
   m_ObjectHideFlags: 1

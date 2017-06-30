@@ -218,7 +218,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  _particle: {fileID: 0}
+  _particle: {fileID: 1000011073339536, guid: 2e3d82e25015a3142ae497f631ecd034, type: 2}
 --- !u!114 &114000012184478822
 MonoBehaviour:
   m_ObjectHideFlags: 1

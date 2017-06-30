@@ -23,6 +23,7 @@ GameObject:
   - 65: {fileID: 65000010976602990}
   - 23: {fileID: 23000010964439750}
   - 114: {fileID: 114000012716433184}
+  - 114: {fileID: 114000013478766704}
   m_Layer: 0
   m_Name: Item-SpeedUp
   m_TagString: Untagged
@@ -204,3 +205,32 @@ MonoBehaviour:
   _clip01: {fileID: 8300000, guid: fb8453986001b8e4b90cc804c8df2741, type: 3}
   _SpeedUp: 1
   _speed: 1
+--- !u!114 &114000013478766704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010659074636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53708cf54cca1d74ab19132e22b3a44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tweenTime: 0.2
+  _tweenCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _particle: {fileID: 1000011073339536, guid: 2e3d82e25015a3142ae497f631ecd034, type: 2}
