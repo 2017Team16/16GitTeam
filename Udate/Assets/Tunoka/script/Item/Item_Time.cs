@@ -38,7 +38,7 @@ public class Item_Time : MonoBehaviour {
         {
             _audio.PlayOneShot(_clip01);
             GameObject.Find("GamePlayerRule").GetComponent<Timer>().HeelTime((int)TimeUp);
-            Destroy(transform.gameObject);
+            transform.GetComponent<ItemGetEffect>().MoveCor_(transform.GetComponent<ItemGetEffect>().GetCanvas().transform.FindChild("clock").position);
         }
 
     }

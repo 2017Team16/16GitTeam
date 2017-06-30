@@ -40,7 +40,7 @@ public class Item_MaxUp : MonoBehaviour {
             _audio.PlayOneShot(_clip01);
 
             collider.transform.GetComponent<OlderBrotherHamster>().AddMaxLife();
-            Destroy(transform.gameObject);
+            transform.GetComponent<ItemGetEffect>().MoveCor_(transform.GetComponent<ItemGetEffect>().GetCanvas().transform.FindChild("Hp").position);
         }
 
     }

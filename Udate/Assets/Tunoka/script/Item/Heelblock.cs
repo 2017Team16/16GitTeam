@@ -14,6 +14,7 @@ public class Heelblock : MonoBehaviour {
     private float _speed = 1;
 
     private Transform _ime;
+
     // Use this for initialization
     void Start ()
     {
@@ -39,10 +40,10 @@ public class Heelblock : MonoBehaviour {
         {
             _audio.PlayOneShot(_clip01);
             collider.transform.GetComponent<OlderBrotherHamster>().AddLife((int)2);
-            Destroy(transform.gameObject);
+
+            transform.GetComponent<ItemGetEffect>().MoveCor_(transform.GetComponent<ItemGetEffect>().GetCanvas().transform.FindChild("Hp").position);
         }
 
     }
- 
 
 }

@@ -37,7 +37,7 @@ public class Item_SkillUp : MonoBehaviour {
         {
             _audio.PlayOneShot(_clip01);
             collider.transform.GetComponent<OlderBrotherHamster>().AddSpecialPoint();
-            Destroy(transform.gameObject);
+            transform.GetComponent<ItemGetEffect>().MoveCor_(transform.GetComponent<ItemGetEffect>().GetCanvas().transform.FindChild("Special").position);
         }
 
     }

@@ -37,7 +37,7 @@ public class Item_SpeedUp : MonoBehaviour {
         {
             _audio.PlayOneShot(_clip01);
             collider.transform.GetComponent<OlderBrotherHamster>().DefaultSpeedWalk();
-            Destroy(transform.gameObject);
+            transform.GetComponent<ItemGetEffect>().MoveCor_(GameObject.FindGameObjectWithTag("Player").transform.position);
         }
 
     }
