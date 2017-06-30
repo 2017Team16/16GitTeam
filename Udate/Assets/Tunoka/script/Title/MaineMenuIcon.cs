@@ -13,9 +13,13 @@ public class MaineMenuIcon : MonoBehaviour {
     private Sprite _protoIme;
     [SerializeField, Header("変更後の画像")]
     private Sprite _ChangeIme;
-    [SerializeField, Header("サイズ変更")]
+    [SerializeField, Header("サイズ変更するかどうか")]
     private bool _ChangeSize;
     private Vector3 _StateSize;
+
+    [SerializeField, Header("変更後のサイズ")]
+    private Vector3 _Size;
+
     // Use this for initialization
     void Start()
     {
@@ -33,7 +37,7 @@ public class MaineMenuIcon : MonoBehaviour {
         {
             if (_ChangeSize == true)//サイズ調整が必要な時
             {
-                transform.localScale = new Vector3(2, 2, 2);
+                transform.localScale = _Size;
             }
             transform.GetComponent<Image>().sprite = _ChangeIme;
             return;
