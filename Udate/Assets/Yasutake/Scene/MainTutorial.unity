@@ -19788,6 +19788,7 @@ MonoBehaviour:
     type: 2}
   _Enemyspawner: {fileID: 1000010927091714, guid: 8fd6d9e9b2b0e4645a31711cb78ceca9,
     type: 2}
+  pose: {fileID: 828527367}
 --- !u!4 &1928931678
 Transform:
   m_ObjectHideFlags: 0
