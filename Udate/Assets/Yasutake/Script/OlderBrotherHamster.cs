@@ -274,6 +274,7 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             move = 1.5f * input;
         }
+        //m_Rigidbody.velocity = new Vector3(move.x * m_Speed, m_Rigidbody.velocity.y, move.z * m_Speed);
         m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         m_Animator.SetFloat("speed", f);
@@ -624,7 +625,7 @@ public class OlderBrotherHamster : MonoBehaviour
             }
         }
         m_CrushScore.SetNumbers(score * enemyCount);
-        gameScore.Pointscore(score*enemyCount, m_Chain, enemyCount);
+        gameScore.Pointscore(score, m_Chain, enemyCount);
         enemyCount = 0;
     }
 
@@ -877,6 +878,10 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             Damage();
         }
+        //if (collision.transform.tag == "Wall")
+        //{
+        //    m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y, 0);
+        //}
     }
 
 }
