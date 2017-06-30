@@ -57,7 +57,12 @@ public class SceneChanger : MonoBehaviour {
         // SetValue()を毎フレーム呼び出して、１秒間に０から１までの値の中間値を渡す
         iTween.ValueTo(gameObject, iTween.Hash("from", 0f, "to", 1f, "time", _fadeTime, "onupdate", "SetValue"));
     }
-    
+
+    public void PauseFadeOut(string name)
+    {
+        SceneManager.LoadScene(name, LoadSceneMode.Single);
+    }
+
     void SetValue(float alpha)
     {
 

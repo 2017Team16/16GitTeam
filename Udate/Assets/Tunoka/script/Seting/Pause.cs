@@ -13,8 +13,14 @@ public class Pause : MonoBehaviour {
     public int _ListNum;
     private bool Neutral = true;
 
+    [SerializeField, Header("操作説明")]
+    private GameObject SetumeiObj;
+    private bool SetumeiTr;
+
+
     // Use this for initialization
     void Start () {
+        SetumeiTr = false;
         _pauseTr = false;
         Neutral = false;
         _MoveObj.SetActive(false);
@@ -28,7 +34,15 @@ public class Pause : MonoBehaviour {
         {
             _pauseTr = true;
         }
-
+        if (SetumeiTr == true)
+        {
+            if (Input.GetButtonDown("XboxB"))
+            {
+                SetumeiObj.SetActive(false);
+                SetumeiTr = false;
+            }
+            return;
+        }
         if (GameDatas.isSpecialAttack == true)
         {
             SpecialPause();
@@ -73,7 +87,6 @@ public class Pause : MonoBehaviour {
         {
             if (Input.GetButtonDown("XboxB"))
             {
-                _pauseTr = false;
                 SceneChangeButton();
             }
             if (Input.GetAxisRaw("Vertical") < 0 || Input.GetAxisRaw("Horizontal") > 0)
@@ -103,9 +116,9 @@ public class Pause : MonoBehaviour {
         _ListNum += i;
         if (_ListNum < 0)
         {
-            _ListNum = 1;
+            _ListNum = 2;
         }
-        else if (_ListNum > 1)
+        else if (_ListNum > 2)
         {
             _ListNum = 0;
         }
@@ -117,8 +130,12 @@ public class Pause : MonoBehaviour {
             case 0:
                 _pauseTr = false; break;
             case 1:
-                SChang.FadeOut("MainTitle"); break;
+                SetumeiTr = true;
+                SetumeiObj.SetActive(true); break;
+            case 2:
+                _ListNum = 100;//カーソル操作を終了させる
+                Time.timeScale = 1;
+                SChang.PauseFadeOut("MainTitle"); break;
         }
-        _ListNum = 100;//カーソル操作を終了させる
     }
 }

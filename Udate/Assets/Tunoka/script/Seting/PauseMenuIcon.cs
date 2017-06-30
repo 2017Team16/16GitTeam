@@ -12,8 +12,11 @@ public class PauseMenuIcon : MonoBehaviour {
 
     [SerializeField, Header("表示番号")]
     public int _ListNum = 0;
-    [SerializeField, Header("サイズ変更が必要な番号")]
-    private int _ChangeSizeTr;
+
+    [SerializeField, Header("自分の番号")]
+    private int MyNum = 0;
+    [SerializeField, Header("サイズ変更が必要かどうか")]
+    private bool _ChangeSizeTr;
     [SerializeField, Header("変更サイズ")]
     private Vector3 _ChangeSize;
     private Vector3 _StateSize;
@@ -25,21 +28,32 @@ public class PauseMenuIcon : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+
+
+
+
         _ListNum = _Pause._ListNum;
-        if (_ListNum >= _ImeS.Length)
+        if (_ListNum >= 3)
         {
             print("サイズ外を指定外か終了しています");
             return;
         }
 
-        if (_ChangeSizeTr == _ListNum)//サイズ調整が必要な画像
+
+       
+
+        if (_ListNum == MyNum)
         {
-            transform.localScale = _ChangeSize;
+            if (_ChangeSizeTr == true)//サイズ調整が必要な画像
+            {
+                transform.localScale = _ChangeSize;
+            }
+            transform.GetComponent<Image>().sprite = _ImeS[1];
         }
         else
         {
             transform.localScale = _StateSize;
+            transform.GetComponent<Image>().sprite = _ImeS[0];
         }
-        transform.GetComponent<Image>().sprite = _ImeS[_ListNum];
     }
 }
