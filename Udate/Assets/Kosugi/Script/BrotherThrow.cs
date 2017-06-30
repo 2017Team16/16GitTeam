@@ -258,7 +258,7 @@ public class BrotherThrow : MonoBehaviour
             m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[3]);
 
             particle.GetComponent<ParticleSystem>().startLifetime = 0.04f * (StartPos.y - EndPos.y);
-            particle.transform.position = new Vector3(EndPos.x, 0, EndPos.z);
+            particle.transform.position = EndPos;
             particle.GetComponent<ParticleSystem>().Play();
             while (_scale < StartPos.y - EndPos.y)
             {
