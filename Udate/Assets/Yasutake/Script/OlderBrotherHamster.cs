@@ -192,10 +192,11 @@ public class OlderBrotherHamster : MonoBehaviour
             if (m_SpecialPoint <= 0.0f)
             {
                 m_SpecialPoint = 0.0f;
+                maxSpecial = 0.0f;
                 GameDatas.isSpecialAttack = false;
             }
         }
-        if (m_SpecialPoint < maxSpecial)
+        else if (m_SpecialPoint < maxSpecial)
         {
             m_SpecialPoint += 100.0f / m_SpecialTime * Time.deltaTime;
             if (m_SpecialPoint >= maxSpecial)
@@ -274,8 +275,8 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             move = 1.5f * input;
         }
-        //m_Rigidbody.velocity = new Vector3(move.x * m_Speed, m_Rigidbody.velocity.y, move.z * m_Speed);
-        m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
+        m_Rigidbody.velocity = new Vector3(move.x * m_Speed, m_Rigidbody.velocity.y, move.z * m_Speed);
+        //m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         m_Animator.SetFloat("speed", f);
         if (walkSoundPlayInterval > 0.4f && f > 0.5f && !isJump)
