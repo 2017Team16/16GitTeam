@@ -614,8 +614,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 Destroy(chird.gameObject);
             }
         }
-        m_CrushScore.SetNumbers(score * 10);
-        gameScore.Pointscore(score*10, m_Chain, enemyCount);
+        m_CrushScore.SetNumbers(score * enemyCount);
+        gameScore.Pointscore(score*enemyCount, m_Chain, enemyCount);
         enemyCount = 0;
     }
 

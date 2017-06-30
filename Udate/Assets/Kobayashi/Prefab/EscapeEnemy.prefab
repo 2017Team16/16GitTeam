@@ -594,12 +594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d1229f3c5a5744ab1112d8994cdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sutanTime: 3
+  sutanTime: 7
   recoveryTime: 1
-  score: 50
+  score: 100
   sutan: {fileID: 8300000, guid: c680e7e456b0df74cae7b8f178da8f02, type: 3}
   chargingTime: 0.5
-  escapeTime: 2
+  escapeTime: 1
   escapedTime: 1
   m_Speed: 7
   searchRange: 20

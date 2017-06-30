@@ -675,9 +675,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a09daf79b46c2f4b8ec4f974365fbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sutanTime: 3
+  sutanTime: 7
   recoveryTime: 1
-  score: 20
+  score: 50
   sutan: {fileID: 0}
   chargingTime: 1
   searchRange: 5
@@ -685,8 +685,8 @@ MonoBehaviour:
   m_ViewingAngle: 360
   m_Bullet: {fileID: 1000011694215236, guid: 6d18e0217de753a419c14a04f8cfed5f, type: 2}
   muzzle: {fileID: 4000010269574386}
-  b_Speed: 500
-  bulletTime: 1
+  b_Speed: 480
+  bulletTime: 2
   shot: {fileID: 8300000, guid: 2fb8137a5cffa7b4ab9f4def8e0fb7ef, type: 3}
 --- !u!114 &114000012590171676
 MonoBehaviour:

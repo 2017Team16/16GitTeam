@@ -605,9 +605,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7878a5c7a4943f4da76a0c4dbf10ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sutanTime: 6
+  sutanTime: 7
   recoveryTime: 1
-  score: 10
+  score: 30
   sutan: {fileID: 8300000, guid: c680e7e456b0df74cae7b8f178da8f02, type: 3}
   m_Speed: 0.01
 --- !u!114 &114000011624714492
@@ -666,7 +666,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1000013299491838}
   m_Enabled: 1
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

@@ -653,9 +653,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff63c1b61567cb4aaf1406af5d9abf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sutanTime: 3
+  sutanTime: 7
   recoveryTime: 1
-  score: 10
+  score: 20
   sutan: {fileID: 8300000, guid: c680e7e456b0df74cae7b8f178da8f02, type: 3}
   m_Speed: 1
   stayTime: 2

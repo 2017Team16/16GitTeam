@@ -647,9 +647,9 @@ public class TutorialPlayer : MonoBehaviour {
                 Destroy(chird.gameObject);
             }
         }
-        sumscore += score * 10;
+        sumscore += score * enemyCount;
         mainscore.text = sumscore.ToString();
-        m_CrushScore.SetNumbers(score * 10);
+        m_CrushScore.SetNumbers(score * enemyCount);
         //gameScore.Pointscore(score, m_Chain, enemyCount);
         enemyCount = 0;
     }
