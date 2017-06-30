@@ -90,6 +90,8 @@ public class BrotherStateManager : MonoBehaviour
         if (m_BeforeBrosState == BrotherState.SPECIAL &&
              m_BrosState == BrotherState.NORMAL)
         {
+            m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().m_Particle.GetComponent<ParticleSystem>().Stop();
+
             m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>()._hit = false;
             m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().IsTriggerOff();
         }

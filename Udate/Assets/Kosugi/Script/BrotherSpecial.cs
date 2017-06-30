@@ -13,7 +13,7 @@ public class BrotherSpecial : MonoBehaviour
     [SerializeField, Header("必殺技用Canvas内オブジェクト")]
     private GameObject Box;
     [SerializeField, Header("パーティクルオブジェクト")]
-    private GameObject m_Particle;
+    public GameObject m_Particle;
 
 
     /*------外部設定変数------*/
@@ -92,6 +92,7 @@ public class BrotherSpecial : MonoBehaviour
     /// <returns></returns>
     IEnumerator SpecialMove()
     {
+
         GetComponent<AnimationControl>().m_Anim.SetBool("rotate", true);
 
         for (int i = 0; i < m_Enemys.Count; i++)

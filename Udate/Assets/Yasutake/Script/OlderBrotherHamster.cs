@@ -365,6 +365,9 @@ public class OlderBrotherHamster : MonoBehaviour
                     }
                     if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
                     {
+                        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+                        if (enemys.Length == 0) return;
+
                         SpecialAttack();
                     }
                 }

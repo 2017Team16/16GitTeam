@@ -100,7 +100,7 @@ public class BrotherThrow : MonoBehaviour
         m_TargetCreate.transform.position = new Vector3(Player.transform.position.x, 15, Player.transform.position.z);
         StartCoroutine(TargetMove());
     }
-    
+
     //ターゲット
     IEnumerator TargetMove()
     {
@@ -122,7 +122,7 @@ public class BrotherThrow : MonoBehaviour
             float dx = Input.GetAxis("BrosHorizontal")* _targetSpeed;
             float dz = Input.GetAxis("BrosVertical")* _targetSpeed;
             m_TargetCreate.GetComponent<Rigidbody>().velocity = new Vector3(dx, 0, dz);
-
+            
             Vector3 rayPos = m_TargetCreate.transform.position;
             Ray ray = new Ray(rayPos, -m_TargetCreate.transform.up);
             RaycastHit hit;
@@ -257,7 +257,7 @@ public class BrotherThrow : MonoBehaviour
         {
             m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[3]);
 
-            particle.GetComponent<ParticleSystem>().startLifetime = 0.05f * (StartPos.y - EndPos.y);
+            particle.GetComponent<ParticleSystem>().startLifetime = 0.04f * (StartPos.y - EndPos.y);
             particle.transform.position = new Vector3(EndPos.x, 0, EndPos.z);
             particle.GetComponent<ParticleSystem>().Play();
             while (_scale < StartPos.y - EndPos.y)
@@ -271,8 +271,8 @@ public class BrotherThrow : MonoBehaviour
         {
             m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[2]);
         }
-        particle.GetComponent<ParticleSystem>().Stop();
-        Destroy(shockwave);
+        //particle.GetComponent<ParticleSystem>().Stop();
+        //Destroy(shockwave);
         _scale = 0.0f;
 
         //speed175...scale9:lifetime0.25=1:0.028
