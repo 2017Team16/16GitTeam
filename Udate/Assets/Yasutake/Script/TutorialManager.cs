@@ -43,6 +43,8 @@ public class TutorialManager : MonoBehaviour {
     [SerializeField, Header("出現用Particle(Dustsmoke)")]
     private GameObject _Enemyspawner;
 
+    //public GameObject pose;
+
     // Use this for initialization
     void Start () {
         pSrc = player.GetComponent<TutorialPlayer>();
@@ -64,6 +66,7 @@ public class TutorialManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //if (pose.activeInHierarchy) return;
         switch (m_Number)
         {
             case 1: WindowOn(); Tutorial01();break;
@@ -97,7 +100,7 @@ public class TutorialManager : MonoBehaviour {
 
         //if (Input.GetButtonDown("XboxStart"))
         //{
-        //    isskip = !isskip;
+        //    pose.SetActive(true);
         //}
         //if (isskip)
         //{
@@ -115,7 +118,7 @@ public class TutorialManager : MonoBehaviour {
         //{
         //    skip.SetActive(false);
         //}
-	}
+    }
 
     private void WindowOn()
     {
