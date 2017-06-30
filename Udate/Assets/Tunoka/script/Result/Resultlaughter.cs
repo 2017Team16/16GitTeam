@@ -43,7 +43,7 @@ public class Resultlaughter : MonoBehaviour {
 
         for (int i = images.Length - 1; i > 0; i--)
         {
-            print(images[i].sprite.name);
+
             if (images[i].sprite.name == "result-score-nb_0")
             {
                 images[i].sprite = numberSprites[10];

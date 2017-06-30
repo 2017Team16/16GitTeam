@@ -21,7 +21,5 @@ EditorBuildSettings:
     path: Assets/Tunoka/Scene/Main/MainPlay02.unity
   - enabled: 1
     path: Assets/Tunoka/Scene/Main/MainResult.unity
-  - enabled: 0
-    path: Assets/Tunoka/Scene/test.unity
   - enabled: 1
     path: Assets/Gaken/Credit/CreditScene.unity

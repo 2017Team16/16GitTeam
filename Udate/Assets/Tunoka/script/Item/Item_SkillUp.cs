@@ -17,7 +17,7 @@ public class Item_SkillUp : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _ime = transform.FindChild("Item-Heel").gameObject.transform;
-        _ime.eulerAngles = new Vector3(0f, 270, 180f);
+        
         _audio = GameObject.Find("SE").GetComponent<AudioSource>();
     }
 	

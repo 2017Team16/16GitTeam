@@ -34,6 +34,7 @@ public class Pause : MonoBehaviour {
         {
             _pauseTr = true;
         }
+
         if (SetumeiTr == true)
         {
             if (Input.GetButtonDown("XboxB"))
@@ -135,7 +136,8 @@ public class Pause : MonoBehaviour {
             case 2:
                 _ListNum = 100;//カーソル操作を終了させる
                 Time.timeScale = 1;
-                SChang.PauseFadeOut("MainTitle"); break;
+                SChang.PauseFadeOut("MainTitle");
+                break;
         }
     }
 }

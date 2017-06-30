@@ -6846,6 +6846,11 @@ Prefab:
       propertyPath: m_Name
       value: Pause
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011064498672, guid: 88e01c18a2232a14b99b78dcff6bb209,
+        type: 2}
+      propertyPath: SChang
+      value: 
+      objectReference: {fileID: 1766912532}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88e01c18a2232a14b99b78dcff6bb209, type: 2}
   m_IsPrefabParent: 0
@@ -8613,7 +8618,7 @@ Prefab:
         type: 2}
       propertyPath: _StartEND_Production
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1766912531}
     - target: {fileID: 114000010246523278, guid: 6d47a21e127a338499530075a309fa0d,
         type: 2}
       propertyPath: imagesStart
@@ -8639,9 +8644,26 @@ Prefab:
       propertyPath: PauseObj
       value: 
       objectReference: {fileID: 2124854292}
+    - target: {fileID: 114000010666472884, guid: 6d47a21e127a338499530075a309fa0d,
+        type: 2}
+      propertyPath: _ENDTime
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d47a21e127a338499530075a309fa0d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1766912531 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010246523278, guid: 6d47a21e127a338499530075a309fa0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766912530}
+  m_Script: {fileID: 11500000, guid: 8fb592aa22a062c47b3ed970cd6d86d3, type: 3}
+--- !u!114 &1766912532 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010797048764, guid: 6d47a21e127a338499530075a309fa0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766912530}
+  m_Script: {fileID: 11500000, guid: 685b84de7aa87944f857f9260abf414a, type: 3}
 --- !u!1 &1770604749
 GameObject:
   m_ObjectHideFlags: 0

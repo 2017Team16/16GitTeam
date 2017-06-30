@@ -70,9 +70,9 @@ public class TitleController : MonoBehaviour {
         _CursorNum += i;
         if (_CursorNum < 1)
         {
-            _CursorNum = 4;
+            _CursorNum = 3;
         }
-        else if (_CursorNum > 4)
+        else if (_CursorNum > 3)
         {
             _CursorNum = 1;
         }
@@ -83,13 +83,10 @@ public class TitleController : MonoBehaviour {
         {
             case 1: SChang.FadeOut(); break;
             case 2: SChang.FadeOut("MainTutorial"); break;
-            case 3: SChang.FadeOut("CreditScene"); break;
-            case 4: print("ゲーム終了"); Application.Quit(); break;
+            case 3: print("ゲーム終了"); Application.Quit(); break;
         }
-        if (_CursorNum != 2)
-        {
-            _CursorNum = -1;//カーソル操作を終了させる
-        }
+        _CursorNum = -1;//カーソル操作を終了させる
+        
     }
     public int GetCursorNum()
     {

@@ -34,10 +34,10 @@ public class ResultController : MonoBehaviour {
 
 
         LastScore = _Score + _Maxpush * 100 + _Chain * 50  ;
-        print(LastScore);
+
         _rankingSeting = GameObject.Find("Ranking").GetComponent<RankingSeting>();
 
-        _rankingSeting.RankListIn(LastScore);
+        //_rankingSeting.RankListIn(LastScore);
         if (_displayLastScore != null)//画面表示用のTextが存在したらそれに表示させる
         {
             _displayLastScore.text = LastScore.ToString();

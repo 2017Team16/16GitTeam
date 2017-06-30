@@ -50,7 +50,7 @@ public class ResultEvent : MonoBehaviour
     void Start ()
     {
         StageNum = StageSelectController.getStageNum();
-        print(StageNum);
+
         if (StageNum == 0) StageNum = 1;
 
         _Score = Score.getScore() ;
@@ -125,14 +125,14 @@ public class ResultEvent : MonoBehaviour
     }
     void Event3()//新記録かどうか
     {
-        if (_RankingSeting.getRank(1) <= int.Parse(_displayScore.text))//ランキング1位より高かったら新記録アニメーションをおこなう
+        if (_RankingSeting.getRank(3) <= int.Parse(_displayScore.text) )//ランキング1位より高かったら新記録アニメーションをおこなう
         {
             if (_NewRecordObj.activeSelf == false)
             {
                 _audio.PlayOneShot(_clip02);
             }
             _NewRecordObj.SetActive(true);
-            iTween.ScaleTo(_NewRecordObj.transform.FindChild("seat Icon").gameObject, iTween.Hash("x", 6, "y", 3,  "time", 2));
+            iTween.ScaleTo(_NewRecordObj.transform.FindChild("seat Icon").gameObject, iTween.Hash("x", 7, "y", 3,  "time", 2));
           
             if (_Timer >= 3)
             {

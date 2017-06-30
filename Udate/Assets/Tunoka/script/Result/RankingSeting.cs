@@ -46,6 +46,7 @@ public class RankingSeting : MonoBehaviour {
     }
     public void RankListIn(float num)//リザルトを更新
     {
+        print(num);
         _Rank.Add(num);
         _Rank.Sort();//リストの中を整理
         _Rank.Reverse();//並びを逆にする

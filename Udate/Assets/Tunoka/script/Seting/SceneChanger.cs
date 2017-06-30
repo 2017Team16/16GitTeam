@@ -27,6 +27,8 @@ public class SceneChanger : MonoBehaviour {
     }
     void Start()
     {
+        Time.timeScale = 1;
+
         if (FadeOff == true) return;
         FadeIn();
     }

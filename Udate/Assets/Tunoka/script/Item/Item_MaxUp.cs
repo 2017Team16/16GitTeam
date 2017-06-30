@@ -17,7 +17,7 @@ public class Item_MaxUp : MonoBehaviour {
     void Start ()
     {
         _ime = transform.FindChild("Item-MaxUp").gameObject.transform;
-        _ime.eulerAngles = new Vector3(0f, 270, 180f);
+       
         _audio = GameObject.Find("SE").GetComponent<AudioSource>();
     }
 
