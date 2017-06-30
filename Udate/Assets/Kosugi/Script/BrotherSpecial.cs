@@ -144,9 +144,12 @@ public class BrotherSpecial : MonoBehaviour
                         GameDatas.isBrotherSpecialMove = false;
 
                         GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
-                        //_hit = true;
-                        //m_Enemys.Clear();
-                        //m_BrotherStateManager.SetState(BrotherState.NORMAL);
+
+                        _hit = true;
+                        m_Enemys.Clear();
+                        m_BrotherStateManager.SetState(BrotherState.NORMAL);
+
+                        m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
                     }
                     else
                     {
@@ -182,11 +185,11 @@ public class BrotherSpecial : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
         {
-            _hit = true;
-            m_Enemys.Clear();
-            m_BrotherStateManager.SetState(BrotherState.NORMAL);
+            //_hit = true;
+            //m_Enemys.Clear();
+            //m_BrotherStateManager.SetState(BrotherState.NORMAL);
 
-            m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
+            //m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[1]);
         }
         if (collision.gameObject.tag == "Enemy" && m_BrotherStateManager.GetState() == BrotherState.SPECIAL)
         {
