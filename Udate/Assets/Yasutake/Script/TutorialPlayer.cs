@@ -20,7 +20,6 @@ public class TutorialPlayer : MonoBehaviour {
     private float m_InvincibleTime = 0; //無敵時間をはかる変数
     [Header("速さ")]
     public float m_Speed = 1;
-    private bool isDefault = false;
     [Header("アイテムによるデフォルトのスピードになる効果時間")]
     public float m_DefaultTime = 10.0f;
     [Header("ジャンプ力")]
@@ -98,6 +97,8 @@ public class TutorialPlayer : MonoBehaviour {
     public Text mainscore;
     private int sumscore = 0;
     private CrushScore m_CrushScore;
+
+    private float maxSpecial = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -203,6 +204,14 @@ public class TutorialPlayer : MonoBehaviour {
                 GameDatas.isSpecialAttack = false;
             }
         }
+        if (m_SpecialPoint < maxSpecial)
+        {
+            m_SpecialPoint += 100.0f / m_SpecialTime * Time.deltaTime;
+            if (m_SpecialPoint >= maxSpecial)
+            {
+                m_SpecialPoint = maxSpecial;
+            }
+        }
 
         maeBroState = brotherState.GetState();
 
@@ -255,16 +264,6 @@ public class TutorialPlayer : MonoBehaviour {
         Vector3 move = input / (enemyCount * 0.2f + 1);
         if (enemyCount > 3) move = input / (enemyCount + 1);
         TextureLR();
-        if (isDefault)
-        {
-            move = input;
-            m_DefaultTime -= Time.deltaTime;
-            if (m_DefaultTime < 0)
-            {
-                isDefault = false;
-                m_DefaultTime = 10.0f;
-            }
-        }
         if (GameDatas.isSpecialAttack)
         {
             move = 1.5f * input;
@@ -508,16 +507,7 @@ public class TutorialPlayer : MonoBehaviour {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 move = input / (enemyCount * 0.2f + 1);
         if (enemyCount > 3) move = input / (enemyCount + 1);
-        if (isDefault)
-        {
-            move = input;
-            m_DefaultTime -= Time.deltaTime;
-            if (m_DefaultTime < 0)
-            {
-                isDefault = false;
-                m_DefaultTime = 10.0f;
-            }
-        }
+        
         if (GameDatas.isSpecialAttack)
         {
             move = 1.5f * input;
@@ -640,8 +630,8 @@ public class TutorialPlayer : MonoBehaviour {
                 else
                 {
                     score += chird.GetComponent<EnemyBase>().EnemyScore();
-                    m_SpecialPoint += 10.0f;
-                    if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
+                    maxSpecial += 10.0f;
+                    if (maxSpecial > 100.0f) maxSpecial = 100.0f;
                 }
                 m_Chain++;
                 Destroy(chird.gameObject);
@@ -723,19 +713,6 @@ public class TutorialPlayer : MonoBehaviour {
         m_MaxLifeIndex++;
         if (m_MaxLifeIndex > 2) m_MaxLifeIndex = 2;
         AddLife(2);
-    }
-
-    /// <summary>必殺技用ゲージの増加</summary>
-    public void AddSpecialPoint()
-    {
-        m_SpecialPoint += m_SpecialItem;
-        if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
-    }
-
-    /// <summary>デフォルトの速さで歩く</summary>
-    public void DefaultSpeedWalk()
-    {
-        isDefault = true;
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>

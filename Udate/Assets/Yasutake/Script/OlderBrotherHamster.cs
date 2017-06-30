@@ -95,6 +95,7 @@ public class OlderBrotherHamster : MonoBehaviour
     private GameObject m_GettingEnemyParent;
 
     private CrushScore m_CrushScore;
+    private float maxSpecial = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -192,6 +193,14 @@ public class OlderBrotherHamster : MonoBehaviour
             {
                 m_SpecialPoint = 0.0f;
                 GameDatas.isSpecialAttack = false;
+            }
+        }
+        if (m_SpecialPoint < maxSpecial)
+        {
+            m_SpecialPoint += 100.0f / m_SpecialTime * Time.deltaTime;
+            if (m_SpecialPoint >= maxSpecial)
+            {
+                m_SpecialPoint = maxSpecial;
             }
         }
 
@@ -607,8 +616,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 else
                 {
                     score += chird.GetComponent<EnemyBase>().EnemyScore();
-                    m_SpecialPoint += 10.0f;
-                    if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
+                    maxSpecial += 10.0f;
+                    if (maxSpecial > 100.0f) maxSpecial = 100.0f;
                 }
                 m_Chain++;
                 Destroy(chird.gameObject);
@@ -688,8 +697,8 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>必殺技用ゲージの増加</summary>
     public void AddSpecialPoint()
     {
-        m_SpecialPoint += m_SpecialItem;
-        if (m_SpecialPoint > 100.0f) m_SpecialPoint = 100.0f;
+        maxSpecial += m_SpecialItem;
+        if (maxSpecial > 100.0f) maxSpecial = 100.0f;
     }
 
     /// <summary>デフォルトの速さで歩く</summary>
