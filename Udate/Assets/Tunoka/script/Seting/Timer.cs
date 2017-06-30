@@ -65,13 +65,16 @@ public class Timer : MonoBehaviour {
             }
         }
     }
-    public void HeelTime(int i)
+    public void HeelTime(int num)
     {
-        if (_gameTime <= i)
+        for (int i = 0; i <= num; i++)
         {
-            _gameTime = 0;
-            return;
+            if (_gameTime <= 1)
+            {
+                _gameTime = 0;
+                return;
+            }
+            _gameTime--;
         }
-        _gameTime -= i;
     }
 }

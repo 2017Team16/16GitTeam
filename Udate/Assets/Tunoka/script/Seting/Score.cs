@@ -82,7 +82,10 @@ public class Score : MonoBehaviour {
     }
     public void Pointscore(float score ,float chain,float Push)//スコア,現在のチェイン,つぶした数
     {
-        _score += score;
+
+        //
+        _score += score * Push;
+        //
         if (_Maxchain <= chain)
         {
             _Maxchain = chain;
