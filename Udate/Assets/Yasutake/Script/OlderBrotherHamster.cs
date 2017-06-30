@@ -41,7 +41,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
     List<Transform> getenemys = new List<Transform>(); //持っている敵
 
-    [SerializeField, Header("必殺ゲージ用の値")]
+    [SerializeField, Header("必殺ゲージ用の値（確認用）")]
     private float m_SpecialPoint = 0.0f;
     [Header("必殺の継続時間")]
     public float m_SpecialTime = 5.0f;
@@ -95,6 +95,7 @@ public class OlderBrotherHamster : MonoBehaviour
     private GameObject m_GettingEnemyParent;
 
     private CrushScore m_CrushScore;
+    [SerializeField, Header("必殺ゲージ用の値 max値")]
     private float maxSpecial = 0.0f;
 
     // Use this for initialization

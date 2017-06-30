@@ -43,7 +43,9 @@ public class TutorialManager : MonoBehaviour {
     [SerializeField, Header("出現用Particle(Dustsmoke)")]
     private GameObject _Enemyspawner;
 
-    //public GameObject pose;
+    public TutorialPose pose;
+    private float maeTime;
+    private bool isOff;
 
     // Use this for initialization
     void Start () {
@@ -61,12 +63,23 @@ public class TutorialManager : MonoBehaviour {
         onScale = tutorialObj.GetComponent<RectTransform>().localScale;
         uiBack.SetActive(false);
 
-
+        isOff = false;
+        maeTime = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //if (pose.activeInHierarchy) return;
+        if (pose.IsPose())
+        {
+            Time.timeScale = 0;
+            maeTime = 0;
+            return;
+        }
+        else if(maeTime == 0)
+        {
+            maeTime = 1;
+            return;
+        }
         switch (m_Number)
         {
             case 1: WindowOn(); Tutorial01();break;
@@ -122,6 +135,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void WindowOn()
     {
+        isOff = false;
         Time.timeScale = 0;
         tutorialObj.GetComponent<RectTransform>().anchoredPosition = onPosition;
         tutorialObj.GetComponent<RectTransform>().localScale = onScale;
@@ -130,8 +144,9 @@ public class TutorialManager : MonoBehaviour {
     }
     private void WindowOff()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
+            isOff = true;
             Time.timeScale = 1;
             tutorialObj.GetComponent<RectTransform>().anchoredPosition = offPosition;
             tutorialObj.GetComponent<RectTransform>().localScale = offScale;
@@ -144,10 +159,17 @@ public class TutorialManager : MonoBehaviour {
         m_Number++;
         tutorial.sprite = tutorialUIs[m_Number - 1];
     }
+    private void WindouOffNow()
+    {
+        if (isOff)
+        {
+            Time.timeScale = 1;
+        }
+    }
 
     private void TutorialN()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
             NextPage();
         }
@@ -155,7 +177,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Tutorial01()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
             NextPage();
         }
@@ -163,6 +185,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial02()
     {
         WindowOff();
+        WindouOffNow();
         Vector3 ppos = player.transform.position;
         ppos.y = 0;
         pMoveDistance += Mathf.Abs(Vector3.Distance(ppos, pmaePos));
@@ -177,6 +200,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial04()
     {
         WindowOff();
+        WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -206,6 +230,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial05()
     {
         WindowOff();
+        WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN)
         {
             NextPage();
@@ -216,6 +241,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial06()
     {
         WindowOff();
+        WindouOffNow();
         if (pSrc.GetEnemyCount() >= 1)
         {
             NextPage();
@@ -231,6 +257,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial08()
     {
         WindowOff();
+        WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN
             || manualTime <= 0.0f)
         {
@@ -246,7 +273,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Tutorial09()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
             NextPage();
             uiBack.SetActive(true);
@@ -258,6 +285,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial10()
     {
         WindowOff();
+        WindouOffNow();
         if (GameDatas.isSpecialAttack)
         {
             m_Number++;
@@ -268,7 +296,7 @@ public class TutorialManager : MonoBehaviour {
     {
         if(manualTime == 0.0f)
         {
-            if (Input.GetButtonUp("XboxB"))
+            if (Input.GetButtonDown("XboxB"))
             {
                 manualTime = 1.0f;
                 NextPage();
@@ -288,6 +316,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial12()
     {
         WindowOff();
+        WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -315,7 +344,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Tutorial13()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
             NextPage();
             uiBack.GetComponent<RectTransform>().anchoredPosition = timerBackPosition;
@@ -325,7 +354,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Tutorial14()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
             NextPage();
             uiBack.GetComponent<RectTransform>().anchoredPosition = hpBackPosition;
@@ -335,7 +364,7 @@ public class TutorialManager : MonoBehaviour {
 
     private void Tutorial15()
     {
-        if (Input.GetButtonUp("XboxB"))
+        if (Input.GetButtonDown("XboxB"))
         {
             NextPage();
             uiBack.SetActive(false);
@@ -345,6 +374,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial17()
     {
         WindowOff();
+        WindouOffNow();
         if (player.transform.position.y > 7.0f)
         {
             NextPage();
@@ -363,8 +393,9 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial19()
     {
         WindowOff();
+        WindouOffNow();
 
-        if(pSrc.GetEnemyCount() > 0)
+        if (pSrc.GetEnemyCount() > 0)
         {
             NextPage();
             WindowOn();
@@ -374,6 +405,7 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial22()
     {
         WindowOff();
+        WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -399,8 +431,9 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial24()
     {
         WindowOff();
+        WindouOffNow();
         if (Time.timeScale == 0) return;
-        if (Input.GetButtonUp("XboxA"))
+        if (Input.GetButtonDown("XboxA"))
         {
             check++;
         }

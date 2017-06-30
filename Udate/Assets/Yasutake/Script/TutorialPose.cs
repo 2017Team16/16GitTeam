@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class TutorialPose : MonoBehaviour {
+
     [SerializeField]
     private bool _pauseTr;
     [SerializeField]
@@ -29,11 +30,10 @@ public class TutorialPose : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Input.GetButtonDown("XboxStart"))
         {
             _pauseTr = true;
-            Debug.Log("ii");
         }
         if (SetumeiTr == true)
         {
@@ -61,7 +61,6 @@ public class TutorialPose : MonoBehaviour {
             _ListNum = 0;
             _MoveObj.SetActive(false);
             //Time.timeScale = 1;
-            gameObject.SetActive(false);
         }
     }
     void SpecialPause()
@@ -137,17 +136,10 @@ public class TutorialPose : MonoBehaviour {
             case 2:
                 _ListNum = 100;//カーソル操作を終了させる
                 //Time.timeScale = 1;
-                gameObject.SetActive(false);
                 SChang.PauseFadeOut("MainTitle"); break;
         }
     }
-    public void ChangeTrue()
-    {
-        _pauseTr = true;
-        Debug.Log("ii");
-    }
-
-    public bool isPose()
+    public bool IsPose()
     {
         return _pauseTr;
     }

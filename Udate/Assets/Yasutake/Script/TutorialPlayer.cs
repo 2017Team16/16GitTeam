@@ -350,9 +350,7 @@ public class TutorialPlayer : MonoBehaviour {
                 else youngerBrotherPosition.transform.localPosition = new Vector3(0, enemyInterval * enemyCount + 2.5f, 0);
                 if (Input.GetButtonDown("XboxB") && m_State == PlayerState.WALK)
                 {
-                    if(Time.timeScale == 0 
-                        //|| pose.activeInHierarchy
-                        )
+                    if(Time.timeScale == 0 )
                     {
                         return;
                     }
@@ -367,9 +365,7 @@ public class TutorialPlayer : MonoBehaviour {
                 }
                 if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
                 {
-                    if (Time.timeScale == 0 
-                        //|| pose.activeInHierarchy
-                        )
+                    if (Time.timeScale == 0 )
                     {
                         return;
                     }
@@ -436,9 +432,7 @@ public class TutorialPlayer : MonoBehaviour {
             //}
             if (Input.GetButtonDown("XboxL1"))
             {
-                if (Time.timeScale == 0 
-                    //|| pose.activeInHierarchy
-                    )
+                if (Time.timeScale == 0 )
                 {
                     return;
                 }
