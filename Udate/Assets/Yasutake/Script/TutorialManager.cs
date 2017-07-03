@@ -285,16 +285,17 @@ public class TutorialManager : MonoBehaviour {
     private void Tutorial10()
     {
         WindowOff();
-        WindouOffNow();
         if (GameDatas.isSpecialAttack)
         {
             m_Number++;
+            return;
         }
+        WindouOffNow();
     }
 
     private void Tutorial11()
     {
-        if(manualTime == 0.0f)
+        if (manualTime == 0.0f)
         {
             if (Input.GetButtonDown("XboxB"))
             {
@@ -304,7 +305,8 @@ public class TutorialManager : MonoBehaviour {
             }
             return;
         }
-        manualTime -= Time.deltaTime;
+
+        manualTime -= 1/60.0f;
         if (manualTime < 0.0f)
         {
             tutorial.sprite = tutorialUIs[m_Number - 1];

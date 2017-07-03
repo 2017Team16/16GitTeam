@@ -271,8 +271,8 @@ public class BrotherThrow : MonoBehaviour
         {
             m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[2]);
         }
-        //particle.GetComponent<ParticleSystem>().Stop();
-        //Destroy(shockwave);
+        particle.GetComponent<ParticleSystem>().Stop();
+        Destroy(shockwave);
         _scale = 0.0f;
 
         //speed175...scale9:lifetime0.25=1:0.028
