@@ -11,6 +11,8 @@ public class OlderBrotherHamster : MonoBehaviour
         CRUSH,
         GETTING
     }
+
+    //体力関係
     [Header("体力")]
     public int m_Life = 6;
     private int[] m_MaxLife = { 6, 8, 10 }; //最大体力の候補
@@ -18,39 +20,45 @@ public class OlderBrotherHamster : MonoBehaviour
     [Header("無敵時間")]
     public float m_InvincibleInterval = 3.0f;
     private float m_InvincibleTime = 0; //無敵時間をはかる変数
+
+    //速さ関係
     [Header("速さ")]
     public float m_Speed = 1;
-    private bool isDefault = false;
+    private bool isDefault = false; //速さのアイテムの効果時間中か
     [Header("アイテムによるデフォルトのスピードになる効果時間")]
     public float m_DefaultTime = 10.0f;
     [Header("ジャンプ力")]
     public float m_Jump = 3.0f; //デフォルト
+
+    //画像の向き関係
     private GameObject m_Texture; //画像を貼っている子供（仮）
     private Vector3 m_Scale; //画像の向き、右（仮、子の向き）
     private Vector3 reverseScale; //画像の向き、左
     private bool lVec = false; //左を向くか
 
+    //敵関係
     [Header("持っている敵の間隔")]
     public float enemyInterval = 1.0f;
-    private float enemyIntervalDefault = 0.0f;
+    private float enemyIntervalDefault = 0.0f; //敵のデフォルトの間隔
     private int enemyCount = 0; //持っている敵の数
+    List<Transform> getenemys = new List<Transform>(); //持っている敵
 
+    //弟関係
     private GameObject youngerBrotherPosition; //弟の位置
     public GameObject youngerBrother; //弟
     private BrotherStateManager brotherState; //弟の状態
 
-    List<Transform> getenemys = new List<Transform>(); //持っている敵
-
+    //必殺関係
     [SerializeField, Header("必殺ゲージ用の値（確認用）")]
     private float m_SpecialPoint = 0.0f;
     [Header("必殺の継続時間")]
     public float m_SpecialTime = 5.0f;
     [Header("アイテムによる必殺ゲージ増加量")]
     public float m_SpecialItem = 50.0f;
+    [SerializeField, Header("必殺ゲージ用の値 max値")]
+    private float maxSpecial = 0.0f;
 
-    private Rigidbody m_Rigidbody;
-    private PlayerState m_State = PlayerState.WALK;
-
+    //壁のぼり関係
     private Vector3 climbStartPoint = Vector3.zero; //壁のぼり開始地点
     private Vector3 climbEndPoint = Vector3.zero; //壁のぼり終了地点
     private Vector3 climbEndVector = Vector3.zero; //壁のぼり後、落ちないように進む方向
@@ -59,44 +67,47 @@ public class OlderBrotherHamster : MonoBehaviour
     private float climbStartTime; //壁のぼり開始時間
     private float climbDistance; //登る壁の長さ
 
+    //その他
+    private Rigidbody m_Rigidbody; //リジッドボディ
+    private PlayerState m_State = PlayerState.WALK;  //プレイヤーの状態
+
+    //スコア関係
     [Header("ゲームルール(スコア)")]
     public Score gameScore;
-    private int m_Chain = 0;
+    private int m_Chain = 0; //ダメージ食らうまでに連続して潰した数
+    private CrushScore m_CrushScore; //敵を倒した時のプレイヤーの近くのスコア
+
+    //サウンド関係
+    private AudioSource m_Audio; //オーディオソース
+    [Header("プレイヤーのサウンドたち")]
+    public AudioClip[] m_Clips;
+    private float walkSoundPlayInterval = 0.0f; //歩きの音の間隔
+    private bool isJump = false; //ジャンプ中か
+    private int soundNum = 0;  //音の番号
+    private int soundCount = 0;  //敵を倒した時の何回音を鳴らすか
+
+    //アニメ用変数たち
+    private Animator m_Animator; // アニメーター
+    private bool isWithBrother = false;  //弟と一緒か
+    private BrotherState maeBroState = BrotherState.NONE;  //弟の前の状態
+    private AnimatorStateInfo stateInfo;  //アニメーターステイトインフォ 
+
+    private Animator brotherAnimator; //弟(兄所持時)のアニメーター
+    private AnimatorStateInfo brotherstateInfo; //弟のstateInfo
+    private Vector3 brotherTarget = Vector3.zero; //弟が兄を登るときの目印
+
+    //パーティクル関係
+    private GameObject m_CrushParticle; //敵をつぶした時の煙？エフェクト の親
+    private GameObject m_ChirdJumpParent; //敵を持ち上げるときに、今まで持っていた敵が飛ぶための親
+    private GameObject m_GettingEnemy; //持ち上げる対象
+    private GameObject m_GettingEnemyParent; //持ち上げるときに、対象を移動させるアニメをする親
 
     [Header("魂のプレハブ")]
     public GameObject mySoul;
     [Header("汗のプレハブ")]
     public GameObject mySweat;
-    private float sewatTime = 0.0f;
+    private float sewatTime = 0.0f; //汗を出す間隔
 
-    //サウンド関係
-    private AudioSource m_Audio;
-    [Header("プレイヤーのサウンドたち")]
-    public AudioClip[] m_Clips;
-    private float walkSoundPlayInterval = 0.0f;
-    private bool isJump = false;
-    private int soundNum = 0;
-    private int soundCount = 0;
-
-    //アニメ用変数たち
-    private Animator m_Animator;
-    private bool isWithBrother = false;
-    private BrotherState maeBroState = BrotherState.NONE;
-    private AnimatorStateInfo stateInfo;
-
-    private Animator brotherAnimator;
-    private AnimatorStateInfo brotherstateInfo;
-    private Vector3 brotherTarget = Vector3.zero;
-
-    //パーティクル関係
-    private GameObject m_CrushParticle;
-    private GameObject m_ChirdJumpParent;
-    private GameObject m_GettingEnemy;
-    private GameObject m_GettingEnemyParent;
-
-    private CrushScore m_CrushScore;
-    [SerializeField, Header("必殺ゲージ用の値 max値")]
-    private float maxSpecial = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -150,32 +161,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         if (m_InvincibleTime < m_InvincibleInterval) //ダメージを受けて無敵の時の処理
         {
-            if((int)(m_InvincibleTime *10) % 2 == 0)
-            {
-                m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-            }
-            else
-            {
-                m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
-            }
-            //m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
-
-            if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithBrother") ||
-                stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithEnemy") ||
-                stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageSolo"))
-            {
-                float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                if (duration > 0.9f && m_InvincibleTime > 0)
-                {
-                    WalkAnimeControl();
-                }
-            }
-
-            m_InvincibleTime += Time.deltaTime;
-            if (m_InvincibleTime >= m_InvincibleInterval)
-            {
-                m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
-            }
+            Invincible();
         }
 
         if (m_State == PlayerState.CRUSH || m_State == PlayerState.GETTING) return;
@@ -187,24 +173,7 @@ public class OlderBrotherHamster : MonoBehaviour
         }
 
         BrotherGet();
-        if (GameDatas.isSpecialAttack) //必殺技の効果時間
-        {
-            m_SpecialPoint -= 100.0f / m_SpecialTime * Time.deltaTime;
-            if (m_SpecialPoint <= 0.0f)
-            {
-                m_SpecialPoint = 0.0f;
-                maxSpecial = 0.0f;
-                GameDatas.isSpecialAttack = false;
-            }
-        }
-        else if (m_SpecialPoint < maxSpecial)
-        {
-            m_SpecialPoint += 100.0f / m_SpecialTime * Time.deltaTime;
-            if (m_SpecialPoint >= maxSpecial)
-            {
-                m_SpecialPoint = maxSpecial;
-            }
-        }
+        SpecialGage();
 
         maeBroState = brotherState.GetState();
 
@@ -216,8 +185,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 WalkAnimeControl();
             }
         }
-        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerJumpPoseSolo") && m_Rigidbody.velocity.y < 0 ||
-            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerJumpPoseWithBrother") && m_Rigidbody.velocity.y < 0)
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerJumpPoseSolo") && m_Rigidbody.velocity.y <= 0 ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerJumpPoseWithBrother") && m_Rigidbody.velocity.y <= 0)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f)) //ジャンプ中地面についたら歩きへ
@@ -259,8 +228,9 @@ public class OlderBrotherHamster : MonoBehaviour
         }
 
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 move = input / (enemyCount * 0.2f + 1);
-        if (enemyCount > 3) move = input / (enemyCount + 1);
+        //Vector3 move = input / (enemyCount * 0.2f + 1);
+        //if (enemyCount > 3) move = input / (enemyCount + 1);
+        Vector3 move = (enemyCount > 3)? input / (enemyCount + 1): input / (enemyCount * 0.2f + 1);
         TextureLR();
         if (isDefault)
         {
@@ -307,6 +277,12 @@ public class OlderBrotherHamster : MonoBehaviour
             youngerBrotherPosition.transform.localScale = m_Scale;
             lVec = false;
         }
+    }
+
+    private bool IsGround()
+    {
+        RaycastHit hit;
+        return Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 1.0f);
     }
 
     /// <summary>壁のぼり</summary>
@@ -409,7 +385,7 @@ public class OlderBrotherHamster : MonoBehaviour
         else if (brotherState.GetState() == BrotherState.THROW &&
             !GameDatas.isBrotherFlying && maeBroState == brotherState.GetState())
         {
-            if (!isWithBrother)
+            if (!isWithBrother) //弟が兄を登っているときに投げられそうになった場合
             {
                 isWithBrother = true;
                 brotherAnimator.Play("BrotherWait");
@@ -432,7 +408,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 isWithBrother = false;
             }
         }
-        else if (GameDatas.isBrotherFlying || GameDatas.isSpecialAttack)
+        else if (GameDatas.isBrotherFlying || brotherState.GetState() == BrotherState.SPECIAL)
         {
             //youngerBrother.GetComponent<MeshRenderer>().enabled = true;
             youngerBrotherPosition.GetComponent<SpriteRenderer>().enabled = false;
@@ -447,6 +423,29 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         GameDatas.isSpecialAttack = true;
         youngerBrother.SendMessage("Special", SendMessageOptions.DontRequireReceiver);
+    }
+
+    /// <summary>必殺ゲージ</summary>
+    private void SpecialGage()
+    {
+        if (GameDatas.isSpecialAttack) //必殺技の効果時間
+        {
+            m_SpecialPoint -= 100.0f / m_SpecialTime * Time.deltaTime;
+            if (m_SpecialPoint <= 0.0f)
+            {
+                m_SpecialPoint = 0.0f;
+                maxSpecial = 0.0f;
+                GameDatas.isSpecialAttack = false;
+            }
+        }
+        else if (m_SpecialPoint < maxSpecial)
+        {
+            m_SpecialPoint += 100.0f / m_SpecialTime * Time.deltaTime;
+            if (m_SpecialPoint >= maxSpecial)
+            {
+                m_SpecialPoint = maxSpecial;
+            }
+        }
     }
 
     /// <summary>敵をつぶす演出</summary>
@@ -668,6 +667,35 @@ public class OlderBrotherHamster : MonoBehaviour
             if (m_Life != 0) m_Audio.PlayOneShot(m_Clips[9]);
         }
 
+    }
+
+    /// <summary>無敵中の処理</summary>
+    private void Invincible()
+    {
+        if ((int)(m_InvincibleTime * 10) % 2 == 0)
+        {
+            m_Texture.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+        }
+        else
+        {
+            m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithBrother") ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageWithEnemy") ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerDamageSolo"))
+        {
+            float duration = m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            if (duration > 0.9f && m_InvincibleTime > 0)
+            {
+                WalkAnimeControl();
+            }
+        }
+
+        m_InvincibleTime += Time.deltaTime;
+        if (m_InvincibleTime >= m_InvincibleInterval)
+        {
+            m_Texture.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 
     /// <summary>体力の増減</summary>
