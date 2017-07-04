@@ -245,6 +245,11 @@ public class BrotherThrow : MonoBehaviour
             if (second)
                 yield return SimulateProjectile();
 
+            if (elapse_time >= flightDuration)
+            {
+                print("ThrowEND");
+            }
+
             yield return null;
         }
     }
@@ -281,6 +286,7 @@ public class BrotherThrow : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         //床判定(判定甘いので要調整)
+        //elapse_timeでの判定も視野に
         if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)
         {
             _count = 2.0f;

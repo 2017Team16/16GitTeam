@@ -6,6 +6,8 @@ public class BrotherBack : MonoBehaviour
     /*--外部設定オブジェクト--*/
     [SerializeField, Header("プレイヤーオブジェクト")]
     private GameObject Player;
+    [SerializeField, Header("小屋出入り用ポイントオブジェクト")]
+    private Transform[] HousePoints;
 
     [SerializeField, Header("戻る速度")]
     private float _speed = 5;
@@ -63,44 +65,55 @@ public class BrotherBack : MonoBehaviour
             {
                 m_Nav.Stop();
 
-                if (m_Nav.currentOffMeshLinkData.endPos.y > transform.localPosition.y) {
-                    if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z-transform.position.z)>1.0f)
-                        GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
-                    else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
-                        GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
-
+                if (m_Nav.currentOffMeshLinkData.endPos == HousePoints[0].position ||
+                    m_Nav.currentOffMeshLinkData.endPos == HousePoints[1].position)
+                {
                     transform.localPosition = Vector3.MoveTowards(
-                                                transform.localPosition,
-                                                new Vector3(transform.localPosition.x, m_Nav.currentOffMeshLinkData.endPos.y, transform.localPosition.z),
-                                                (m_Nav.speed*2) * Time.deltaTime);
+                                                    transform.localPosition,
+                                                    m_Nav.currentOffMeshLinkData.endPos,
+                                                    (m_Nav.speed * 2) * Time.deltaTime);
                 }
                 else
                 {
-                    GetComponent<AnimationControl>().isClimb = true;
-                    
-                    if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
-                        GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
-                    else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                    if (m_Nav.currentOffMeshLinkData.endPos.y > transform.localPosition.y)
                     {
-                        GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
-                        if(m_Nav.currentOffMeshLinkData.endPos.x< transform.position.x)
-                        {
-                            GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
-                        = new Vector3(-GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
-                        }
-                        else
-                        {
-                            GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
-                        = new Vector3(GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
-                        }
+                        if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
+                            GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
+                        else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                            GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
+
+                        transform.localPosition = Vector3.MoveTowards(
+                                                    transform.localPosition,
+                                                    new Vector3(transform.localPosition.x, m_Nav.currentOffMeshLinkData.endPos.y, transform.localPosition.z),
+                                                    (m_Nav.speed * 2) * Time.deltaTime);
                     }
+                    else
+                    {
+                        GetComponent<AnimationControl>().isClimb = true;
+
+                        if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
+                            GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
+                        else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                        {
+                            GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
+                            if (m_Nav.currentOffMeshLinkData.endPos.x < transform.position.x)
+                            {
+                                GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
+                            = new Vector3(-GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
+                            }
+                            else
+                            {
+                                GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
+                            = new Vector3(GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
+                            }
+                        }
 
                         transform.localPosition = Vector3.MoveTowards(
                                                 new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.localPosition.y, m_Nav.currentOffMeshLinkData.endPos.z),
                                                 m_Nav.currentOffMeshLinkData.endPos,
-                                                (m_Nav.speed*2) * Time.deltaTime);
+                                                (m_Nav.speed * 2) * Time.deltaTime);
+                    }
                 }
-
                 if (Vector3.Distance(transform.localPosition, m_Nav.currentOffMeshLinkData.endPos) < 0.1f)
                 {
                     GetComponent<AnimationControl>().isClimb = false;
