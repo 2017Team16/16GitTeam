@@ -16,9 +16,10 @@ public class BrotherShockWave : MonoBehaviour {
 	void Update () {
 
 	}
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Enemy" &&
+            other.gameObject.GetComponent<EnemyBase>().GetEnemyState() != EnemyBase.EnemyState.SUTAN &&
             (m_BrotherStateManager.GetState() == BrotherState.THROW || m_BrotherStateManager.GetState() == BrotherState.BACK))
         {
             other.gameObject.SendMessage("ChangeState", 3, SendMessageOptions.DontRequireReceiver);
