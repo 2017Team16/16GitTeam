@@ -2,10 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class TutorialManager : MonoBehaviour {
+public class TutorialManager : MonoBehaviour
+{
 
     public GameObject player;
-    private TutorialPlayer pSrc;
+    private TutorialAnitest pSrc;
     private int m_Number;
     private Vector3 pmaePos;
     private float pMoveDistance;
@@ -20,12 +21,13 @@ public class TutorialManager : MonoBehaviour {
     public Image tutorial;
     public Image tutorialBack;
     public GameObject sankaku;
+    public float sankakuColor;
     public GameObject uiBack;
     public SceneChanger sc;
     private Vector2 onPosition;
     private Vector2 onScale;
     private Vector2 offPosition = new Vector2(-200, -150);
-    private Vector2 offScale = new Vector2(0.5f,0.5f);
+    private Vector2 offScale = new Vector2(0.5f, 0.5f);
 
     public Vector2 hpBackPosition;
     public Vector2 hpBackScale;
@@ -36,6 +38,8 @@ public class TutorialManager : MonoBehaviour {
     public Vector2 scoreBackPosition;
     public Vector2 scoreBackScale;
 
+    public Vector2[] backPositions;
+    public Vector2[] backScales;
 
     public GameObject[] spownPoints;
     public GameObject tutorialEnemy;
@@ -48,10 +52,11 @@ public class TutorialManager : MonoBehaviour {
     private bool isOff;
 
     // Use this for initialization
-    void Start () {
-        pSrc = player.GetComponent<TutorialPlayer>();
+    void Start()
+    {
+        pSrc = player.GetComponent<TutorialAnitest>();
 
-        m_Number = 1;
+        m_Number = 0;
         pmaePos = player.transform.position;
         pmaePos.y = 0;
         pMoveDistance = 0;
@@ -66,23 +71,26 @@ public class TutorialManager : MonoBehaviour {
         isOff = false;
         maeTime = 1;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        Debug.Log(Time.timeScale);
         if (pose.IsPose())
         {
             Time.timeScale = 0;
             maeTime = 0;
             return;
         }
-        else if(maeTime == 0)
+        else if (maeTime == 0)
         {
             maeTime = 1;
             return;
         }
         switch (m_Number)
         {
-            case 1: WindowOn(); Tutorial01();break;
+            case 0: WindowOn(); break;
+            case 1: Tutorial01(); break;
             case 2: Tutorial02(); break;
             case 4: Tutorial04(); break;
             case 5: Tutorial05(); break;
@@ -110,41 +118,28 @@ public class TutorialManager : MonoBehaviour {
             case 25:
             case 26: TutorialN(); break;
         }
-
-        //if (Input.GetButtonDown("XboxStart"))
-        //{
-        //    pose.SetActive(true);
-        //}
-        //if (isskip)
-        //{
-        //    skip.SetActive(true);
-        //    if (Input.GetButtonDown("XboxA"))
-        //    {
-        //        isskip = false;
-        //    }
-        //    if (Input.GetButtonDown("XboxB"))
-        //    {
-        //        sc.FadeOut();
-        //    }
-        //}
-        //else
-        //{
-        //    skip.SetActive(false);
-        //}
     }
 
     private void WindowOn()
     {
+        m_Number++;
+        tutorial.sprite = tutorialUIs[m_Number - 1];
         isOff = false;
         Time.timeScale = 0;
         tutorialObj.GetComponent<RectTransform>().anchoredPosition = onPosition;
         tutorialObj.GetComponent<RectTransform>().localScale = onScale;
         tutorialBack.color = new Color(1, 1, 1, 1);
         sankaku.SetActive(true);
+        sankaku.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        uiBack.SetActive(true);
     }
     private void WindowOff()
     {
         if (Input.GetButtonDown("XboxB"))
+        {
+            sankaku.GetComponent<Image>().color = new Color(sankakuColor, sankakuColor, sankakuColor, 1);
+        }
+        if (Input.GetButtonUp("XboxB") && sankaku.GetComponent<Image>().color.r == sankakuColor)
         {
             isOff = true;
             Time.timeScale = 1;
@@ -152,12 +147,21 @@ public class TutorialManager : MonoBehaviour {
             tutorialObj.GetComponent<RectTransform>().localScale = offScale;
             tutorialBack.color = new Color(1, 1, 1, 0.7f);
             sankaku.SetActive(false);
+            uiBack.SetActive(false);
         }
     }
     private void NextPage()
     {
-        m_Number++;
-        tutorial.sprite = tutorialUIs[m_Number - 1];
+        if (Input.GetButtonDown("XboxB"))
+        {
+            sankaku.GetComponent<Image>().color = new Color(sankakuColor, sankakuColor, sankakuColor, 1);
+        }
+        if (Input.GetButtonUp("XboxB") && sankaku.GetComponent<Image>().color.r == sankakuColor)
+        {
+            m_Number++;
+            tutorial.sprite = tutorialUIs[m_Number - 1];
+            sankaku.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
     }
     private void WindouOffNow()
     {
@@ -169,18 +173,12 @@ public class TutorialManager : MonoBehaviour {
 
     private void TutorialN()
     {
-        if (Input.GetButtonDown("XboxB"))
-        {
             NextPage();
-        }
     }
 
     private void Tutorial01()
     {
-        if (Input.GetButtonDown("XboxB"))
-        {
             NextPage();
-        }
     }
     private void Tutorial02()
     {
@@ -191,8 +189,6 @@ public class TutorialManager : MonoBehaviour {
         pMoveDistance += Mathf.Abs(Vector3.Distance(ppos, pmaePos));
         if (pMoveDistance > 20.0f)
         {
-            m_Number++;
-            tutorial.sprite = tutorialUIs[m_Number - 1];
             WindowOn();
         }
         pmaePos = ppos;
@@ -213,10 +209,9 @@ public class TutorialManager : MonoBehaviour {
 
         if (EnemyCount >= 1)
         {
-            NextPage();
             WindowOn();
         }
-        else if (GameDatas.isBrotherFlying && check ==0)
+        else if (GameDatas.isBrotherFlying && check == 0)
         {
             GameObject wreckClone = (GameObject)Instantiate
           (_Enemyspawner, spownPoints[0].transform.position,
@@ -233,7 +228,6 @@ public class TutorialManager : MonoBehaviour {
         WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN)
         {
-            NextPage();
             WindowOn();
         }
     }
@@ -244,7 +238,6 @@ public class TutorialManager : MonoBehaviour {
         WindouOffNow();
         if (pSrc.GetEnemyCount() >= 1)
         {
-            NextPage();
             WindowOn();
             GameObject wreckClone = (GameObject)Instantiate
          (_Enemyspawner, spownPoints[3].transform.position,
@@ -261,7 +254,6 @@ public class TutorialManager : MonoBehaviour {
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN
             || manualTime <= 0.0f)
         {
-            NextPage();
             WindowOn();
             manualTime = 3.0f;
         }
@@ -273,15 +265,13 @@ public class TutorialManager : MonoBehaviour {
 
     private void Tutorial09()
     {
-        if (Input.GetButtonDown("XboxB"))
+        NextPage();
+        if (m_Number ==10)
         {
-            NextPage();
-            uiBack.SetActive(true);
-            uiBack.GetComponent<RectTransform>().anchoredPosition = specialBackPosition;
-            uiBack.GetComponent<RectTransform>().localScale = specialBackScale;
+
         }
     }
-    
+
     private void Tutorial10()
     {
         WindowOff();
@@ -297,16 +287,16 @@ public class TutorialManager : MonoBehaviour {
     {
         if (manualTime == 0.0f)
         {
-            if (Input.GetButtonDown("XboxB"))
+            NextPage();
+            if (m_Number == 12)
             {
                 manualTime = 1.0f;
-                NextPage();
-                uiBack.SetActive(false);
+
             }
             return;
         }
 
-        manualTime -= 1/60.0f;
+        manualTime -= 1 / 1 * Time.deltaTime;
         if (manualTime < 0.0f)
         {
             tutorial.sprite = tutorialUIs[m_Number - 1];
@@ -333,43 +323,38 @@ public class TutorialManager : MonoBehaviour {
             manualTime -= Time.deltaTime;
             if (manualTime <= 0.0f)
             {
-                NextPage();
-                uiBack.SetActive(true);
-                uiBack.GetComponent<RectTransform>().anchoredPosition = scoreBackPosition;
-                uiBack.GetComponent<RectTransform>().localScale = scoreBackScale;
+
                 WindowOn();
                 manualTime = 1.0f;
             }
         }
-        
+
     }
 
     private void Tutorial13()
     {
-        if (Input.GetButtonDown("XboxB"))
+        NextPage();
+        if (m_Number == 14)
         {
-            NextPage();
-            uiBack.GetComponent<RectTransform>().anchoredPosition = timerBackPosition;
-            uiBack.GetComponent<RectTransform>().localScale = timerBackScale;
+
         }
     }
 
     private void Tutorial14()
     {
-        if (Input.GetButtonDown("XboxB"))
+        NextPage();
+        if (m_Number == 15)
         {
-            NextPage();
-            uiBack.GetComponent<RectTransform>().anchoredPosition = hpBackPosition;
-            uiBack.GetComponent<RectTransform>().localScale = hpBackScale;
+
         }
     }
 
     private void Tutorial15()
     {
-        if (Input.GetButtonDown("XboxB"))
+        NextPage();
+        if (m_Number == 16)
         {
-            NextPage();
-            uiBack.SetActive(false);
+
         }
     }
 
@@ -379,7 +364,6 @@ public class TutorialManager : MonoBehaviour {
         WindouOffNow();
         if (player.transform.position.y > 7.0f)
         {
-            NextPage();
             WindowOn();
             for (int i = 0; i < spownPoints.Length; i++)
             {
@@ -399,7 +383,6 @@ public class TutorialManager : MonoBehaviour {
 
         if (pSrc.GetEnemyCount() > 0)
         {
-            NextPage();
             WindowOn();
         }
     }
@@ -422,8 +405,6 @@ public class TutorialManager : MonoBehaviour {
             manualTime -= Time.deltaTime;
             if (manualTime <= 0.0f)
             {
-                m_Number++;
-                tutorial.sprite = tutorialUIs[m_Number - 1];
                 WindowOn();
                 manualTime = 3.0f;
             }
@@ -444,7 +425,6 @@ public class TutorialManager : MonoBehaviour {
             manualTime -= Time.deltaTime;
             if (manualTime <= 0.0f)
             {
-                NextPage();
                 WindowOn();
                 manualTime = 1.0f;
             }
