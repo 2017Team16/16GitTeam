@@ -24,7 +24,7 @@ public class Brother : MonoBehaviour {
             transform.position = BrotherPosition.position;
         }
 
-        if(Input.GetButtonDown("XboxL1"))
+        if (Input.GetButtonDown("XboxL1") && Time.timeScale != 0)
         {
             m_BrotherStateManager.SetState(BrotherState.THROW);
         }
