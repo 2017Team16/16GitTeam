@@ -65,8 +65,9 @@ public class BrotherBack : MonoBehaviour
             {
                 m_Nav.Stop();
 
-                if (m_Nav.currentOffMeshLinkData.endPos == HousePoints[0].position ||
-                    m_Nav.currentOffMeshLinkData.endPos == HousePoints[1].position)
+                if (HousePoints.Length != 0 &&
+                    (m_Nav.currentOffMeshLinkData.endPos == HousePoints[0].position ||
+                    m_Nav.currentOffMeshLinkData.endPos == HousePoints[1].position))
                 {
                     transform.localPosition = Vector3.MoveTowards(
                                                     transform.localPosition,
