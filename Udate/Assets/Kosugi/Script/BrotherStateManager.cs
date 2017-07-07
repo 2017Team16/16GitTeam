@@ -76,14 +76,19 @@ public class BrotherStateManager : MonoBehaviour
         if (m_BeforeBrosState == BrotherState.NORMAL &&
              m_BrosState == BrotherState.THROW)
         {
-            //m_Moves[BrotherState.NORMAL].GetComponent<Brother>()._isFloor = false;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>()._count = 2.0f;
             m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().ThrowStart();
         }
-        //通常→必殺技
+        //通常→必殺技or投げ→必殺技
         if (m_BeforeBrosState == BrotherState.NORMAL &&
-             m_BrosState == BrotherState.SPECIAL)
+            m_BrosState == BrotherState.SPECIAL)
         {
+            m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().SpecialSet();
+        }
+        //
+        if (m_BeforeBrosState == BrotherState.THROW && m_BrosState == BrotherState.SPECIAL)
+        {
+            Destroy(m_Moves[BrotherState.THROW].GetComponent<BrotherThrow>().Target);
             m_Moves[BrotherState.SPECIAL].GetComponent<BrotherSpecial>().SpecialSet();
         }
         //必殺技→通常

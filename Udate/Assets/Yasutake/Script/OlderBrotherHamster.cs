@@ -385,6 +385,15 @@ public class OlderBrotherHamster : MonoBehaviour
         else if (brotherState.GetState() == BrotherState.THROW &&
             !GameDatas.isBrotherFlying && maeBroState == brotherState.GetState())
         {
+            if (Time.timeScale != 0 && Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f&&
+                stateInfo.fullPathHash != Animator.StringToHash("Base Layer.PlayerThrowStart"))
+            {
+                GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+                if (enemys.Length == 0) return;
+
+                SpecialAttack();
+            }
+
             if (!isWithBrother) //弟が兄を登っているときに投げられそうになった場合
             {
                 isWithBrother = true;

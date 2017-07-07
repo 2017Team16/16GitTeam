@@ -74,7 +74,6 @@ public class BrotherThrow : MonoBehaviour
     [Header("サウンド")]
     private AudioSource m_Audio;
 
-
     [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;
 
@@ -98,7 +97,17 @@ public class BrotherThrow : MonoBehaviour
     public void ThrowStart()
     {
         m_TargetCreate.transform.position = new Vector3(Player.transform.position.x, 15, Player.transform.position.z);
-        StartCoroutine(TargetMove());
+        StartCoroutine("TargetMove");
+    }
+
+    //必殺技(投げるまで発動可能)
+    public void Special()
+    {
+        StopCoroutine("TargetMove");
+        GetComponent<AnimationControl>().m_Anim.GetComponent<SpriteRenderer>().enabled = true;
+        m_BrotherStateManager.SetState(BrotherState.SPECIAL);
+        GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        Time.timeScale = 0;
     }
 
     //ターゲット
@@ -136,32 +145,32 @@ public class BrotherThrow : MonoBehaviour
             m_Hitinfo.hit = hit;
             m_NoHitinfo.hit = noHit;
 
-            transform.LookAt(Target.transform.position);
+                transform.LookAt(Target.transform.position);
 
-            if (m_Hitinfo.isHit)
-            {
-                if (hit.transform.gameObject.transform.position.y > transform.position.y)
+                if (m_Hitinfo.isHit)
                 {
-                    hit.transform.gameObject.layer = 9;
+                    if (hit.transform.gameObject.transform.position.y > transform.position.y)
+                    {
+                        hit.transform.gameObject.layer = 9;
+                    }
+                    else
+                    {
+                        Target.transform.position
+                            = new Vector3(m_Hitinfo.hit.point.x, m_Hitinfo.hit.point.y + Target.transform.localScale.y / 2, m_Hitinfo.hit.point.z);
+                    }
+                }
+                if (m_NoHitinfo.isHit && noHit.transform.gameObject.transform.position.y < transform.position.y)
+                {
+                    noHit.transform.gameObject.layer = 8;
+                }
+
+                if ((transform.position.y - Target.transform.position.y) / 3 > 1)
+                {
+                    Target.transform.FindChild("cursor").transform.localScale
+                        = new Vector3((transform.position.y - Target.transform.position.y) / 3, (transform.position.y - Target.transform.position.y) / 3, 1);
                 }
                 else
-                {
-                    Target.transform.position
-                        = new Vector3(m_Hitinfo.hit.point.x, m_Hitinfo.hit.point.y + Target.transform.localScale.y / 2, m_Hitinfo.hit.point.z);
-                }
-            }
-            if (m_NoHitinfo.isHit && noHit.transform.gameObject.transform.position.y < transform.position.y)
-            {
-                noHit.transform.gameObject.layer = 8;
-            }
-
-            if ((transform.position.y - Target.transform.position.y) / 3>1)
-            {
-                Target.transform.FindChild("cursor").transform.localScale
-                    = new Vector3((transform.position.y - Target.transform.position.y) / 3, (transform.position.y - Target.transform.position.y) / 3, 1);
-            }
-            else
-                Target.transform.FindChild("cursor").transform.localScale= new Vector3(1, 1, 1);
+                    Target.transform.FindChild("cursor").transform.localScale = new Vector3(1, 1, 1);
 
             if (GameDatas.isBrotherFlying)
             {
@@ -174,14 +183,14 @@ public class BrotherThrow : MonoBehaviour
                 }
 
                 StartCoroutine(SimulateProjectile());
-                
+
 
                 yield break;
             }
-            else if(Input.GetButtonDown("XboxB"))
+            else if (Input.GetButtonDown("XboxB"))
             {
                 Destroy(Target);
-                
+
                 m_BrotherStateManager.SetState(BrotherState.NORMAL);
 
                 yield break;
