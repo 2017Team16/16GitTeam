@@ -159,32 +159,25 @@ public class TutorialManager : MonoBehaviour
     }
     private void WindouOffNow()
     {
-        //if (!GameDatas.isBrotherSpecialMove
-        //    && !pose.IsPose()
-        //    && GameDatas.isSpecialAttack
-        //    )
-        //{
-        //    Time.timeScale = 1;
-        //}
-        //if (pose.IsPose())
-        //{
-        //    Time.timeScale = 0;
-        //}
+        if (isOff)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     private void TutorialN()
     {
-            NextPage();
+        NextPage();
     }
 
     private void Tutorial01()
     {
-            NextPage();
+        NextPage();
     }
     private void Tutorial02()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         Vector3 ppos = player.transform.position;
         ppos.y = 0;
         pMoveDistance += Mathf.Abs(Vector3.Distance(ppos, pmaePos));
@@ -197,7 +190,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial04()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -226,7 +219,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial05()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN)
         {
             WindowOn();
@@ -236,7 +229,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial06()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         if (pSrc.GetEnemyCount() >= 1)
         {
             WindowOn();
@@ -251,7 +244,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial08()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN
             || manualTime <= 0.0f)
         {
@@ -267,7 +260,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial09()
     {
         NextPage();
-        if (m_Number ==10)
+        if (m_Number == 10)
         {
             playerUiBack.SetActive(true);
             playerUiBack.GetComponent<RectTransform>().localPosition = backPositions[0];
@@ -283,18 +276,11 @@ public class TutorialManager : MonoBehaviour
             m_Number++;
             return;
         }
-        //WindouOffNow();
+        WindouOffNow();
     }
 
     private void Tutorial11()
     {
-        //if (manualTime == 0.0f)
-        //{
-        //    NextPage();
-        //    return;
-        //}
-        WindouOffNow();
-
         manualTime -= 1 / 1 * Time.deltaTime;
         if (manualTime < 0.0f)
         {
@@ -312,7 +298,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial12()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -370,7 +356,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial17()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         if (player.transform.position.y > 7.0f)
         {
             WindowOn();
@@ -388,7 +374,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial19()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
 
         if (pSrc.GetEnemyCount() > 0)
         {
@@ -399,7 +385,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial22()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -423,7 +409,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial24()
     {
         WindowOff();
-        //WindouOffNow();
+        WindouOffNow();
         if (Time.timeScale == 0) return;
         if (Input.GetButtonDown("XboxA"))
         {
@@ -442,10 +428,6 @@ public class TutorialManager : MonoBehaviour
 
     private void Tutorial27()
     {
-        //if (Input.GetButtonDown("XboxB"))
-        //{
-        //    Time.timeScale = 1;
-        //}
         if (Input.GetButtonDown("XboxB"))
         {
             sankaku.GetComponent<Image>().color = new Color(sankakuColor, sankakuColor, sankakuColor, 1);

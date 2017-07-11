@@ -8949,6 +8949,7 @@ GameObject:
   - 33: {fileID: 643431220}
   - 65: {fileID: 643431219}
   - 23: {fileID: 643431218}
+  - 114: {fileID: 643431221}
   m_Layer: 10
   m_Name: saku  left
   m_TagString: Wall
@@ -9018,6 +9019,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 643431216}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &643431221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 643431216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da890a132253c104b9bdf9ff14759e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Effect: {fileID: 1000014101040356, guid: 63c0d44b995aa4744ac5ee82cf7d4edd, type: 2}
+  effectTime: 1
 --- !u!1 &646039955
 GameObject:
   m_ObjectHideFlags: 0
@@ -12382,6 +12396,7 @@ GameObject:
   - 33: {fileID: 966314947}
   - 65: {fileID: 966314946}
   - 23: {fileID: 966314945}
+  - 114: {fileID: 966314948}
   m_Layer: 10
   m_Name: saku Mae
   m_TagString: Wall
@@ -12450,6 +12465,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 966314943}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &966314948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 966314943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da890a132253c104b9bdf9ff14759e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Effect: {fileID: 1000014101040356, guid: 63c0d44b995aa4744ac5ee82cf7d4edd, type: 2}
+  effectTime: 1
 --- !u!1 &973621938
 GameObject:
   m_ObjectHideFlags: 0
@@ -14769,6 +14797,7 @@ GameObject:
   - 33: {fileID: 1077111273}
   - 65: {fileID: 1077111272}
   - 23: {fileID: 1077111271}
+  - 114: {fileID: 1077111274}
   m_Layer: 10
   m_Name: Takadai_kabe (1)
   m_TagString: Wall
@@ -14837,6 +14866,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1077111269}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1077111274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1077111269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da890a132253c104b9bdf9ff14759e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Effect: {fileID: 1000014101040356, guid: 63c0d44b995aa4744ac5ee82cf7d4edd, type: 2}
+  effectTime: 1
 --- !u!1 &1096638277
 GameObject:
   m_ObjectHideFlags: 0
@@ -16407,6 +16449,7 @@ GameObject:
   - 33: {fileID: 1254787089}
   - 65: {fileID: 1254787088}
   - 23: {fileID: 1254787087}
+  - 114: {fileID: 1254787090}
   m_Layer: 10
   m_Name: Takadai_kabe
   m_TagString: Wall
@@ -16475,6 +16518,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254787085}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1254787090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1254787085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da890a132253c104b9bdf9ff14759e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Effect: {fileID: 1000014101040356, guid: 63c0d44b995aa4744ac5ee82cf7d4edd, type: 2}
+  effectTime: 1
 --- !u!1 &1279968034
 GameObject:
   m_ObjectHideFlags: 0
@@ -21244,6 +21300,7 @@ GameObject:
   - 33: {fileID: 1813772546}
   - 65: {fileID: 1813772545}
   - 23: {fileID: 1813772544}
+  - 114: {fileID: 1813772547}
   m_Layer: 10
   m_Name: sakuOku
   m_TagString: Wall
@@ -21313,6 +21370,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1813772542}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1813772547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1813772542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da890a132253c104b9bdf9ff14759e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Effect: {fileID: 1000014101040356, guid: 63c0d44b995aa4744ac5ee82cf7d4edd, type: 2}
+  effectTime: 1
 --- !u!1 &1859674904
 GameObject:
   m_ObjectHideFlags: 0
@@ -22190,6 +22260,7 @@ GameObject:
   - 33: {fileID: 1994699775}
   - 65: {fileID: 1994699774}
   - 23: {fileID: 1994699773}
+  - 114: {fileID: 1994699776}
   m_Layer: 10
   m_Name: saku right
   m_TagString: Wall
@@ -22259,6 +22330,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1994699771}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1994699776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1994699771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da890a132253c104b9bdf9ff14759e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Effect: {fileID: 1000014101040356, guid: 63c0d44b995aa4744ac5ee82cf7d4edd, type: 2}
+  effectTime: 1
 --- !u!1001 &1999859321
 Prefab:
   m_ObjectHideFlags: 0
