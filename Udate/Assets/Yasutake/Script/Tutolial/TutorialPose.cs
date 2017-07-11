@@ -17,11 +17,13 @@ public class TutorialPose : MonoBehaviour {
     private GameObject SetumeiObj;
     private bool SetumeiTr;
 
+    private bool _TimeScaleTr;//必殺時の状態
 
     // Use this for initialization
     void Start()
     {
-        SetumeiTr = false;
+        _TimeScaleTr = false;
+           SetumeiTr = false;
         _pauseTr = false;
         Neutral = false;
         _MoveObj.SetActive(false);
@@ -30,6 +32,7 @@ public class TutorialPose : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        print("GameDatas.isBrotherSpecialMove"+ GameDatas.isBrotherSpecialMove);
 
         if (Input.GetButtonDown("XboxStart"))
         {
@@ -54,19 +57,25 @@ public class TutorialPose : MonoBehaviour {
             PausCon();
             _MoveObj.SetActive(true);
 
-            //Time.timeScale = 0;
+            Time.timeScale = 0;
         }
         else
         {
             _ListNum = 0;
             _MoveObj.SetActive(false);
-            //Time.timeScale = 1;
+            Time.timeScale = 1;
         }
     }
     void SpecialPause()
     {
         if (_pauseTr == true)
         {
+            print(Time.timeScale);
+            if (Time.timeScale != 0)
+            {
+                _TimeScaleTr = true;
+                Time.timeScale = 0;
+            }
             _MoveObj.SetActive(true);
             PausCon();
             //弟を止める
@@ -75,6 +84,10 @@ public class TutorialPose : MonoBehaviour {
         }
         else
         {
+            if (_TimeScaleTr == true)
+            {
+                Time.timeScale = 1;
+            }
             _ListNum = 0;
             _MoveObj.SetActive(false);
             //弟を動かす

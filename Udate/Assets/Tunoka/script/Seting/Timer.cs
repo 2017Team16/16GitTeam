@@ -19,11 +19,14 @@ public class Timer : MonoBehaviour {
 
     private int _Check;
 
+    private float _HeelPoint;
     // Use this for initialization
     void Start () {
+        _StartEND_Production = transform.GetComponent<StartEND_Production>();
         //初期化
         _gameTime = 0;
         _Check = 3;
+        _HeelPoint = 0;
     }
 	
 	// Update is called once per frame
@@ -71,17 +74,26 @@ public class Timer : MonoBehaviour {
         {
             _StartEND_Production.End_ProductionOff();
         }
+        if (_HeelPoint > 0)//時間回復処理
+        {
+            if (_gameTime - _HeelPoint <= 1)
+            {
+                _HeelPoint = 0;
+                _gameTime = 0;;
+                return;
+            }
+            Invoke("Heel", 0.5f);
+        }
+
+    }
+    void Heel()
+    {
+        _HeelPoint--;
+        _gameTime--;
+
     }
     public void HeelTime(int num)//時間回復
     {
-        for (int i = 0; i <= num; i++)
-        {
-            if (_gameTime <= 1)
-            {
-                return;
-            }
-            _gameTime--;
-        }
-
+        _HeelPoint = num;
     }
 }

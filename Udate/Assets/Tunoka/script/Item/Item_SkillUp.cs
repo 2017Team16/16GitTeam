@@ -36,7 +36,7 @@ public class Item_SkillUp : MonoBehaviour {
         if (collider.transform.tag == "Player")
         {
             _audio.PlayOneShot(_clip01);
-            collider.transform.GetComponent<OlderBrotherHamster>().AddSpecialPoint();
+            collider.transform.GetComponent<OlderBrotherHamster>().AddSpecialPoint(SkillUp);
             if (collider.transform.GetComponent<OlderBrotherHamster>().GetSpacialPoint() >= 1) return;
             transform.GetComponent<ItemGetEffect>().MoveCor_(transform.GetComponent<ItemGetEffect>().GetCanvas().transform.FindChild("Special").position);
         }

@@ -17,9 +17,12 @@ public class Pause : MonoBehaviour {
     private GameObject SetumeiObj;
     private bool SetumeiTr;
 
+    private bool _TimeScaleTr;//必殺時の状態
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        _TimeScaleTr = false;
         SetumeiTr = false;
         _pauseTr = false;
         Neutral = false;
@@ -30,7 +33,6 @@ public class Pause : MonoBehaviour {
 	void Update ()
     {
         print(GameDatas.isBrotherSpecialMove);
-
         if (Input.GetButtonDown("XboxStart"))//ポーズボタンを押したかどうか
         {
             _pauseTr = true;
@@ -63,23 +65,34 @@ public class Pause : MonoBehaviour {
             _MoveObj.SetActive(false);
             Time.timeScale = 1;
         }
+
+        _TimeScaleTr = false;//必殺時のTrを直す
     }
     void SpecialPause()
     {
         if (_pauseTr == true)
         {
+            if (Time.timeScale != 0)
+            {
+                _TimeScaleTr = true;
+                Time.timeScale = 0;
+            }
             _MoveObj.SetActive(true);
             PausCon();
             //弟を止める
             GameDatas.isBrotherSpecialMove = false;
-            print("弟止める" + GameDatas.isBrotherSpecialMove);
             //
         }
         else
         {
+            if (_TimeScaleTr == true)
+            {
+                Time.timeScale = 1;
+            }
             _ListNum = 0;
             _MoveObj.SetActive(false);
             //弟を動かす
+            GameDatas.isBrotherSpecialMove = true;
             //
         }
     }
