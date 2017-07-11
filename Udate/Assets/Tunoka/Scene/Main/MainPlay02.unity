@@ -2360,7 +2360,7 @@ Transform:
   - {fileID: 2065303372}
   - {fileID: 2103811731}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
 --- !u!114 &313390057 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000010797048764, guid: 6d47a21e127a338499530075a309fa0d,
@@ -4481,7 +4481,7 @@ Transform:
   - {fileID: 842471315}
   - {fileID: 1504751448}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
 --- !u!1 &772230253
 GameObject:
   m_ObjectHideFlags: 0
@@ -5756,7 +5756,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1009046610
 RectTransform:
@@ -5779,7 +5779,7 @@ RectTransform:
   - {fileID: 1764383301}
   - {fileID: 678369114}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -7444,7 +7444,7 @@ Transform:
   - {fileID: 1045291236}
   - {fileID: 2098208639}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 10
 --- !u!1 &1254512443
 GameObject:
   m_ObjectHideFlags: 0
@@ -8531,7 +8531,7 @@ Transform:
   - {fileID: 1694382793}
   - {fileID: 1168817482}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 11
 --- !u!1 &1504751447
 GameObject:
   m_ObjectHideFlags: 0
@@ -10566,7 +10566,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 6
 --- !u!1 &1992325334
 GameObject:
   m_ObjectHideFlags: 0
