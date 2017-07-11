@@ -3,20 +3,22 @@ using System.Collections;
 
 public class BrotherBack : MonoBehaviour
 {
-    /*--外部設定オブジェクト--*/
-    [SerializeField, Header("プレイヤーオブジェクト")]
+    /*------外部設定------*/
+    [SerializeField, Header("プレイヤーオブジェクト(シーンから)")]
     private GameObject Player;
-    [SerializeField, Header("小屋出入り用ポイントオブジェクト")]
+
+    [SerializeField, Header("小屋用ポイント(ステージ2のみシーンから2つ)")]
     private Transform[] HousePoints;
 
     [SerializeField, Header("戻る速度")]
     private float _speed = 5;
 
-    //public bool _isBack = false;
-    //public bool _isMove = false;
 
-    NavMeshAgent m_Nav;
+    /*------内部設定------*/
+    [Header("ナビメッシュ")]
+    private NavMeshAgent m_Nav;
 
+    [Header("サウンド")]
     private AudioSource m_Audio;
 
     //弟管理クラス

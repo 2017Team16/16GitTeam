@@ -6,22 +6,20 @@ using UnityEngine.UI;
 
 public class BrotherSpecial : MonoBehaviour
 {
-    /*--外部設定オブジェクト--*/
-    [SerializeField, Header("ポジション用オブジェクト")]
+    /*------外部設定------*/
+    [SerializeField, Header("ポジション用オブジェクト(シーンから)")]
     private GameObject BrotherPosition;
 
-    [SerializeField, Header("必殺技用Canvas内オブジェクト")]
+    [SerializeField, Header("必殺技用Canvas内オブジェクト(シーンから)")]
     private GameObject Box;
-    [SerializeField, Header("パーティクルオブジェクト")]
+    [SerializeField, Header("パーティクルオブジェクト(シーンから)")]
     public GameObject m_Particle;
 
-
-    /*------外部設定変数------*/
     [SerializeField, Header("投げる速度")]
     private float _speed = 2.5f;
 
 
-    /*------内部設定変数------*/
+    /*------内部設定------*/
     [Header("投げる角度")]
     private float _flyingAngle = 45.0f;
     [Header("重力")]

@@ -12,25 +12,25 @@ struct RayHitInfo
 
 public class BrotherThrow : MonoBehaviour
 {
-    /*--外部設定オブジェクト--*/
-    [SerializeField, Header("兄の上指定用オブジェクト")]
+    /*------外部設定------*/
+    [SerializeField, Header("ポジション用オブジェクト(シーンから)")]
     private Transform BrotherPosition;
 
-    [SerializeField, Header("プレイヤーオブジェクト")]
+    [SerializeField, Header("プレイヤーオブジェクト(シーンから)")]
     private GameObject Player;
-
-    [SerializeField, Header("ターゲットプレハブ")]
-    private GameObject m_Target;
-    [SerializeField, Header("ターゲット生成用オブジェクト")]
+    
+    [SerializeField, Header("ターゲット生成用オブジェクト(シーンから)")]
     private GameObject m_TargetCreate;
 
-    [SerializeField, Header("衝撃波プレハブ")]
-    private GameObject m_ShockWave;
-    [SerializeField, Header("衝撃波パーティクルオブジェクト")]
+    [SerializeField, Header("衝撃波パーティクルオブジェクト(シーンから)")]
     private GameObject particle;
 
+    [SerializeField, Header("ターゲットプレハブ(フォルダから)")]
+    private GameObject m_Target;
 
-    /*------外部設定変数------*/
+    [SerializeField, Header("衝撃波プレハブ(フォルダから)")]
+    private GameObject m_ShockWave;
+
     [SerializeField, Header("ターゲット移動速度")]
     private float _targetSpeed = 5.0f;
 
@@ -38,7 +38,7 @@ public class BrotherThrow : MonoBehaviour
     private float _speed = 1.0f;
 
 
-    /*------内部設定変数------*/
+    /*------内部設定------*/
     [HideInInspector, Header("ターゲット")]
     public GameObject Target;
 
@@ -294,8 +294,8 @@ public class BrotherThrow : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        //床判定(判定甘いので要調整)
-        //elapse_timeでの判定も視野に
+        //床判定
+        //天井の跳ね返りができなくなってるうううう＞＜
         if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)
         {
             _count = 2.0f;

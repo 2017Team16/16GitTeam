@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Brother : MonoBehaviour {
 
-    /*--外部設定オブジェクト--*/
-    [SerializeField, Header("ポジション用オブジェクト")]
+    /*------外部設定------*/
+    [SerializeField, Header("ポジション用オブジェクト(シーンから)")]
     private Transform BrotherPosition;
+
 
     [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;

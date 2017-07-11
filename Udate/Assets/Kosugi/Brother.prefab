@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  HousePoints: []
   _speed: 5
 --- !u!114 &114000012483257246
 MonoBehaviour:
@@ -202,11 +203,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BrotherPosition: {fileID: 0}
   Player: {fileID: 0}
-  m_Target: {fileID: 1000013727189256, guid: c395f52b5db8e644083efba6ea467a32, type: 2}
   m_TargetCreate: {fileID: 0}
+  particle: {fileID: 0}
+  m_Target: {fileID: 1000013727189256, guid: c395f52b5db8e644083efba6ea467a32, type: 2}
   m_ShockWave: {fileID: 1000010277938884, guid: c2ce5760f60e9ef4b967df039b0b8680,
     type: 2}
-  particle: {fileID: 0}
   _targetSpeed: 10
   _speed: 1
   Target: {fileID: 0}
@@ -242,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b598a2fba88f74e40a5922bd095a951b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  BrotherPosition: {fileID: 0}
   Box: {fileID: 0}
   m_Particle: {fileID: 0}
   _speed: 2.5

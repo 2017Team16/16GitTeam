@@ -3,15 +3,15 @@ using System.Collections;
 
 public class BrosParticle : MonoBehaviour {
 
-    /*--外部設定オブジェクト--*/
-    [Header("弟管理クラス")]
-    private BrotherStateManager m_BrotherStateManager;
-
-    [SerializeField, Header("弟アニメーションオブジェクト")]
+    /*------外部設定------*/
+    [SerializeField, Header("弟アニメーションオブジェクト(シーンから)")]
     private GameObject m_BrosAnimation;
 
 
-    /*------内部設定変数------*/
+    /*------内部設定------*/
+    [Header("弟管理クラス")]
+    private BrotherStateManager m_BrotherStateManager;
+
     [Header("パーティクルシステム")]
     private ParticleSystem m_Particle;
 

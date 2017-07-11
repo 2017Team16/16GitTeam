@@ -3,17 +3,19 @@ using System.Collections;
 
 public class AnimationControl : MonoBehaviour {
 
-    /*--外部設定オブジェクト--*/
-    [Header("弟アニメーションオブジェクト")]
+    /*------外部設定------*/
+    [Header("弟アニメーションオブジェクト(シーンから)")]
     public GameObject m_BrosAnimation;
+
+
+    /*------内部設定------*/
     [Header("弟固定ポジション")]
     private Vector3 pos;
 
-
-    /*------内部設定変数------*/
     [HideInInspector, Header("アニメーター")]
     public Animator m_Anim;
 
+    [Header("登っているかのフラグ")]
     public bool isClimb = false;
 
     [Header("反転用")]

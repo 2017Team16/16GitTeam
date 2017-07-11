@@ -3,14 +3,14 @@ using System.Collections;
 
 public class SPstar : MonoBehaviour {
 
-    /*--外部設定オブジェクト--*/
-    [SerializeField, Header("弟オブジェクト")]
+    /*------内部設定------*/
+    [Header("弟オブジェクト")]
     private GameObject m_Brother;
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    void Awake () {
+        m_Brother = GameObject.Find("Brother");
+    }
 	
 	// Update is called once per frame
 	void Update () {

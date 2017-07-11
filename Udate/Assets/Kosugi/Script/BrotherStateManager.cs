@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BrotherStateManager : MonoBehaviour
 {
-    /*------内部設定変数(外部からは弄らないこと)------*/
+    /*------内部設定(外部からは弄らないこと)------*/
     [SerializeField, Header("最初の状態")]
     private BrotherState m_StartState = BrotherState.NORMAL;
     [SerializeField, Header("１つ前の状態")]
@@ -15,7 +15,7 @@ public class BrotherStateManager : MonoBehaviour
     private Dictionary<BrotherState, MonoBehaviour> m_Moves;
 
 
-    /*------外部設定変数------*/
+    /*------外部設定------*/
     [Header("SE")]
     public AudioClip[] m_SE;
 
@@ -38,6 +38,7 @@ public class BrotherStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(GameDatas.isBrotherSpecialMove);
         //現在の状態のみを実行
         Action(m_BrosState);
 
