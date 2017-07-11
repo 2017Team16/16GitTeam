@@ -23,7 +23,7 @@ public class clock : MonoBehaviour {
     public void SetTimer(float Time)
     {
         _clock.fillAmount = Time;
-        print(_clockPointr.transform.rotation);
+
         _clockPointr.transform.rotation = Quaternion.Euler(0, 0, 360 * (Time));
     }
 }

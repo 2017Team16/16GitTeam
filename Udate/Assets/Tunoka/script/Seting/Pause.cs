@@ -29,8 +29,9 @@ public class Pause : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        print(GameDatas.isBrotherSpecialMove);
 
-        if (Input.GetButtonDown("XboxStart"))
+        if (Input.GetButtonDown("XboxStart"))//ポーズボタンを押したかどうか
         {
             _pauseTr = true;
         }
@@ -44,7 +45,7 @@ public class Pause : MonoBehaviour {
             }
             return;
         }
-        if (GameDatas.isSpecialAttack == true)
+        if (GameDatas.isSpecialAttack == true)//必殺技中だったら
         {
             SpecialPause();
             return;
@@ -71,6 +72,7 @@ public class Pause : MonoBehaviour {
             PausCon();
             //弟を止める
             GameDatas.isBrotherSpecialMove = false;
+            print("弟止める" + GameDatas.isBrotherSpecialMove);
             //
         }
         else
@@ -78,11 +80,10 @@ public class Pause : MonoBehaviour {
             _ListNum = 0;
             _MoveObj.SetActive(false);
             //弟を動かす
-            GameDatas.isBrotherSpecialMove = true;
             //
         }
     }
-    void PausCon()
+    void PausCon()//ポーズ中の動き
     {
         if (_ListNum >= 0)
         {

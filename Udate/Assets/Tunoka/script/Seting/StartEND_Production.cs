@@ -67,7 +67,7 @@ public class StartEND_Production : MonoBehaviour {
         {
             Time.timeScale = 1;
             imagesStart.transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
-            print(imagesStart.color);
+
             imagesStart.color -= new Color(0, 0, 0f,0.05f);
             imagesStart.sprite = numberSprites[5];
             if (_timer > 20)
@@ -86,6 +86,12 @@ public class StartEND_Production : MonoBehaviour {
 
         imagesEndObj.GetComponent<Animator>().Play("ProductionIme01", 0, 0);
         imagesEnd.sprite = numberSprites[Time];
+    }
+    public void End_ProductionOff()
+    {
+        _End_On = false;
+        imagesEndObj.SetActive(false);
+        imagesEnd.sprite = numberSprites[3];
     }
 
 }
