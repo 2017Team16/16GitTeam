@@ -604,31 +604,6 @@ public class OlderBrotherHamster : MonoBehaviour
         WalkAnimeControl();
     }
 
-    ///// <summary>スタンした敵と触れた時の処理</summary>
-    ///// <param name="enemy">敵のゲームオブジェクト</param>
-    //private void EnemyGet(GameObject enemy)
-    //{
-    //    if (enemyCount == 0 && !isWithBrother) m_Animator.Play("PlayerPickUpSolo");
-    //    else m_Animator.Play("PlayerPickUpWithBrother");
-    //    enemyCount++;
-    //    int getenemycount = enemyCount;
-    //    foreach (Transform chird in transform)
-    //    {
-    //        if (chird.tag == "Enemy")
-    //        {
-    //            getenemycount--;
-    //            chird.transform.localPosition = new Vector3(0, enemyInterval * (getenemycount) + 1.8f, 0);
-    //        }
-    //    }
-    //    enemy.transform.parent = transform;
-    //    enemy.transform.localPosition = new Vector3(0, 1.8f, 0);
-    //    enemy.SendMessage("ChangeState", 4, SendMessageOptions.DontRequireReceiver);
-    //    enemy.GetComponent<Collider>().enabled = false;
-
-    //    enemy.SendMessage("Get", enemyCount, SendMessageOptions.DontRequireReceiver);
-
-    //}
-
     /// <summary>敵をつぶす</summary>
     protected virtual void EnemyKill()
     {

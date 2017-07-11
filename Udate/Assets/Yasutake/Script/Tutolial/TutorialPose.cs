@@ -57,13 +57,13 @@ public class TutorialPose : MonoBehaviour {
             PausCon();
             _MoveObj.SetActive(true);
 
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
         else
         {
             _ListNum = 0;
             _MoveObj.SetActive(false);
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
         }
     }
     void SpecialPause()
@@ -87,6 +87,7 @@ public class TutorialPose : MonoBehaviour {
             if (_TimeScaleTr == true)
             {
                 Time.timeScale = 1;
+                _TimeScaleTr = false;
             }
             _ListNum = 0;
             _MoveObj.SetActive(false);

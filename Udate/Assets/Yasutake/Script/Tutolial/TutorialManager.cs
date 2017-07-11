@@ -29,14 +29,7 @@ public class TutorialManager : MonoBehaviour
     private Vector2 offPosition = new Vector2(-200, -150);
     private Vector2 offScale = new Vector2(0.5f, 0.5f);
 
-    public Vector2 hpBackPosition;
-    public Vector2 hpBackScale;
-    public Vector2 specialBackPosition;
-    public Vector2 specialBackScale;
-    public Vector2 timerBackPosition;
-    public Vector2 timerBackScale;
-    public Vector2 scoreBackPosition;
-    public Vector2 scoreBackScale;
+    public GameObject playerUiBack;
 
     public Vector2[] backPositions;
     public Vector2[] backScales;
@@ -67,6 +60,7 @@ public class TutorialManager : MonoBehaviour
         onPosition = tutorialObj.GetComponent<RectTransform>().anchoredPosition;
         onScale = tutorialObj.GetComponent<RectTransform>().localScale;
         uiBack.SetActive(false);
+        playerUiBack.SetActive(false);
 
         isOff = false;
         maeTime = 1;
@@ -75,7 +69,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Time.timeScale);
+        //Debug.Log(Time.timeScale);
         if (pose.IsPose())
         {
             Time.timeScale = 0;
@@ -165,10 +159,17 @@ public class TutorialManager : MonoBehaviour
     }
     private void WindouOffNow()
     {
-        if (isOff)
-        {
-            Time.timeScale = 1;
-        }
+        //if (!GameDatas.isBrotherSpecialMove
+        //    && !pose.IsPose()
+        //    && GameDatas.isSpecialAttack
+        //    )
+        //{
+        //    Time.timeScale = 1;
+        //}
+        //if (pose.IsPose())
+        //{
+        //    Time.timeScale = 0;
+        //}
     }
 
     private void TutorialN()
@@ -183,7 +184,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial02()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         Vector3 ppos = player.transform.position;
         ppos.y = 0;
         pMoveDistance += Mathf.Abs(Vector3.Distance(ppos, pmaePos));
@@ -196,7 +197,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial04()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -225,7 +226,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial05()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN)
         {
             WindowOn();
@@ -235,7 +236,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial06()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         if (pSrc.GetEnemyCount() >= 1)
         {
             WindowOn();
@@ -250,7 +251,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial08()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         if (tutorial05enemy.GetEnemyState() == EnemyBase.EnemyState.SUTAN
             || manualTime <= 0.0f)
         {
@@ -268,7 +269,9 @@ public class TutorialManager : MonoBehaviour
         NextPage();
         if (m_Number ==10)
         {
-
+            playerUiBack.SetActive(true);
+            playerUiBack.GetComponent<RectTransform>().localPosition = backPositions[0];
+            playerUiBack.GetComponent<RectTransform>().localScale = backScales[0];
         }
     }
 
@@ -280,21 +283,17 @@ public class TutorialManager : MonoBehaviour
             m_Number++;
             return;
         }
-        WindouOffNow();
+        //WindouOffNow();
     }
 
     private void Tutorial11()
     {
-        if (manualTime == 0.0f)
-        {
-            NextPage();
-            if (m_Number == 12)
-            {
-                manualTime = 1.0f;
-
-            }
-            return;
-        }
+        //if (manualTime == 0.0f)
+        //{
+        //    NextPage();
+        //    return;
+        //}
+        WindouOffNow();
 
         manualTime -= 1 / 1 * Time.deltaTime;
         if (manualTime < 0.0f)
@@ -302,13 +301,18 @@ public class TutorialManager : MonoBehaviour
             tutorial.sprite = tutorialUIs[m_Number - 1];
             manualTime = 0.0f;
             WindowOn();
+            if (m_Number == 12)
+            {
+                manualTime = 1.0f;
+                playerUiBack.SetActive(false);
+            }
         }
     }
 
     private void Tutorial12()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -326,6 +330,9 @@ public class TutorialManager : MonoBehaviour
 
                 WindowOn();
                 manualTime = 1.0f;
+                playerUiBack.SetActive(true);
+                playerUiBack.GetComponent<RectTransform>().localPosition = backPositions[1];
+                playerUiBack.GetComponent<RectTransform>().localScale = backScales[1];
             }
         }
 
@@ -336,7 +343,8 @@ public class TutorialManager : MonoBehaviour
         NextPage();
         if (m_Number == 14)
         {
-
+            playerUiBack.GetComponent<RectTransform>().localPosition = backPositions[2];
+            playerUiBack.GetComponent<RectTransform>().localScale = backScales[2];
         }
     }
 
@@ -345,7 +353,8 @@ public class TutorialManager : MonoBehaviour
         NextPage();
         if (m_Number == 15)
         {
-
+            playerUiBack.GetComponent<RectTransform>().localPosition = backPositions[3];
+            playerUiBack.GetComponent<RectTransform>().localScale = backScales[3];
         }
     }
 
@@ -354,14 +363,14 @@ public class TutorialManager : MonoBehaviour
         NextPage();
         if (m_Number == 16)
         {
-
+            playerUiBack.SetActive(false);
         }
     }
 
     private void Tutorial17()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         if (player.transform.position.y > 7.0f)
         {
             WindowOn();
@@ -379,7 +388,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial19()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
 
         if (pSrc.GetEnemyCount() > 0)
         {
@@ -390,7 +399,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial22()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         int EnemyCount = 0;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
         {
@@ -414,7 +423,7 @@ public class TutorialManager : MonoBehaviour
     private void Tutorial24()
     {
         WindowOff();
-        WindouOffNow();
+        //WindouOffNow();
         if (Time.timeScale == 0) return;
         if (Input.GetButtonDown("XboxA"))
         {
@@ -433,11 +442,24 @@ public class TutorialManager : MonoBehaviour
 
     private void Tutorial27()
     {
+        //if (Input.GetButtonDown("XboxB"))
+        //{
+        //    Time.timeScale = 1;
+        //}
         if (Input.GetButtonDown("XboxB"))
+        {
+            sankaku.GetComponent<Image>().color = new Color(sankakuColor, sankakuColor, sankakuColor, 1);
+        }
+        if (Input.GetButtonUp("XboxB") && sankaku.GetComponent<Image>().color.r == sankakuColor)
         {
             sc.FadeOut();
             m_Number++;
+            isOff = true;
             Time.timeScale = 1;
+            tutorialObj.SetActive(false);
+            tutorialBack.gameObject.SetActive(false);
+            sankaku.SetActive(false);
+            uiBack.SetActive(false);
         }
     }
 

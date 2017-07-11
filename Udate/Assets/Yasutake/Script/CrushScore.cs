@@ -27,7 +27,7 @@ public class CrushScore : MonoBehaviour {
     {
         if (alpha == 0.0f) return;
         alpha -= Time.deltaTime;
-        transform.localPosition += Vector3.up * 10 * Time.deltaTime;
+        transform.localPosition += Vector3.up * 5 * Time.deltaTime;
         if (alpha <= 0.0f) alpha = 0.0f;
         for (int i = 0; i < images.Length; i++)
         {
