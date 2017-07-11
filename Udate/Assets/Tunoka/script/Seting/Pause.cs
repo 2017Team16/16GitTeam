@@ -154,4 +154,10 @@ public class Pause : MonoBehaviour {
                 break;
         }
     }
+
+    //ポース判定の受け渡し
+    public bool isPause()
+    {
+        return _pauseTr;
+    }
 }
