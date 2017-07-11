@@ -49,6 +49,11 @@ public class BrotherThrow : MonoBehaviour
     [HideInInspector, Header("距離減衰用変数")]
     public float _count = 2.0f;
 
+    [Header("現在の滞空時間")]
+    private float elapse_time = 0;
+    [Header("トータルの滞空時間")]
+    private float flightDuration = 0;
+
     [Header("二回目以降のバウンドか判定用")]
     private bool second = false;
     [Header("最初のバウンドか判定用")]
@@ -208,7 +213,7 @@ public class BrotherThrow : MonoBehaviour
 
         second = false;
 
-        StartPos = transform.position;
+        StartPos = gameObject.transform.position;print(StartPos);
 
         Vector3 targetPos = Target.transform.position;
 
@@ -239,13 +244,13 @@ public class BrotherThrow : MonoBehaviour
         float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_flyingAngle * Mathf.Deg2Rad);
 
         // 滞空時間を計算
-        float flightDuration = _targetDistance / Vx;
+        flightDuration = _targetDistance / Vx;
 
         // ターゲットまで投げる時のオブジェクトの回転度合い
         transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
 
         // 放物線の計算
-        float elapse_time = 0;
+        elapse_time = 0;
         while (m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
             transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
@@ -256,7 +261,13 @@ public class BrotherThrow : MonoBehaviour
 
             if (elapse_time >= flightDuration)
             {
-                print("ThrowEND");
+                m_BrotherStateManager.SetState(BrotherState.BACK);
+                GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
+                EndPos = transform.position;
+
+                StartCoroutine(ShockWave());
+
+                print("TimeEnd");
             }
 
             yield return null;
@@ -276,6 +287,10 @@ public class BrotherThrow : MonoBehaviour
             particle.GetComponent<ParticleSystem>().Play();
             while (_scale < StartPos.y - EndPos.y)
             {
+                _count = 2.0f;
+                second = false;
+                noFirst = false;
+
                 _scale += 0.5f;
                 shockwave.transform.localScale = new Vector3(_scale, shockwave.transform.localScale.y, _scale);
                 yield return null;
@@ -295,8 +310,8 @@ public class BrotherThrow : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         //床判定
-        //天井の跳ね返りができなくなってるうううう＞＜
-        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)
+        if ((collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)&&
+            elapse_time< flightDuration)
         {
             _count = 2.0f;
             second = false;
@@ -305,13 +320,11 @@ public class BrotherThrow : MonoBehaviour
             if (transform.position.y >= collision.transform.position.y)
             {
                 m_BrotherStateManager.SetState(BrotherState.BACK);
-                //GetComponent<AnimationControl>().m_Anim.SetTrigger("land");
                 GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
                 EndPos = transform.position;
-                StartCoroutine(ShockWave());
-                //m_BrotherStateManager.SetState(BrotherState.BACK);
 
-                
+                StartCoroutine(ShockWave());
+                print("Floor");
             }
             else
             {
