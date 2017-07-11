@@ -156,6 +156,8 @@ public class ResultEvent : MonoBehaviour
     }
     void Event4()//リザルト描画
     {
+        if (_ListNum >= 100) return;
+
         if (_ListNum >= 0)
         {
             if (Input.GetButtonDown("XboxB"))

@@ -29,6 +29,10 @@ public class Timer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (GameDatas.isSpecialAttack == true)//必殺時は時を止める
+        {
+            return;
+        }
 
         if (_gameTime < 0)
         {
@@ -49,32 +53,35 @@ public class Timer : MonoBehaviour {
         {
 
             _displayTime.SetTimer(1 -(_gameTime / _ENDTime));
-            //_displayTime.text = "Time : " + (_ENDTime - (int)_gameTime).ToString();
-        }
+         }
 
-        if (_ENDTime - _gameTime <= 3)
+        if (_ENDTime - _gameTime <= 3)//終了三秒前処理
         {
-            if (_Check != (int)(_ENDTime - _gameTime ))
+            if (_Check != (int)(_ENDTime - _gameTime))
             {
                 _StartEND_Production.End_Production(_Check);
-                _Check = (int)(_ENDTime - _gameTime );
+                _Check = (int)(_ENDTime - _gameTime);
             }
             else if (_Check == 3)
             {
                 _StartEND_Production.End_Production(_Check);
             }
         }
+        else//三秒前から解消されたら
+        {
+            _StartEND_Production.End_ProductionOff();
+        }
     }
-    public void HeelTime(int num)
+    public void HeelTime(int num)//時間回復
     {
         for (int i = 0; i <= num; i++)
         {
             if (_gameTime <= 1)
             {
-                _gameTime = 0;
                 return;
             }
             _gameTime--;
         }
+
     }
 }
