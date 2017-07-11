@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class BrotherSpecial : MonoBehaviour
 {
     /*--外部設定オブジェクト--*/
-    [SerializeField, Header("プレイヤーオブジェクト")]
-    private GameObject Player;
+    [SerializeField, Header("ポジション用オブジェクト")]
+    private GameObject BrotherPosition;
 
     [SerializeField, Header("必殺技用Canvas内オブジェクト")]
     private GameObject Box;
@@ -36,10 +36,6 @@ public class BrotherSpecial : MonoBehaviour
     [Header("サウンド")]
     private AudioSource m_Audio;
 
-
-    //デバッグ用
-    private bool debug;
-
     [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;
 
@@ -56,10 +52,7 @@ public class BrotherSpecial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (debug)
-            GameDatas.isBrotherSpecialMove = false;
-        else
-            GameDatas.isBrotherSpecialMove = true;
+
     }
 
     public void SpecialSet()
@@ -83,7 +76,7 @@ public class BrotherSpecial : MonoBehaviour
             //m_Enemys[i].GetComponent<NavMeshAgent>().speed = 0.1f;
         }
 
-        m_Enemys.Add(Player);
+        m_Enemys.Add(BrotherPosition);
         StartCoroutine(SpecialMove());
     }
 
@@ -136,7 +129,7 @@ public class BrotherSpecial : MonoBehaviour
 
                 if (elapse_time >= flightDuration)
                 {
-                    if (m_Enemys[i] == Player && i == m_Enemys.Count - 1)
+                    if (m_Enemys[i] == BrotherPosition && i == m_Enemys.Count - 1)
                     {
                         Time.timeScale = 1;
 
@@ -170,7 +163,7 @@ public class BrotherSpecial : MonoBehaviour
         {
             for (int i = 0; i < m_Enemys.Count; i++)
             {
-                if (m_Enemys[i] == Player) return;
+                if (m_Enemys[i] == BrotherPosition) return;
                 //m_Enemys[i].GetComponent<NavMeshAgent>().speed = 3.5f;
             }
         }

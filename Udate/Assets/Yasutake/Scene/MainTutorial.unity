@@ -3828,6 +3828,11 @@ Prefab:
       propertyPath: m_Particle
       value: 
       objectReference: {fileID: 2091090751}
+    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: BrotherPosition
+      value: 
+      objectReference: {fileID: 1594540612}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaaaddd43699f5b4daead6eb9196d726, type: 2}
   m_IsPrefabParent: 0
@@ -19769,6 +19774,7 @@ MonoBehaviour:
   tutorial: {fileID: 1723774789}
   tutorialBack: {fileID: 455270893}
   sankaku: {fileID: 2063302464}
+  sankakuColor: 0
   uiBack: {fileID: 971987678}
   sc: {fileID: 861936924}
   hpBackPosition: {x: -252, y: 166}
@@ -19779,6 +19785,8 @@ MonoBehaviour:
   timerBackScale: {x: 0.8, y: 0.8}
   scoreBackPosition: {x: 200, y: 145}
   scoreBackScale: {x: 2.5, y: 0.7}
+  backPositions: []
+  backScales: []
   spownPoints:
   - {fileID: 1953075067}
   - {fileID: 267345636}

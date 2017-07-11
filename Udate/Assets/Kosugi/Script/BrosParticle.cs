@@ -26,8 +26,9 @@ public class BrosParticle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        m_Particle.Simulate(Time.unscaledDeltaTime, true, false);
         if (GameDatas.isBrotherSpecialMove)
+            m_Particle.Simulate(Time.unscaledDeltaTime, true, false);
+        else
             m_Particle.Simulate(Time.deltaTime, true, false);
 
         transform.position = m_BrosAnimation.transform.position;

@@ -1219,6 +1219,11 @@ Prefab:
       propertyPath: HousePoints.Array.data[1]
       value: 
       objectReference: {fileID: 1223259250}
+    - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
+        type: 2}
+      propertyPath: BrotherPosition
+      value: 
+      objectReference: {fileID: 397941131}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaaaddd43699f5b4daead6eb9196d726, type: 2}
   m_IsPrefabParent: 0
@@ -2328,6 +2333,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 375868118}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &397941131 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013179151832, guid: 4c6674b2712537849ba8019275dce95f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1273428615}
 --- !u!1 &398494696
 GameObject:
   m_ObjectHideFlags: 0
