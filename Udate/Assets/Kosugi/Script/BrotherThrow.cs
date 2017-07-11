@@ -192,7 +192,7 @@ public class BrotherThrow : MonoBehaviour
 
                 yield break;
             }
-            else if (Input.GetButtonDown("XboxB"))
+            else if (Input.GetButtonDown("XboxB") && Time.timeScale != 0)
             {
                 Destroy(Target);
 
