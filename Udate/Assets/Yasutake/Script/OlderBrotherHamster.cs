@@ -24,9 +24,10 @@ public class OlderBrotherHamster : MonoBehaviour
     //速さ関係
     [Header("速さ")]
     public float m_Speed = 1;
-    protected bool isDefault = false; //速さのアイテムの効果時間中か
+    protected bool isSpeedUp = false; //速さのアイテムの効果時間中か
     [Header("アイテムによるデフォルトのスピードになる効果時間")]
-    public float m_DefaultTime = 10.0f;
+    public float m_SpeedUpTime = 10.0f;
+    private float m_SpeedUpNowTime;
     [Header("ジャンプ力")]
     public float m_Jump = 3.0f; //デフォルト
 
@@ -123,6 +124,7 @@ public class OlderBrotherHamster : MonoBehaviour
 
         m_InvincibleTime = m_InvincibleInterval;
         enemyIntervalDefault = enemyInterval;
+        m_SpeedUpNowTime = 0.0f;
 
         brotherState = youngerBrother.GetComponent<BrotherStateManager>();
 
@@ -207,25 +209,9 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         Jump();
 
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 move = (enemyCount > 3) ? input / (enemyCount + 1) : input / (enemyCount * 0.2f + 1);
+        Walk();
         TextureLR();
-        if (isDefault)
-        {
-            move = input;
-            m_DefaultTime -= Time.deltaTime;
-            if (m_DefaultTime < 0)
-            {
-                isDefault = false;
-                m_DefaultTime = 10.0f;
-            }
-        }
-        if (GameDatas.isSpecialAttack)
-        {
-            move = 1.5f * input;
-        }
-        m_Rigidbody.velocity = new Vector3(move.x * m_Speed, m_Rigidbody.velocity.y, move.z * m_Speed);
-        //m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
+
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         m_Animator.SetFloat("speed", f);
         if (walkSoundPlayInterval > 0.4f && f > 0.5f && !isJump)
@@ -235,15 +221,51 @@ public class OlderBrotherHamster : MonoBehaviour
         }
         if (f > 0.5f && !isJump)
         {
+            //歩くスピードによって鳴らす速さ変えようかな
             walkSoundPlayInterval += Time.deltaTime;
         }
 
+    }
+
+    /// <summary>歩き　持つときも歩くから関数に</summary>
+    private void Walk()
+    {
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = (enemyCount > 3) ? input / (enemyCount + 1) : input / (enemyCount * 0.2f + 1);
+        if (isSpeedUp)
+        {
+            move = input * 1.1f;
+            m_SpeedUpNowTime += Time.deltaTime;
+            if (m_SpeedUpTime < m_SpeedUpNowTime)
+            {
+                isSpeedUp = false;
+                m_SpeedUpNowTime = 0.0f;
+            }
+        }
+        if (GameDatas.isSpecialAttack)
+        {
+            move = 1.5f * input;
+        }
+        m_Rigidbody.velocity = new Vector3(move.x * m_Speed, m_Rigidbody.velocity.y, move.z * m_Speed);
+    }
+
+    /// <summary>スピードアップ中の時間</summary>
+    public float GetSpeedUpTime()
+    {
+        return (m_SpeedUpNowTime == 0.0f) ?0.0f : (1 - (m_SpeedUpNowTime / 10.0f));
+    }
+
+    public bool GetPlayerLR()
+    {
+        return lVec;
     }
 
     /// <summary>画像をどっち向きにするか</summary>
     private void TextureLR()
     {
         if (Time.timeScale == 0) return;
+        if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowBrother") ||
+            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerThrowStart")) return;
         if (Input.GetAxis("Horizontal") < 0)
         {
             m_Texture.transform.localScale = reverseScale;
@@ -351,7 +373,8 @@ public class OlderBrotherHamster : MonoBehaviour
                     if (Input.GetButtonDown("XboxR1") && m_SpecialPoint >= 100.0f)
                     {
                         GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
-                        if (enemys.Length == 0) return;
+                        float noraEnemycount = enemys.Length - enemyCount;
+                        if (noraEnemycount == 0) return;
 
                         SpecialAttack();
                     }
@@ -409,7 +432,8 @@ public class OlderBrotherHamster : MonoBehaviour
                 stateInfo.fullPathHash != Animator.StringToHash("Base Layer.PlayerThrowStart"))
             {
                 GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
-                if (enemys.Length == 0) return;
+                float noraEnemycount = enemys.Length - enemyCount;
+                if (noraEnemycount == 0) return;
 
                 SpecialAttack();
             }
@@ -510,24 +534,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>敵を持つときの処理</summary>
     protected void Getting()
     {
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 move = input / (enemyCount * 0.2f + 1);
-        if (enemyCount > 3) move = input / (enemyCount + 1);
-        if (isDefault)
-        {
-            move = input;
-            m_DefaultTime -= Time.deltaTime;
-            if (m_DefaultTime < 0)
-            {
-                isDefault = false;
-                m_DefaultTime = 10.0f;
-            }
-        }
-        if (GameDatas.isSpecialAttack)
-        {
-            move = 1.5f * input;
-        }
-        m_Rigidbody.MovePosition(transform.position + move * m_Speed * Time.deltaTime);
+        Walk();
 
         if (stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpSolo") ||
            stateInfo.fullPathHash == Animator.StringToHash("Base Layer.PlayerPickUpWithBrother"))
@@ -737,7 +744,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>デフォルトの速さで歩く</summary>
     public void DefaultSpeedWalk()
     {
-        isDefault = true;
+        isSpeedUp = true;
     }
 
     /// <summary>必殺ゲージ用float型を返す</summary>
@@ -785,6 +792,21 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             m_Audio.PlayOneShot(m_Clips[1]);
             m_Animator.Play("PlayerThrowStart");
+
+            GameObject brotherTarget = GameObject.Find("Target(Clone)");
+
+            if (m_Texture.transform.position.x > brotherTarget.transform.position.x)
+            {
+                m_Texture.transform.localScale = reverseScale;
+                youngerBrotherPosition.transform.localScale = reverseScale;
+                lVec = true;
+            }
+            else
+            {
+                m_Texture.transform.localScale = m_Scale;
+                youngerBrotherPosition.transform.localScale = m_Scale;
+                lVec = false;
+            }
         }
         else
         {

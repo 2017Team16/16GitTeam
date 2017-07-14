@@ -15824,12 +15824,12 @@ Prefab:
     - target: {fileID: 114000010270247420, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: _speed
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114000012483257246, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
       propertyPath: _speed
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000012978412528, guid: eaaaddd43699f5b4daead6eb9196d726,
         type: 2}
@@ -22755,6 +22755,7 @@ GameObject:
   - 224: {fileID: 2087081278}
   - 222: {fileID: 2087081280}
   - 114: {fileID: 2087081279}
+  - 114: {fileID: 2087081281}
   m_Layer: 5
   m_Name: sankaku
   m_TagString: Untagged
@@ -22813,6 +22814,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2087081277}
+--- !u!114 &2087081281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2087081277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3129433971d7cc14583056b907b824d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  range: 2.5
 --- !u!1 &2098032869
 GameObject:
   m_ObjectHideFlags: 0
