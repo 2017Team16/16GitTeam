@@ -16871,6 +16871,8 @@ MonoBehaviour:
   MyNum: 2
   _ChangeSizeTr: 1
   _ChangeSize: {x: 3, y: 3, z: 1}
+  speed: 5
+  range: 5
 --- !u!114 &1330958614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16890,6 +16892,8 @@ MonoBehaviour:
   MyNum: 1
   _ChangeSizeTr: 1
   _ChangeSize: {x: 3, y: 3, z: 1}
+  speed: 5
+  range: 5
 --- !u!114 &1330958615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16909,6 +16913,8 @@ MonoBehaviour:
   MyNum: 0
   _ChangeSizeTr: 1
   _ChangeSize: {x: 3, y: 3, z: 1}
+  speed: 5
+  range: 5
 --- !u!1 &1334971271
 GameObject:
   m_ObjectHideFlags: 0

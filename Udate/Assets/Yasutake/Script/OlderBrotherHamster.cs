@@ -152,6 +152,11 @@ public class OlderBrotherHamster : MonoBehaviour
         {
             return;
         }
+        if (transform.position.y <= -5.0f) //もしステージから落下した場合
+        {
+            transform.position = Vector3.up;
+        }
+
         stateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
         brotherstateInfo = brotherAnimator.GetCurrentAnimatorStateInfo(0);
         switch (m_State)
@@ -197,7 +202,9 @@ public class OlderBrotherHamster : MonoBehaviour
             }
         }
 
-        Sweat();
+        if(!GameDatas.isSpecialAttack && GetSpeedUpTime() == 0) {
+            Sweat();
+        }
     }
 
     /// <summary>プレイヤーの移動</summary>
@@ -232,7 +239,11 @@ public class OlderBrotherHamster : MonoBehaviour
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 move = (enemyCount > 3) ? input / (enemyCount + 1) : input / (enemyCount * 0.2f + 1);
-        if (isSpeedUp)
+        if (GameDatas.isSpecialAttack)
+        {
+            move = 1.5f * input;
+        }
+        else if (isSpeedUp)
         {
             move = input * 1.1f;
             m_SpeedUpNowTime += Time.deltaTime;
@@ -242,10 +253,6 @@ public class OlderBrotherHamster : MonoBehaviour
                 m_SpeedUpNowTime = 0.0f;
             }
         }
-        if (GameDatas.isSpecialAttack)
-        {
-            move = 1.5f * input;
-        }
         m_Rigidbody.velocity = new Vector3(move.x * m_Speed, m_Rigidbody.velocity.y, move.z * m_Speed);
     }
 
@@ -253,11 +260,6 @@ public class OlderBrotherHamster : MonoBehaviour
     public float GetSpeedUpTime()
     {
         return (m_SpeedUpNowTime == 0.0f) ?0.0f : (1 - (m_SpeedUpNowTime / 10.0f));
-    }
-
-    public bool GetPlayerLR()
-    {
-        return lVec;
     }
 
     /// <summary>画像をどっち向きにするか</summary>
@@ -278,6 +280,11 @@ public class OlderBrotherHamster : MonoBehaviour
             youngerBrotherPosition.transform.localScale = m_Scale;
             lVec = false;
         }
+    }
+
+    public bool GetPlayerLR()
+    {
+        return lVec;
     }
 
     /// <summary>ジャンプ</summary>
@@ -915,7 +922,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 EnemyGetPreparation();
             }
         }
-        if (collision.gameObject == youngerBrother && brotherState.GetState() == BrotherState.BACK)
+        if (collision.gameObject == youngerBrother &&!isWithBrother)
         {
             brotherTarget = new Vector3(-1, enemyInterval * enemyCount + 2.5f, 0);
             youngerBrotherPosition.transform.localPosition = new Vector3(-1, 1, 0);
