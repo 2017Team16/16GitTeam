@@ -22,20 +22,16 @@ public class NumImeCon : MonoBehaviour {
     }
     void SetNumbers(int num)
     {
+
         int str = num % 10;
         images[0].sprite = numberSprites[str];
+        for (int i = 1; i < images.Length ; i++)
+        {
+            num = num / 10;
+            str = num % 10;
+            images[i].sprite = numberSprites[str];
+        }
 
-        num = num / 10;
-        str = num % 10;
-        images[1].sprite = numberSprites[str];
-
-        num = num / 10;
-        str = num % 10;
-        images[2].sprite = numberSprites[str];
-
-        num = num / 10;
-        str = num % 10;
-        images[3].sprite = numberSprites[str];
 
         for (int i = images.Length - 1; i > 0; i--)
         {
