@@ -287,10 +287,6 @@ public class BrotherThrow : MonoBehaviour
             particle.GetComponent<ParticleSystem>().Play();
             while (_scale < StartPos.y - EndPos.y)
             {
-                _count = 2.0f;
-                second = false;
-                noFirst = false;
-
                 _scale += 0.5f;
                 shockwave.transform.localScale = new Vector3(_scale, shockwave.transform.localScale.y, _scale);
                 yield return null;
@@ -300,6 +296,11 @@ public class BrotherThrow : MonoBehaviour
         {
             m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[2]);
         }
+
+        _count = 2.0f;
+        second = false;
+        noFirst = false;
+
         particle.GetComponent<ParticleSystem>().Stop();
         Destroy(shockwave);
         _scale = 0.0f;

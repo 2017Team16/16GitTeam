@@ -38,7 +38,6 @@ public class BrotherStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(GameDatas.isBrotherSpecialMove);
         //現在の状態のみを実行
         Action(m_BrosState);
 
