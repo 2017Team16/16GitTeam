@@ -82,8 +82,8 @@ public class BrotherBack : MonoBehaviour
                     {
                         if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
                             GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
-                        else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
-                            GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
+                        //else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                        //    GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
 
                         transform.localPosition = Vector3.MoveTowards(
                                                     transform.localPosition,
@@ -96,20 +96,20 @@ public class BrotherBack : MonoBehaviour
 
                         if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
                             GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
-                        else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
-                        {
-                            GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
-                            if (m_Nav.currentOffMeshLinkData.endPos.x < transform.position.x)
-                            {
-                                GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
-                            = new Vector3(-GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
-                            }
-                            else
-                            {
-                                GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
-                            = new Vector3(GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
-                            }
-                        }
+                        //else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                        //{
+                        //    GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
+                        //    if (m_Nav.currentOffMeshLinkData.endPos.x < transform.position.x)
+                        //    {
+                        //        GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
+                        //    = new Vector3(-GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
+                        //    }
+                        //    else
+                        //    {
+                        //        GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale
+                        //    = new Vector3(GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.x, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.y, GetComponent<AnimationControl>().m_BrosAnimation.transform.localScale.z);
+                        //    }
+                        //}
 
                         transform.localPosition = Vector3.MoveTowards(
                                                 new Vector3(m_Nav.currentOffMeshLinkData.endPos.x, transform.localPosition.y, m_Nav.currentOffMeshLinkData.endPos.z),
@@ -122,7 +122,7 @@ public class BrotherBack : MonoBehaviour
                     GetComponent<AnimationControl>().isClimb = false;
 
                     GetComponent<AnimationControl>().m_Anim.SetBool("climb", false);
-                    GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", false);
+                    //GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", false);
                     m_Nav.CompleteOffMeshLink();
                     m_Nav.Resume();
                 }
