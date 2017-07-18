@@ -20,10 +20,20 @@ public class MaineMenuIcon : MonoBehaviour {
     [SerializeField, Header("変更後のサイズ")]
     private Vector3 _Size;
 
+    [SerializeField, Header("往復速度")]
+    private float speed = 5;
+    [SerializeField, Header("移動範囲")]
+    private float range = 1;
+
+    private Vector3 origin;//起点（移動の中心）
+    private float myTime = 0.0f;
+
     // Use this for initialization
     void Start()
     {
         _StateSize = transform.localScale;
+
+        origin = transform.position;
     }
 
     // Update is called once per frame
@@ -40,12 +50,16 @@ public class MaineMenuIcon : MonoBehaviour {
                 transform.localScale = _Size;
             }
             transform.GetComponent<Image>().sprite = _ChangeIme;
+            myTime += 1 / 60.0f;
+            transform.position =
+                        origin + Vector3.up * Mathf.Sin(myTime * speed) * range;
             return;
         }
         transform.localScale = _StateSize;
         if (_RootNumber < 0) return;
         transform.GetComponent<Image>().sprite = _protoIme;
-
+        myTime = 0.0f;
+        transform.position = origin;
 
     }
 

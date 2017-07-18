@@ -9392,7 +9392,7 @@ MonoBehaviour:
   m_Life: 6
   m_InvincibleInterval: 3
   m_Speed: 10
-  m_DefaultTime: 10
+  m_SpeedUpTime: 10
   m_Jump: 15
   enemyInterval: 0.5
   youngerBrother: {fileID: 1203013997}
@@ -22827,6 +22827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   range: 2.5
+  pose: {fileID: 1330958612}
 --- !u!1 &2098032869
 GameObject:
   m_ObjectHideFlags: 0
