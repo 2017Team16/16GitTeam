@@ -14,8 +14,7 @@ public class ItemGetEffect : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _canvas = FindObjectOfType<Canvas>();
-
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 
     // Update is called once per frame
