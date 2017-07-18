@@ -41,6 +41,10 @@ public class Resultlaughter : MonoBehaviour {
         str = num % 10;
         images[3].sprite = numberSprites[str];
 
+        num = num / 10;
+        str = num % 10;
+        images[4].sprite = numberSprites[str];
+
         for (int i = images.Length - 1; i > 0; i--)
         {
 
