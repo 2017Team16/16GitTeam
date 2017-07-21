@@ -18,6 +18,9 @@ public class BrotherBack : MonoBehaviour
     [Header("ナビメッシュ")]
     private NavMeshAgent m_Nav;
 
+    [Header("アニメーションスクリプト")]
+    private AnimationControl m_AnimCon;
+
     [Header("サウンド")]
     private AudioSource m_Audio;
 
@@ -27,6 +30,8 @@ public class BrotherBack : MonoBehaviour
     void Awake()
     {
         m_Nav = GetComponent<NavMeshAgent>();
+
+        m_AnimCon = GetComponent<AnimationControl>();
 
         m_BrotherStateManager = GetComponent<BrotherStateManager>();
 
@@ -54,7 +59,7 @@ public class BrotherBack : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         transform.LookAt(Player.transform.position);
-        GetComponent<AnimationControl>().m_Anim.SetTrigger("back");
+        m_AnimCon.m_Anim.SetTrigger("back");
 
         m_Nav.speed = _speed;
 
@@ -81,7 +86,7 @@ public class BrotherBack : MonoBehaviour
                     if (m_Nav.currentOffMeshLinkData.endPos.y > transform.localPosition.y)
                     {
                         if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
-                            GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
+                            m_AnimCon.m_Anim.SetBool("climb", true);
                         //else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
                         //    GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
 
@@ -92,11 +97,11 @@ public class BrotherBack : MonoBehaviour
                     }
                     else
                     {
-                        GetComponent<AnimationControl>().isClimb = true;
+                        m_AnimCon.isClimb = true;
 
                         if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.z - transform.position.z) > 1.0f)
-                            GetComponent<AnimationControl>().m_Anim.SetBool("climb", true);
-                        //else if (Mathf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
+                            m_AnimCon.m_Anim.SetBool("climb", true);
+                        //else if (MatAnimationControlhf.Abs(m_Nav.currentOffMeshLinkData.endPos.x - transform.position.x) > 1.0f)
                         //{
                         //    GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", true);
                         //    if (m_Nav.currentOffMeshLinkData.endPos.x < transform.position.x)
@@ -119,9 +124,9 @@ public class BrotherBack : MonoBehaviour
                 }
                 if (Vector3.Distance(transform.localPosition, m_Nav.currentOffMeshLinkData.endPos) < 0.1f)
                 {
-                    GetComponent<AnimationControl>().isClimb = false;
+                    m_AnimCon.isClimb = false;
 
-                    GetComponent<AnimationControl>().m_Anim.SetBool("climb", false);
+                    m_AnimCon.m_Anim.SetBool("climb", false);
                     //GetComponent<AnimationControl>().m_Anim.SetBool("climbSide", false);
                     m_Nav.CompleteOffMeshLink();
                     m_Nav.Resume();
@@ -131,6 +136,11 @@ public class BrotherBack : MonoBehaviour
             }
             else
             {
+                if (m_AnimCon.m_Anim.GetBool("climb") == true)
+                {
+                    m_AnimCon.m_Anim.SetBool("climb", false);
+                }
+
                 if (walkTime > 0.5f)
                 {
                     m_Audio.PlayOneShot(m_BrotherStateManager.m_SE[0]);

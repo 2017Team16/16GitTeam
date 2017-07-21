@@ -59,6 +59,11 @@ public class BrotherThrow : MonoBehaviour
     [Header("最初のバウンドか判定用")]
     private bool noFirst = false;
 
+    [Header("敵以外でバウンドしたか判定用")]
+    public bool isOtherBound = false;
+    [Header("床に着地したか判定用")]
+    public bool isFloorLanding = false;
+
     [Header("投げ開始地点の座標")]
     private Vector3 StartPos;
     [Header("投げ終了地点の座標")]
@@ -213,7 +218,7 @@ public class BrotherThrow : MonoBehaviour
 
         second = false;
 
-        StartPos = gameObject.transform.position;print(StartPos);
+        StartPos = gameObject.transform.position;
 
         Vector3 targetPos = Target.transform.position;
 
@@ -259,24 +264,57 @@ public class BrotherThrow : MonoBehaviour
             if (second)
                 yield return SimulateProjectile();
 
-            if (elapse_time >= flightDuration)
+            if (elapse_time >= flightDuration && !isOtherBound)
             {
-                m_BrotherStateManager.SetState(BrotherState.BACK);
-                GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
-                EndPos = transform.position;
-
-                StartCoroutine(ShockWave());
-
-                print("TimeEnd");
+                FloorLanding(1);
             }
 
             yield return null;
         }
     }
 
+    void FloorLanding(int state)
+    {
+        //そのまま着地
+        //→普通にしてれば予定滞空時間で床に着地
+        //　予定より早く床に着地したり敵に当たった場合はわける
+
+        //壁や天井で跳ね返った
+        //→予定滞空時間より遅く着地
+
+        if (isFloorLanding)
+            return;
+
+        switch (state)
+        {
+            // 着地地点以前で床に着地した場合
+            case 0:
+                m_BrotherStateManager.SetState(BrotherState.BACK);
+                GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
+                EndPos = transform.position;
+                isFloorLanding = true;
+
+                StartCoroutine(ShockWave());
+
+                break;
+            // ・着地地点に無事着地した場合
+            case 1:
+                m_BrotherStateManager.SetState(BrotherState.BACK);
+                GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
+                EndPos = transform.position;
+                isFloorLanding = true;
+
+                StartCoroutine(ShockWave());
+                
+                break;
+        }
+    }
+
     //衝撃波
     IEnumerator ShockWave()
     {
+        isOtherBound = false;
+
         GameObject shockwave = (GameObject)Instantiate(m_ShockWave, EndPos, Quaternion.identity);
         if (StartPos.y - EndPos.y > 2.1f)
         {
@@ -287,7 +325,7 @@ public class BrotherThrow : MonoBehaviour
             particle.GetComponent<ParticleSystem>().Play();
             while (_scale < StartPos.y - EndPos.y)
             {
-                _scale += 0.5f;
+                _scale += 0.55f;
                 shockwave.transform.localScale = new Vector3(_scale, shockwave.transform.localScale.y, _scale);
                 yield return null;
             }
@@ -305,14 +343,14 @@ public class BrotherThrow : MonoBehaviour
         Destroy(shockwave);
         _scale = 0.0f;
 
+        isFloorLanding = false;
         //speed175...scale9:lifetime0.25=1:0.028
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         //床判定
-        if ((collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW && GameDatas.isBrotherFlying)&&
-            elapse_time< flightDuration)
+        if (collision.gameObject.tag == "Floor" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
             _count = 2.0f;
             second = false;
@@ -320,15 +358,13 @@ public class BrotherThrow : MonoBehaviour
 
             if (transform.position.y >= collision.transform.position.y)
             {
-                m_BrotherStateManager.SetState(BrotherState.BACK);
-                GetComponent<AnimationControl>().m_Anim.SetBool("rotate", false);
-                EndPos = transform.position;
-
-                StartCoroutine(ShockWave());
-                print("Floor");
+                FloorLanding(0);
+                print("floor");
             }
             else
             {
+                isOtherBound = true;
+
                 //当たった場所
                 Vector3 reflectPos = transform.position;
 
@@ -379,6 +415,8 @@ public class BrotherThrow : MonoBehaviour
         //壁判定(跳ね返り)
         if (collision.gameObject.tag == "Wall" && m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
+            isOtherBound = true;
+
             //Wallレイヤーのオブジェクトに対してRayを当てもろもろの値を取得
             Ray ray = new Ray(transform.position, front);
             RaycastHit hit;
