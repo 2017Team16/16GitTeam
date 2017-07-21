@@ -34,7 +34,7 @@ public class Sweat : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position += move / 30.0f;
+        transform.position += move * Time.deltaTime;
         if(time + 0.5f < Time.time)
         {
             Destroy(gameObject);

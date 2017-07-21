@@ -224,7 +224,6 @@ public class OlderBrotherHamster : MonoBehaviour
         m_Animator.SetFloat("speed", f);
         if (f > 0.5f && !isJump)
         {
-            //歩くスピードによって鳴らす速さ変えようかな
             walkSoundPlayInterval += Time.deltaTime;
             walkSoundPlayInterval *= (GameDatas.isSpecialAttack) ? 1.5f : (GetSpeedUpTime() == 0) ? 1 : 1.1f;
             if (walkSoundPlayInterval > 0.4f)
