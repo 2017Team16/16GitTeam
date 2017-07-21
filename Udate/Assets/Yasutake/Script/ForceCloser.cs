@@ -5,7 +5,7 @@ public class ForceCloser : MonoBehaviour
 {
 
     // 操作が無い場合に自動で終了するまでの秒数
-    static readonly float AutoCloseDuration = 30;
+    static readonly float AutoCloseDuration = 120;
 
     // 最後に入力があった時間
     float lastInputTime;

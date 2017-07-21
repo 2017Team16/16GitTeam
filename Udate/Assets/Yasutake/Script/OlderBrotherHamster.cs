@@ -202,7 +202,8 @@ public class OlderBrotherHamster : MonoBehaviour
             }
         }
 
-        if(!GameDatas.isSpecialAttack && GetSpeedUpTime() == 0) {
+        if (!GameDatas.isSpecialAttack && GetSpeedUpTime() == 0)
+        {
             Sweat();
         }
     }
@@ -221,17 +222,17 @@ public class OlderBrotherHamster : MonoBehaviour
 
         float f = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         m_Animator.SetFloat("speed", f);
-        if (walkSoundPlayInterval > 0.4f && f > 0.5f && !isJump)
-        {
-            m_Audio.PlayOneShot(m_Clips[0]);
-            walkSoundPlayInterval = 0.0f;
-        }
         if (f > 0.5f && !isJump)
         {
             //歩くスピードによって鳴らす速さ変えようかな
             walkSoundPlayInterval += Time.deltaTime;
+            walkSoundPlayInterval *= (GameDatas.isSpecialAttack) ? 1.5f : (GetSpeedUpTime() == 0) ? 1 : 1.1f;
+            if (walkSoundPlayInterval > 0.4f)
+            {
+                m_Audio.PlayOneShot(m_Clips[0]);
+                walkSoundPlayInterval = 0.0f;
+            }
         }
-
     }
 
     /// <summary>歩き　持つときも歩くから関数に</summary>
@@ -259,7 +260,7 @@ public class OlderBrotherHamster : MonoBehaviour
     /// <summary>スピードアップ中の時間</summary>
     public float GetSpeedUpTime()
     {
-        return (m_SpeedUpNowTime == 0.0f) ?0.0f : (1 - (m_SpeedUpNowTime / 10.0f));
+        return (m_SpeedUpNowTime == 0.0f) ? 0.0f : (1 - (m_SpeedUpNowTime / 10.0f));
     }
 
     /// <summary>画像をどっち向きにするか</summary>
@@ -922,7 +923,7 @@ public class OlderBrotherHamster : MonoBehaviour
                 EnemyGetPreparation();
             }
         }
-        if (collision.gameObject == youngerBrother &&!isWithBrother)
+        if (collision.gameObject == youngerBrother && !isWithBrother)
         {
             brotherTarget = new Vector3(-1, enemyInterval * enemyCount + 2.5f, 0);
             youngerBrotherPosition.transform.localPosition = new Vector3(-1, 1, 0);
