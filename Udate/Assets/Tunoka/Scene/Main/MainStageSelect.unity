@@ -141,6 +141,8 @@ MonoBehaviour:
   _protoIme: {fileID: 21300000, guid: 759c91688ca5eeb418e1569c3f3da4dc, type: 3}
   _ChangeIme: {fileID: 21300000, guid: 1f6d6269afa210e42bc393a891e5fd39, type: 3}
   _ChangeSize: 1
+  speed: 5
+  range: 1
 --- !u!114 &78713024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +295,8 @@ MonoBehaviour:
   _protoIme: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   _ChangeIme: {fileID: 21300000, guid: 19f22ea973d5ca84484e1231feb2fe49, type: 3}
   _ChangeSize: 0
+  speed: 5
+  range: 1
 --- !u!114 &306820274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +381,8 @@ MonoBehaviour:
   _protoIme: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   _ChangeIme: {fileID: 21300000, guid: f32cfcb7ac260934c9056b06f3a8b2f4, type: 3}
   _ChangeSize: 0
+  speed: 5
+  range: 1
 --- !u!114 &338252438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,6 +712,88 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!1 &1162284470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1162284471}
+  - 222: {fileID: 1162284474}
+  - 114: {fileID: 1162284473}
+  - 114: {fileID: 1162284472}
+  m_Layer: 5
+  m_Name: Waku
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1162284471
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162284470}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6.526255, y: 6.5262513, z: 6.5262513}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1637826711}
+  m_RootOrder: 5
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -1.0970874}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1162284472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162284470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c0be3a9eda6934a9953c789de709f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TitleAnimController: {fileID: 0}
+  _Animereader: 1
+--- !u!114 &1162284473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162284470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 7aa0f56b702e8d54796cd30e87e2cb8f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1162284474
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1162284470}
 --- !u!1 &1429546893
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +991,7 @@ RectTransform:
   - {fileID: 891115979}
   - {fileID: 1731304272}
   - {fileID: 1469058125}
+  - {fileID: 1162284471}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
@@ -961,6 +1050,8 @@ MonoBehaviour:
   _protoIme: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   _ChangeIme: {fileID: 21300000, guid: 483aca572f076ba4bb6904a8f5d7a9bd, type: 3}
   _ChangeSize: 0
+  speed: 5
+  range: 1
 --- !u!114 &1642924991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,6 +1324,8 @@ MonoBehaviour:
   _protoIme: {fileID: 21300000, guid: 5f087cfcfcf5e124cb983ef19839068c, type: 3}
   _ChangeIme: {fileID: 21300000, guid: 8f160e7ff2df89e4489aa6e86fd2ba53, type: 3}
   _ChangeSize: 1
+  speed: 5
+  range: 1
 --- !u!1 &1956656459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1544,8 @@ MonoBehaviour:
   _protoIme: {fileID: 21300000, guid: 8115cd8aada337a45b19f6c1199dd7b8, type: 3}
   _ChangeIme: {fileID: 21300000, guid: 74e904d56c1420d48ba3b7514c53b26d, type: 3}
   _ChangeSize: 1
+  speed: 5
+  range: 1
 --- !u!114 &2062056305
 MonoBehaviour:
   m_ObjectHideFlags: 0

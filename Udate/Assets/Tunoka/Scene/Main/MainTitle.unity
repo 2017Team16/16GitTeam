@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.5750856, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ RectTransform:
   m_GameObject: {fileID: 18182381}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.5436277, y: 6.543624, z: 6.543624}
+  m_LocalScale: {x: 6.8502283, y: 6.777726, z: 6.543624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1111082080}
@@ -535,7 +535,7 @@ RectTransform:
   m_GameObject: {fileID: 336531647}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.5436277, y: 6.543624, z: 6.543624}
+  m_LocalScale: {x: 6.850228, y: 6.777726, z: 6.543624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1175261183}
@@ -1177,6 +1177,8 @@ MonoBehaviour:
   _ChangeIme: {fileID: 21300000, guid: 9a867de5bfee2a040abcdcf7c1699384, type: 3}
   _ChangeSize: 1
   _Size: {x: 2, y: 2, z: 2}
+  speed: 5
+  range: 1
 --- !u!114 &1335016468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,6 +1902,8 @@ MonoBehaviour:
   _ChangeIme: {fileID: 21300000, guid: f1cc4296d1091e84287b3a12e6da0b04, type: 3}
   _ChangeSize: 1
   _Size: {x: 2, y: 2, z: 2}
+  speed: 5
+  range: 1
 --- !u!114 &1966951121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2089,6 +2093,8 @@ MonoBehaviour:
   _ChangeIme: {fileID: 21300000, guid: d50de7353ab5ece4fb891f924c27c1dd, type: 3}
   _ChangeSize: 1
   _Size: {x: 2, y: 2, z: 2}
+  speed: 5
+  range: 1
 --- !u!114 &2059570422
 MonoBehaviour:
   m_ObjectHideFlags: 0
