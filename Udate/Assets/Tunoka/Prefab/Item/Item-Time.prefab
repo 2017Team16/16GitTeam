@@ -232,5 +232,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audio: {fileID: 0}
   _clip01: {fileID: 8300000, guid: fb8453986001b8e4b90cc804c8df2741, type: 3}
-  TimeUp: 30
+  TimeUp: 10
   _speed: 1
