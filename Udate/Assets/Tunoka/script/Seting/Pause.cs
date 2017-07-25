@@ -32,7 +32,7 @@ public class Pause : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        print(GameDatas.isBrotherSpecialMove);
+        //print(GameDatas.isBrotherSpecialMove);
         if (Input.GetButtonDown("XboxStart"))//ポーズボタンを押したかどうか
         {
             _pauseTr = true;
@@ -78,9 +78,9 @@ public class Pause : MonoBehaviour {
                 Time.timeScale = 0;
             }
             _MoveObj.SetActive(true);
-            PausCon();
             //弟を止める
             GameDatas.isBrotherSpecialMove = false;
+            PausCon();
             //
         }
         else
@@ -92,7 +92,6 @@ public class Pause : MonoBehaviour {
             _ListNum = 0;
             _MoveObj.SetActive(false);
             //弟を動かす
-            GameDatas.isBrotherSpecialMove = true;
             //
         }
     }
@@ -143,7 +142,8 @@ public class Pause : MonoBehaviour {
         switch (_ListNum)
         {
             case 0:
-                _pauseTr = false; break;
+                _pauseTr = false;
+                GameDatas.isBrotherSpecialMove = true; break;
             case 1:
                 SetumeiTr = true;
                 SetumeiObj.SetActive(true); break;

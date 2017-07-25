@@ -32,7 +32,7 @@ public class Timer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (GameDatas.isSpecialAttack == true)//必殺時は時を止める
+        if (GameDatas.isBrotherSpecialMove == true)//必殺時は時を止める
         {
             return;
         }
