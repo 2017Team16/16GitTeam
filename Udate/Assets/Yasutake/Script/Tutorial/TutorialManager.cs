@@ -102,6 +102,7 @@ public class TutorialManager : MonoBehaviour
             case 22: Tutorial22(); break;
             case 24: Tutorial24(); break;
             case 27: Tutorial27(); break;
+            case 28: break;
             default: TutorialN(); break;
         }
     }
