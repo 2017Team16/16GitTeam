@@ -19,6 +19,8 @@ public class Pause : MonoBehaviour {
 
     private bool _TimeScaleTr;//必殺時の状態
 
+    private OlderBrotherHamster player;
+
     // Use this for initialization
     void Start ()
     {
@@ -27,6 +29,8 @@ public class Pause : MonoBehaviour {
         _pauseTr = false;
         Neutral = false;
         _MoveObj.SetActive(false);
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<OlderBrotherHamster>();
     }
 	
 	// Update is called once per frame
@@ -143,7 +147,8 @@ public class Pause : MonoBehaviour {
         {
             case 0:
                 _pauseTr = false;
-                GameDatas.isBrotherSpecialMove = true; break;
+                if(GameDatas.isSpecialAttack&&player.GetSpacialPoint()==1)GameDatas.isBrotherSpecialMove = true;
+                break;
             case 1:
                 SetumeiTr = true;
                 SetumeiObj.SetActive(true); break;
