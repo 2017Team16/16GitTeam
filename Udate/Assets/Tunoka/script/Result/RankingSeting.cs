@@ -15,6 +15,8 @@ public class RankingSeting : MonoBehaviour {
     private int StageNum;
 
     public testScri test;
+    [SerializeField, Header("Newイラスト ")]
+    private GameObject[] _NewIme;
 
     // Use this for initialization
     void Awake() {
@@ -46,7 +48,22 @@ public class RankingSeting : MonoBehaviour {
     }
     public void RankListIn(float num)//リザルトを更新
     {
-        print(num);
+        int _Count = 0;
+        foreach (var n in _Rank) {
+            if (_Count >= 0)
+            {
+                _Count++;
+                if (n <= num)
+                {
+                    if (_Count <= 3)
+                    {
+                        _NewIme[_Count - 1].SetActive(true);
+                        _Count = -1;
+                    }
+                }
+            }
+          
+        }
         _Rank.Add(num);
         _Rank.Sort();//リストの中を整理
         _Rank.Reverse();//並びを逆にする
