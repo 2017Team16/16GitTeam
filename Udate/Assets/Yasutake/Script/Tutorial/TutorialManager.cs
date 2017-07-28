@@ -102,15 +102,7 @@ public class TutorialManager : MonoBehaviour
             case 22: Tutorial22(); break;
             case 24: Tutorial24(); break;
             case 27: Tutorial27(); break;
-            case 3:
-            case 7:
-            case 16:
-            case 18:
-            case 20:
-            case 21:
-            case 23:
-            case 25:
-            case 26: TutorialN(); break;
+            default: TutorialN(); break;
         }
     }
 
@@ -308,7 +300,7 @@ public class TutorialManager : MonoBehaviour
                 tutorial05enemy = obj.transform.GetComponent<EnemyBase>();
             }
         }
-        if (EnemyCount <= 1)
+        if (EnemyCount == 0)
         {
             manualTime -= Time.deltaTime;
             if (manualTime <= 0.0f)

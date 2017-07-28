@@ -225,7 +225,7 @@ public class OlderBrotherHamster : MonoBehaviour
         if (f > 0.5f && !isJump)
         {
             walkSoundPlayInterval += Time.deltaTime;
-            walkSoundPlayInterval *= (GameDatas.isSpecialAttack) ? 1.5f : (GetSpeedUpTime() == 0) ? 1 : 1.1f;
+            //walkSoundPlayInterval *= (GameDatas.isSpecialAttack) ? 1.5f : (GetSpeedUpTime() == 0) ? 1 : 1.1f;
             if (walkSoundPlayInterval > 0.4f)
             {
                 m_Audio.PlayOneShot(m_Clips[0]);

@@ -32,7 +32,6 @@ public class TutorialPose : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        print("GameDatas.isBrotherSpecialMove"+ GameDatas.isBrotherSpecialMove);
 
         if (Input.GetButtonDown("XboxStart"))
         {
