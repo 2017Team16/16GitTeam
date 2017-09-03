@@ -102,6 +102,12 @@ public class BrotherThrow : MonoBehaviour
     {
         front = new Vector3(transform.forward.x, 0, transform.forward.z);
         up = new Vector3(front.x, transform.position.y, front.z);
+
+        if (m_BrotherStateManager.GetState() == BrotherState.THROW && transform.position.y < -10)
+        {
+            transform.position = new Vector3(0, 1, 0);
+            FloorLanding(1);
+        }
     }
 
     public void ThrowStart()
