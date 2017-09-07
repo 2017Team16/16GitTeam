@@ -18,7 +18,7 @@ public class BrotherThrow : MonoBehaviour
 
     [SerializeField, Header("プレイヤーオブジェクト(シーンから)")]
     private GameObject Player;
-    
+
     [SerializeField, Header("ターゲット生成用オブジェクト(シーンから)")]
     private GameObject m_TargetCreate;
 
@@ -43,7 +43,7 @@ public class BrotherThrow : MonoBehaviour
     public GameObject Target;
 
     [Header("投げる角度")]
-    private float _flyingAngle = 45.0f;
+    public float _flyingAngle = 45.0f;
     [Header("重力")]
     private float _gravity = 9.8f;
     [HideInInspector, Header("距離減衰用変数")]
@@ -87,6 +87,9 @@ public class BrotherThrow : MonoBehaviour
     [Header("弟管理クラス")]
     private BrotherStateManager m_BrotherStateManager;
 
+
+    //public float throwTime = 1.0f;
+    //public GameObject test;
     void Awake()
     {
         m_Audio = GetComponent<AudioSource>();
@@ -125,7 +128,8 @@ public class BrotherThrow : MonoBehaviour
         GetComponent<AnimationControl>().m_Anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         Time.timeScale = 0;
     }
-
+    //float e_time = 0;
+    //float half = 0;
     //ターゲット
     IEnumerator TargetMove()
     {
@@ -144,10 +148,10 @@ public class BrotherThrow : MonoBehaviour
                 GetComponent<AnimationControl>().m_Anim.transform.localScale = nScale;
             }
 
-            float dx = Input.GetAxis("BrosHorizontal")* _targetSpeed;
-            float dz = Input.GetAxis("BrosVertical")* _targetSpeed;
+            float dx = Input.GetAxis("BrosHorizontal") * _targetSpeed;
+            float dz = Input.GetAxis("BrosVertical") * _targetSpeed;
             m_TargetCreate.GetComponent<Rigidbody>().velocity = new Vector3(dx, 0, dz);
-            
+
             Vector3 rayPos = m_TargetCreate.transform.position;
             Ray ray = new Ray(rayPos, -m_TargetCreate.transform.up);
             RaycastHit hit;
@@ -156,37 +160,49 @@ public class BrotherThrow : MonoBehaviour
             int noHitLayermask = 1 << 9;
             RayHitInfo m_Hitinfo;
             RayHitInfo m_NoHitinfo;
+            //m_Hitinfo.isHit = Physics.Raycast(ray, out hit, 20.0f, layermask, QueryTriggerInteraction.Ignore);
             m_Hitinfo.isHit = Physics.Raycast(ray, out hit, 20.0f, layermask, QueryTriggerInteraction.Ignore);
             m_NoHitinfo.isHit = Physics.Raycast(ray, out noHit, 20.0f, noHitLayermask, QueryTriggerInteraction.Ignore);
             m_Hitinfo.hit = hit;
             m_NoHitinfo.hit = noHit;
 
-                transform.LookAt(Target.transform.position);
+            transform.LookAt(Target.transform.position);
 
-                if (m_Hitinfo.isHit)
-                {
-                    if (hit.transform.gameObject.transform.position.y > transform.position.y)
-                    {
-                        hit.transform.gameObject.layer = 9;
-                    }
-                    else
-                    {
-                        Target.transform.position
-                            = new Vector3(m_Hitinfo.hit.point.x, m_Hitinfo.hit.point.y + Target.transform.localScale.y / 2, m_Hitinfo.hit.point.z);
-                    }
-                }
-                if (m_NoHitinfo.isHit && noHit.transform.gameObject.transform.position.y < transform.position.y)
-                {
-                    noHit.transform.gameObject.layer = 8;
-                }
+            {
+                //float _targetDistance = Vector3.Distance(transform.position, Target.transform.position);
+                //float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _flyingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
+                //float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_flyingAngle * Mathf.Deg2Rad);
+                //float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_flyingAngle * Mathf.Deg2Rad);
+                //e_time = (Vy / (_gravity * _speed));//- transform.position.y);
+                //half = Vx * e_time;
 
-                if ((transform.position.y - Target.transform.position.y) / 3 > 1)
+                //test.transform.position = transform.position+ transform.forward * half;
+            }
+
+            if (m_Hitinfo.isHit)
+            {
+                if (hit.transform.gameObject.transform.position.y > transform.position.y)
                 {
-                    Target.transform.FindChild("cursor").transform.localScale
-                        = new Vector3((transform.position.y - Target.transform.position.y) / 3, (transform.position.y - Target.transform.position.y) / 3, 1);
+                    hit.transform.gameObject.layer = 9;
                 }
                 else
-                    Target.transform.FindChild("cursor").transform.localScale = new Vector3(1, 1, 1);
+                {
+                    Target.transform.position
+                        = new Vector3(m_Hitinfo.hit.point.x, m_Hitinfo.hit.point.y + Target.transform.localScale.y / 2, m_Hitinfo.hit.point.z);
+                }
+            }
+            if (m_NoHitinfo.isHit && noHit.transform.gameObject.transform.position.y < transform.position.y)
+            {
+                noHit.transform.gameObject.layer = 8;
+            }
+
+            if ((transform.position.y - Target.transform.position.y) / 3 > 1)
+            {
+                Target.transform.FindChild("cursor").transform.localScale
+                    = new Vector3((transform.position.y - Target.transform.position.y) / 3, (transform.position.y - Target.transform.position.y) / 3, 1);
+            }
+            else
+                Target.transform.FindChild("cursor").transform.localScale = new Vector3(1, 1, 1);
 
             if (GameDatas.isBrotherFlying)
             {
@@ -240,33 +256,33 @@ public class BrotherThrow : MonoBehaviour
                 (targetPos.z - Player.transform.position.z) / _count);
         }
 
-        // 投げるオブジェクトの開始位置
-        //Projectile.position = transform.position + new Vector3(0, 0.0f, 0);
-        transform.position = transform.position + new Vector3(0, 0.0f, 0);
+            // 投げるオブジェクトの開始位置
+            transform.position = transform.position + new Vector3(0, 0.0f, 0);
 
-        // 投げるオブジェクトからターゲットまでの距離を計算
-        float _targetDistance = Vector3.Distance(transform.position, targetPos);
+            // 投げるオブジェクトからターゲットまでの距離を計算
+            float _targetDistance = Vector3.Distance(transform.position, targetPos);
 
-        // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
-        float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _flyingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
+            // 指定した角度でオブジェクトをターゲットまで投げる時の速度を計算
+            float projectile_Velocity = _targetDistance / (Mathf.Sin(2 * _flyingAngle * Mathf.Deg2Rad) / (_gravity * _speed));
 
-        // X軸とY軸での速度をそれぞれ計算
-        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_flyingAngle * Mathf.Deg2Rad);
-        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_flyingAngle * Mathf.Deg2Rad);
+            // X軸とY軸での速度をそれぞれ計算
+            float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_flyingAngle * Mathf.Deg2Rad);
+            float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_flyingAngle * Mathf.Deg2Rad);
 
-        // 滞空時間を計算
-        flightDuration = _targetDistance / Vx;
+            // 滞空時間を計算
+            flightDuration = _targetDistance / Vx;
 
-        // ターゲットまで投げる時のオブジェクトの回転度合い
-        transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
+            // ターゲットまで投げる時のオブジェクトの回転度合い
+            transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
 
-        // 放物線の計算
-        elapse_time = 0;
+            // 放物線の計算
+            elapse_time = 0;
         while (m_BrotherStateManager.GetState() == BrotherState.THROW)
         {
-            transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
+            transform.Translate(0, (Vy - (_gravity * _speed * elapse_time)) * Time.deltaTime, 0, Space.World);
+            transform.Translate(0, 0, Vx * Time.deltaTime);
             elapse_time += Time.deltaTime;
-            Debug.DrawRay(transform.position, new Vector3(front.x, transform.position.y, front.z) * 10, Color.black, 0.1f, true);
+
             if (second)
                 yield return SimulateProjectile();
 
@@ -311,7 +327,7 @@ public class BrotherThrow : MonoBehaviour
                 isFloorLanding = true;
 
                 StartCoroutine(ShockWave());
-                
+
                 break;
         }
     }
@@ -365,7 +381,6 @@ public class BrotherThrow : MonoBehaviour
             if (transform.position.y >= collision.transform.position.y)
             {
                 FloorLanding(0);
-                print("floor");
             }
             else
             {
@@ -435,7 +450,7 @@ public class BrotherThrow : MonoBehaviour
             //壁の面に対して垂直なベクトルを生成
             if (m_Hitinfo.isHit)
             {
-                wallFront= m_Hitinfo.hit.normal.normalized;
+                wallFront = m_Hitinfo.hit.normal.normalized;
             }
 
             //向きを変更・確定
